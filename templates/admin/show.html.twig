@@ -12,6 +12,8 @@
 			<p>{{produit.prix}}
 			</p>
 		</article>
+		<a href="{{path('app_edit_produit',{id:produit.id})}}">Editer</a>|
+		<a href="{{path('app_delete_produit',{id:produit.id})}}" onclick='confirm(" tu es sur")' && ;>Suprimer</a>|
 		<a href="{{path('app_admin')}}">Go back</a>
 
 	</div>

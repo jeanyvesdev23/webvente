@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="app_admin")
+     * @Route("/admin", name="app_admin",methods={"GET"})
      */
     public function index(ProduitRepository $produitRepository): Response
     {
@@ -19,18 +22,65 @@ class AdminController extends AbstractController
 
         return $this->render('admin/index.html.twig', compact('produits'));
     }
+
     /**
-     * @Route("/admin/produit/{id<[0-9]+>}", name="app_show_produit")
+     * @Route("/admin/produit/{id<[0-9]+>}", name="app_show_produit",methods={"GET"})
      */
     public function show(Produit $produit): Response
     {
-        return $this->render('admin/showProduit.html.twig', compact('produit'));
+        return $this->render('admin/show.html.twig', compact('produit'));
     }
+
     /**
-     * @Route("/admin/add_produit", name="app_add_produit")
+     * @Route("/admin/produit/create", name="app_create_produit",methods={"GET","POST"})
      */
-    public function addProduit(): Response
+    public function create(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('admin/addProduit.html.twig');
+        $produit = new Produit;
+        $form = $this->createForm(ProduitType::class, $produit,);
+        $form->handleRequest($request); //Gerer le requete de formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData(); //recuperé le donnee de formulaire
+            $produit->setNom($data["Nom"]);
+            $produit->setPrix($data["Prix"]);
+            $em->persist($produit);
+            $em->flush();
+
+            return $this->redirectToRoute("app_admin");
+        }
+        return $this->render('admin/create.html.twig', [
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/produit/{id<[0-9]+>}/edit", name="app_edit_produit",methods={"GET","POST"})
+     */
+    public function edit(Request $request, Produit $produit, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(ProduitType::class, $produit);
+
+
+        $form->handleRequest($request); //Gerer le requete de formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            return $this->redirectToRoute("app_admin");
+        }
+        return $this->render('admin/edit.html.twig', [
+            "produit" => $produit,
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/produit/{id<[0-9]+>}/delete", name="app_delete_produit",methods={"GET"})
+     */
+    public function delete(Produit $produit, EntityManagerInterface $em): Response
+    {
+        $em->remove($produit);
+        $em->flush();
+        return $this->redirectToRoute("app_admin");
     }
 }

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'New Produit' %}
+
+{% block body %}
+	<div>
+		<h1>Creation de produit
+		</h1>
+		<p>
+			{{form_start(form)}}
+			{{form_widget(form)}}
+			<input type="submit" value="Creé" formvalidator>
+			{{form_end(form)}}
+		</p>
+	</p>
+</div>{% endblock %}
