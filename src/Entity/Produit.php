@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\Timestampable;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
@@ -23,11 +24,13 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @assert\NotBlank
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", length=255)
+     * @assert\NotBlank
      */
     private $prix;
 
@@ -41,7 +44,7 @@ class Produit
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -53,7 +56,7 @@ class Produit
         return $this->prix;
     }
 
-    public function setPrix(string $prix): self
+    public function setPrix(?string $prix): self
     {
         $this->prix = $prix;
 
