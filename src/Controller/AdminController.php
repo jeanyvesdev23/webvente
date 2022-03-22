@@ -40,11 +40,10 @@ class AdminController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit,);
         $form->handleRequest($request); //Gerer le requete de formulaire
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData(); //recuperé le donnee de formulaire
-            $produit->setNom($data["Nom"]);
-            $produit->setPrix($data["Prix"]);
             $em->persist($produit);
             $em->flush();
+
+            $this->addFlash("succes", 'vous avez creé un produit avec succes');
 
             return $this->redirectToRoute("app_admin");
         }
@@ -66,6 +65,8 @@ class AdminController extends AbstractController
 
             $em->flush();
 
+            $this->addFlash("succes", 'vous avez editer un produit avec succes');
+
             return $this->redirectToRoute("app_admin");
         }
         return $this->render('admin/edit.html.twig', [
@@ -81,6 +82,8 @@ class AdminController extends AbstractController
     {
         $em->remove($produit);
         $em->flush();
+
+        $this->addFlash("info", 'vous avez suprimer un produit avec succes');
         return $this->redirectToRoute("app_admin");
     }
 }

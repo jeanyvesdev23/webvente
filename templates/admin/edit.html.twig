@@ -1,16 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'edit Produit' %}
+{% block title 'edit Produit'~ produit.id %}
 
 {% block body %}
 	<div>
 		<h1>Modification de produit
-		</h1>
-		<p>
-			{{form_start(form)}}
-			{{form_widget(form)}}
-			<input type="submit" value="Modifier" formvalidator>
-			{{form_end(form)}}
-		</p>
-	</p>
-</div>{% endblock %}
+			{{produit.id}}</h1>
+
+		{{ include ("admin/_form.html.twig" ,{"buttonText":'Modifier'})}}
+	</div>
+{% endblock %}
