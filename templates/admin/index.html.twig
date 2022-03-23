@@ -10,7 +10,7 @@
 		{% for produit in produits %}
 			<article>
 				<h3>
-					<a href="{{path('app_show_produit', {id:produit.id})}}">{{produit.nom}}</a>
+					<a href="{{path('app_show_produit',{id:produit.id})}}">{{produit.nom}}</a>
 
 				</h3>
 				<p>{{produit.prix}}

@@ -37,7 +37,7 @@ class AdminController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $produit = new Produit;
-        $form = $this->createForm(ProduitType::class, $produit,);
+        $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request); //Gerer le requete de formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($produit);
