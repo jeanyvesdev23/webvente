@@ -25,7 +25,10 @@ security:
                 class: App\Entity\User
                 property: email
           
-            
+ #access_control:
+   # - { path: ^/admin, roles: ROLE_ADMIN } 
+    #- { path: ^/compte, roles: ROLE_USER }
+    #- { path: ^/checkout, roles: ROLE_USER }       
 
           
 

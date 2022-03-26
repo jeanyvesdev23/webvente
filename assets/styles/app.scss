@@ -1,2 +1,11 @@
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons";
 
+body{
+    a{
+        color:aliceblue;
+        .nav-link{
+            color:white;
+        }
+    }
+}
