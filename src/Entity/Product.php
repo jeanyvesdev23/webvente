@@ -20,36 +20,43 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+   
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+    
      */
     private $nameProduct;
 
     /**
      * @ORM\Column(type="float")
+ 
      */
     private $priceProduct;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("product:read")
      */
     private $moreInformation;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     
      */
     private $isBest;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+   
      */
     private $isNew;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+    
      */
     private $imageProduct;
 

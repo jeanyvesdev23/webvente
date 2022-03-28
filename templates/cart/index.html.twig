@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h3>Votre panier</h3>
+
+		<table class="table  table-striped text-center">
+			<thead>
+				<tr class="text-center">
+					<th></th>
+					<th>PRODUCT</th>
+					<th>PRICE</th>
+					<th>QUANTITY</th>
+					<th>TOTAL</th>
+					<th>DELETE</th>
+				</tr>
+			</thead>
+			{% if app.session.get("cart") %}
+				<tbody>
+
+					{% for product in products.products %}
+						<tr>
+
+							<td>{{product.product.imageProduct}}
+							</td>
+							<td>{{product.product.nameProduct}}
+							</td>
+							<td>{{product.product.priceProduct}}
+							</td>
+							<td>
+								<a href="{{path("app_deleteFrom_cart",{id:product.product.id})}}" class="text-decoration-none text-dark">
+									<i class="bi-chevron-left"></i>
+								</a>
+								{{product.quantity}}<a href="{{path("app_add_cart",{id:product.product.id})}}" class="text-decoration-none text-dark me-3">
+									<i class="bi-chevron-right"></i>
+								</a>
+							</td>
+							<td>{{product.quantity * product.product.priceProduct}}
+							</td>
+							<td>
+								<a class="text-danger" href="{{path("app_deleteAll_cart",{id:product.product.id})}}">
+									<i class="bi-archive-fill"></i>
+								</a>
+							</td>
+
+						</tr>
+
+					</tbody>
+				{% endfor %}
+
+
+			</table>
+		{% else %}
+			<p>Votre panier vide</p>
+		{% endif %}
+	</div>
+{% endblock %}
