@@ -6,11 +6,13 @@ trait timestandable
 {
     /**
      * @ORM\Column(type="datetime",options={"default":"CURRENT_TIMESTAMP"})
+    
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime",options={"default":"CURRENT_TIMESTAMP"})
+  
      */
     private $updateAt;
 
