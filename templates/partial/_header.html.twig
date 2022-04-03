@@ -1,5 +1,5 @@
 {% block body %}
-	<header class="bg-primary">
+	<header class="bg-primary fixed-top">
 
 
 		<ul class="nav justify-content-end container ">
@@ -36,20 +36,12 @@
 		<nav class="navbar navbar-light bg-primary display-inline-block container">
 			<h3 class="ml-5">Webvente</h3>
 			<form>
-
 				<div class="input-group">
-
-					<select class="form-select" id="inlineFormSelectPref" style="width:90px">
-						<option selected>Category</option>
-						<option value="1">One</option>
-
-					</select>
 					<input type="text" class="form-control" placeholder="Search here" aria-label="Username" aria-describedby="basic-addon1" style="width:500px">
 					<button type="submit" class="btn btn-warning">
 						<i class="bi-search"></i>
 					</button>
 				</div>
-
 			</form>
 			<button type="submit" class="btn text-white  pr-10" style=" background-color: blue;opacity:100;">
 				<span>
@@ -58,28 +50,28 @@
 				</span>
 			</button>
 		</nav>
-		<nav class="navbar navbar-expand navbar-light ms-0 me-0" style=" background-color: blue;">
+		<nav class="navbar-expand navbar-light ms-0 me-0" style=" background-color: blue;">
 			<div class="container-fluid">
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="collapse navbar-collapse container " id="navbarText">
-					<ul class="navbar-nav me-auto ">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="{{path("app_home")}}" style="color:white">HOME</a>
+				<div class="collapse navbar-collapse container menu pt-0 pb-0" id="navbarText">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item active ">
+							<a class="nav-link text-white " aria-current="page" href="{{path("app_home")}}">HOME</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{path("app_produit")}}" style="color:white">MAGASIN</a>
+							<a href="{{path("app_produit")}}" class="nav-link text-white ">SHOP</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#" style="color:white">BLOG</a>
+							<a href="#" class="nav-link text-white ">BLOG</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#" style="color:white">ABOUT</a>
+							<a href="#" class="nav-link text-white ">ABOUT</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#" style="color:white">CONTACT</a>
+							<a href="#" class="nav-link text-white ">CONTACT</a>
 						</li>
 					</ul>
 					<span class="navbar-text text-warning">
@@ -90,4 +82,6 @@
 		</nav>
 
 	</header>
+
+
 {% endblock %}

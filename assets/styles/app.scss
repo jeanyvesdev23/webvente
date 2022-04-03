@@ -1,11 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons";
 
+@import "scss/style";
+@import  "scss/panel";
+
 body{
-    a{
-        color:aliceblue;
-        .nav-link{
-            color:white;
-        }
-    }
+    background-color: rgb(206, 204, 204);
 }
