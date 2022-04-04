@@ -70,6 +70,8 @@ class Category
 
         return $this;
     }
+  
+
 
     /**
      * @return Collection<int, product>
@@ -93,5 +95,9 @@ class Category
         $this->product->removeElement($product);
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->getNameCategory();
     }
 }
