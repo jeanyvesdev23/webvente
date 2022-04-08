@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Addres{% endblock %}
+
+{% block body %}
+    <h1>Addres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ addre.id }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ addre.pays }}</td>
+            </tr>
+            <tr>
+                <th>Province</th>
+                <td>{{ addre.province }}</td>
+            </tr>
+            <tr>
+                <th>Region</th>
+                <td>{{ addre.region }}</td>
+            </tr>
+            <tr>
+                <th>Parcelle</th>
+                <td>{{ addre.parcelle }}</td>
+            </tr>
+            <tr>
+                <th>FullName</th>
+                <td>{{ addre.fullName }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ addre.createdAt ? addre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdateAt</th>
+                <td>{{ addre.updateAt ? addre.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_addres_index') }}">back to list</a>
+
+    <a href="{{ path('app_addres_edit', {'id': addre.id}) }}">edit</a>
+
+    {{ include('addres/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CompteController!
+{% endblock %}
+
+{% block body %}
+	<div class="container" style="margin-top:200px">
+		<div class="compte-user row">
+			<div class="col-4">
+
+				{% include "./partial/_userdashboard.html.twig" %}
+			</div>
+			<div class="info-user col-8">
+				<div class="pursed p-4">
+					<h5 class="pb-1">Pursed items</h5>
+					<div class="block ms-1 bg-white ">
+						<p class="p-3">Produit total</p>
+					</sppan>
+				</div>
+				<div class="block ms-1 mt-3">
+					<p class="p-3">commande total</p>
+				</div>
+
+			</div>
+			<div class="pursed p-4">
+				<h5>Montant total à payé</h5>
+				<div class="block ms-1 mt-3" style="height:80px">
+
+					<p class="p-3">
+						<i class="bi-credit-card-fill"></i><br>
+						234555</p>
+				</div>
+			</div>
+			<div class="pursed p-4">
+				<div class="d-flex pb-2 justify-content-between" style="border-bottom:1px solid black">
+
+					<h5>INFORMATIONS</h5>
+					<span class="badge bg-secondary">
+						<i class="bi-pencil-fill"></i>
+					</span>
+				</div>
+				<div class="info pt-4">
+
+					<p>nom</p>
+					<p>email</p>
+					<button class="btn btn-warning w-100">MODIFIER MOT DE PASSE</button>
+				</div>
+			</div>
+			<div class="pursed p-4">
+				<div class="d-flex pb-2 justify-content-between" style="border-bottom:1px solid black">
+
+					<h5>ADRESSES</h5>
+					<span class="badge bg-secondary">
+						<i class="bi-pencil-fill"></i>
+					</span>
+				</div>
+				<div class="info pt-2">
+					<p class="ms-1 mb-1 mt-O">provincce</p>
+					<p class="m-1">region</p>
+					<p class="m-1">parcelle</p>
+					<p class="m-1">numero</p>
+					<button class="btn btn-warning w-100">AJOUTER UNE AUTRE ADRESSE</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

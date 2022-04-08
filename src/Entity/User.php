@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\timestandable;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,28 +13,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="users")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use timestandable;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
-
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -52,20 +43,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="User")
+     * @ORM\Column(type="string", length=255)
      */
-    private $addresses;
+    private $nomUser;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenomUser;
+
+
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Addres::class, mappedBy="user")
+     */
+    private $addres;
+
     public function __construct()
     {
-        $this->addresses = new ArrayCollection();
+        $this->addres = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -156,59 +158,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNom(): ?string
+    public function getNomUser(): ?string
     {
-        return $this->nom;
+        return $this->nomUser;
     }
 
-    public function setNom(string $nom): self
+    public function setNomUser(string $nomUser): self
     {
-        $this->nom = $nom;
+        $this->nomUser = $nomUser;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getPrenomUser(): ?string
     {
-        return $this->prenom;
+        return $this->prenomUser;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setPrenomUser(string $prenomUser): self
     {
-        $this->prenom = $prenom;
+        $this->prenomUser = $prenomUser;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Address>
-     */
-    public function getAddresses(): Collection
-    {
-        return $this->addresses;
-    }
 
-    public function addAddress(Address $address): self
-    {
-        if (!$this->addresses->contains($address)) {
-            $this->addresses[] = $address;
-            $address->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAddress(Address $address): self
-    {
-        if ($this->addresses->removeElement($address)) {
-            // set the owning side to null (unless already changed)
-            if ($address->getUser() === $this) {
-                $address->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function isVerified(): bool
     {
@@ -220,5 +194,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Addres>
+     */
+    public function getAddres(): Collection
+    {
+        return $this->addres;
+    }
+
+    public function addAddre(Addres $addre): self
+    {
+        if (!$this->addres->contains($addre)) {
+            $this->addres[] = $addre;
+            $addre->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddre(Addres $addre): self
+    {
+        if ($this->addres->removeElement($addre)) {
+            // set the owning side to null (unless already changed)
+            if ($addre->getUser() === $this) {
+                $addre->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->getNomUser();
     }
 }

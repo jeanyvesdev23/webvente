@@ -20,3 +20,16 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+//dashboard
+
+let bcd = document.querySelectorAll(".bcd");
+for (let i = 0; i < bcd.length; i++) {
+    bcd[i].addEventListener("click", (e) => {
+        let bcdParent = e.target.parentElement.parentElement;
+        console.log(bcdParent);
+        bcdParent.classList.toggle("showMenu");
+
+    });
+
+}

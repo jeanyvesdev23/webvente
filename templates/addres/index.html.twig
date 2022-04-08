@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Addres index{% endblock %}
+
+{% block body %}
+    <h1>Addres index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pays</th>
+                <th>Province</th>
+                <th>Region</th>
+                <th>Parcelle</th>
+                <th>FullName</th>
+                <th>CreatedAt</th>
+                <th>UpdateAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for addre in addres %}
+            <tr>
+                <td>{{ addre.id }}</td>
+                <td>{{ addre.pays }}</td>
+                <td>{{ addre.province }}</td>
+                <td>{{ addre.region }}</td>
+                <td>{{ addre.parcelle }}</td>
+                <td>{{ addre.fullName }}</td>
+                <td>{{ addre.createdAt ? addre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ addre.updateAt ? addre.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_addres_show', {'id': addre.id}) }}">show</a>
+                    <a href="{{ path('app_addres_edit', {'id': addre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_addres_new') }}">Create new</a>
+{% endblock %}

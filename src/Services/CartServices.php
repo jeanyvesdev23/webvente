@@ -2,87 +2,73 @@
 
 namespace App\Services;
 
-use App\Repository\ProductRepository;
+use App\Repository\ProduitRepository;
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class CartServices
+class Cartservices
 {
     private $session;
-    private $tva = 2;
-    private $productRepository;
-    public function __construct(SessionInterface $session, ProductRepository $productRepository)
+    private $produitRepository;
+    public function __construct(SessionInterface $session, ProduitRepository $produitRepository)
     {
         $this->session = $session;
-        $this->productRepository = $productRepository;
+        $this->produitRepository = $produitRepository;
     }
-    public function getCart()
+
+
+    public function getcart()
     {
         return $this->session->get("cart", []);
-    }
-    public function addCart($id)
-    {
-
-        $cart = $this->getCart();
-        if (!empty($cart[$id])) {
-            $cart[$id]++;
-        } else {
-            $cart[$id] = 1;
-        }
-
-
-
-        $this->updateCart($cart);
-    }
-    public function getFullCart()
-    {
-        $cart = $this->getCart();
-        $fullCart = [];
-        $quantityCart = 0;
-        $total = 0;
-        foreach ($cart as $id => $qte) {
-            $product = $this->productRepository->find($id);
-            if ($product) {
-                $fullCart["products"][] = [
-                    "quantity" => $qte,
-                    "product" => $product
-                ];
-                $quantityCart += $qte;
-                $total += $qte * $product->getPriceProduct();
-            } else {
-                $this->deleteFromCart($id);
-            }
-        }
-        $fullCart["data"] = [
-            "quantityCart" => $quantityCart,
-            "total" => $total,
-            "taxe" => round($total * $this->tva, 2),
-            "totalTTC" => round($total + ($total * $this->tva), 2)
-        ];
-        return $fullCart;
     }
     public function updateCart($cart)
     {
         $this->session->set("cart", $cart);
-        $this->session->set("fullCart", $cart);
+        $this->session->set("cartData", $this->getFullCart());
     }
-    public function deleteFromCart($id)
+    public function addCart($id)
     {
-        $cart = $this->getCart();
-        if (!empty($cart[$id]) > 2) {
-            $cart[$id]--;
+        $cart = $this->getcart();
+        if (isset($cart[$id])) {
+            $cart[$id]++;
+        } else {
+            $cart[$id] = 1;
         }
         $this->updateCart($cart);
     }
-    public function deleteAllToCart($id)
+    public function getFullCart()
     {
-        $cart = $this->getCart();
+        $cart = $this->getcart();
+        $fullCart = [];
+        $totalqte = 0;
+        $subTotal = 0;
+        foreach ($cart as $id => $qte) {
+            $product = $this->produitRepository->find($id);
+            if ($product) {
+
+                $fullCart["produit"][] = [
+                    "quantite" => $qte,
+                    "produit" => $product
+                ];
+                $totalqte += $qte;
+                $subTotal += $qte * $product->getPrixPro();
+            } else {
+                $this->deleteCart($cart);
+            }
+            $fullCart["data"] = [
+                "total" => $subTotal,
+                "toatlqte" => $totalqte
+            ];
+            # code...
+        }
+        return $fullCart;
+    }
+    public function deleteCart($id)
+    {
+        $cart = $this->session->set("cart", []);
         if (isset($cart[$id])) {
             unset($cart[$id]);
-            $this->updateCart($cart);
         }
-    }
-    public function deleteCart()
-    {
-        $this->updateCart([]);
+        $this->updateCart($cart);
     }
 }

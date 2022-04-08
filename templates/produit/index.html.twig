@@ -1,270 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product
-{% endblock %}
+{% block title %}Produit index{% endblock %}
 
 {% block body %}
-	<div class="container" style="margin-top:10rem">
-		<div class="row">
-			<div class="col-md-3">
+    <h1>Produit index</h1>
 
-				<ul class="list-group  ">
-					<li class="list-group-item list-group-item-action list-group-item-warning">
-						<i class="bi-card-heading"></i>
-						Category<i class="bi-chevron-down"></i>
-					</li>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomPro</th>
+                <th>PrixPro</th>
+                <th>Status</th>
+                <th>Nouveau</th>
+                <th>Meilleur</th>
+                <th>ImagePro</th>
+                <th>CreatedAt</th>
+                <th>UpdateAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.nomPro }}</td>
+                <td>{{ produit.prixPro }}</td>
+                <td>{{ produit.status ? 'Yes' : 'No' }}</td>
+                <td>{{ produit.nouveau ? 'Yes' : 'No' }}</td>
+                <td>{{ produit.meilleur ? 'Yes' : 'No' }}</td>
+                <td>{{ produit.imagePro }}</td>
+                <td>{{ produit.createdAt ? produit.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ produit.updateAt ? produit.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-
-				</ul>
-				<ul class="list-group">
-					<li class="list-group-item fs-4" style="font-weight:bold; border:0; background-color: rgb(206, 204, 204);">Order by</li>
-					<li class="list-group-item ps-5" style="border:0; background-color: rgb(206, 204, 204);">Default</li>
-					<li class="list-group-item ps-5" style="border:0; background-color: rgb(206, 204, 204);">populaire</li>
-					<li class="list-group-item ps-5" style="border:0; background-color: rgb(206, 204, 204);">nouveaute</li>
-					<li class="list-group-item ps-5" style="border:0; background-color: rgb(206, 204, 204);">prix faible</li>
-					<li class="ps-5 list-group-item" style="border:0; background-color: rgb(206, 204, 204);">prix fort</li>
-				</ul>
-				<ul class="list-group">
-					<li class="list-group-item fs-4" style="font-weight:bold;border:0; background-color: rgb(206, 204, 204);">Category</li>
-					<li class=" ps-5 list-group-item" style="border:0; background-color: rgb(206, 204, 204);">phone</li>
-					<li class="ps-5 list-group-item" style="border:0; background-color: rgb(206, 204, 204);">computer</li>
-					<li class="ps-5 list-group-item" style="border:0; background-color: rgb(206, 204, 204);">vetement</li>
-					<li class=" ps-5 list-group-item" style="border:0; background-color: rgb(206, 204, 204);">accessoire</li>
-					<li class="ps-5 list-group-item" style="border:0; background-color: rgb(206, 204, 204);">kids</li>
-				</ul>
-			</div>
-			<div class="col-md-9 d-flex " style="flex-wrap:wrap ">
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-				<div class="product-card m-1">
-					<div class="product-image">
-						<span class="discount-tag">new</span>
-						<img src="./asset/upload/product/children.jpg" class="product-dump" alt="">
-						<button class="card-btn">Add to cart</button>
-					</div>
-					<div class="product-info p-2">
-						<h4 class="product-title">Iphone</h4>
-						<p class="text-warning">
-							<i class="bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star-fill"></i>
-							<i class="bi bi-star"></i>
-						</p>
-						<span class="product-price fs-6">23455 Ar</span>
-						<span class="product-price-act fs-6">23455 Ar</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-	</div>
+    <a href="{{ path('app_produit_new') }}">Create new</a>
 {% endblock %}

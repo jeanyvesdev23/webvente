@@ -1,6 +1,6 @@
 security:
     enable_authenticator_manager: true
-    
+     
     
     firewalls:
         dev:
@@ -8,11 +8,14 @@ security:
             security: false
         main:
             lazy: true
-            custom_authenticator: App\Security\LoginAuthenticator
+            custom_authenticator: App\Security\LoginformAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+       
+  
+    
 
     password_hashers:
         App\Entity\User:
@@ -25,10 +28,10 @@ security:
                 class: App\Entity\User
                 property: email
           
- #access_control:
-   # - { path: ^/admin, roles: ROLE_ADMIN } 
-    #- { path: ^/compte, roles: ROLE_USER }
-    #- { path: ^/checkout, roles: ROLE_USER }       
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN } 
+        - { path: ^/compte, roles: ROLE_USER }
+        - { path: ^/checkout, roles: ROLE_USER }       
 
           
 

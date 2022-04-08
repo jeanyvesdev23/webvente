@@ -4,57 +4,83 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h3>Votre panier</h3>
+	<div class="container" style="margin-top:200px">
 
-		<table class="table  table-striped text-center">
-			<thead>
-				<tr class="text-center">
-					<th></th>
-					<th>PRODUCT</th>
-					<th>PRICE</th>
-					<th>QUANTITY</th>
-					<th>TOTAL</th>
-					<th>DELETE</th>
-				</tr>
-			</thead>
-			{% if app.session.get("cart") %}
-				<tbody>
+		<div class="votre-panier me-5 ms-5">
+			<div class="titre">
+				<h5>Votre panier</h5>
+			</div>
+			{% if carts|length > 0 %}
 
-					{% for product in products.products %}
-						<tr>
+				<div class="contenu">
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Produit</th>
+								<th>Prix</th>
+								<th>Quantiter</th>
+								<th>Toatal</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cart in carts %}
 
-							<td>{{product.product.imageProduct}}
-							</td>
-							<td>{{product.product.nameProduct}}
-							</td>
-							<td>{{product.product.priceProduct}}
-							</td>
-							<td>
-								<a href="{{path("app_deleteFrom_cart",{id:product.product.id})}}" class="text-decoration-none text-dark">
-									<i class="bi-chevron-left"></i>
-								</a>
-								{{product.quantity}}<a href="{{path("app_add_cart",{id:product.product.id})}}" class="text-decoration-none text-dark me-3">
+								<tr>
+									<td>
+										<div class="taille-image">
+											<img src="./asset/upload/product/{{cart.produit.imagePro}}" height="60px" alt="" width="60px">
+										</div>
+									</td>
+									<td>
+										<div class="nom-pro">
+											{{cart.produit.nomPro}}
+										</div>
+									</td>
+									<td>
+										<div class="tprix-pro">
+											{{cart.produit.prixPro}}
+										</div>
+									</td>
+									<td>
+										<div class="quantite-pro">
+											{{cart.quantite}}
+										</div>
+									</td>
+									<td>
+										<div class="total-pro">
+											{{cart.quantite * cart.produit.prixPro}}
+										</div>
+									</td>
+									<td>
+										<span class="badge rounded-pill bg-danger">delete</span>
+									</td>
+
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					<div class="t-footer d-flex justify-content-between">
+						<button class="btn btn-primary">CONTINUER MES ACHATS</button>
+						<div class="total">
+							<span class="pe-5">TOTAL :
+								{{data.total}}</span>
+							<button class="btn btn-primary">PROCEED TO CHECKOUT
+								<span>
 									<i class="bi-chevron-right"></i>
-								</a>
-							</td>
-							<td>{{product.quantity * product.product.priceProduct}}
-							</td>
-							<td>
-								<a class="text-danger" href="{{path("app_deleteAll_cart",{id:product.product.id})}}">
-									<i class="bi-archive-fill"></i>
-								</a>
-							</td>
+								</span>
+							</button>
 
-						</tr>
-
-					</tbody>
-				{% endfor %}
-
-
-			</table>
-		{% else %}
-			<p>Votre panier vide</p>
-		{% endif %}
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="panier-vide">
+					<p>OUPS VOTRE PANIER EST VIDE IL FAUT AJOUTER QUELQUE CHOSE</p>
+				</div>
+			{% endif %}
+		</div>
 	</div>
 {% endblock %}
