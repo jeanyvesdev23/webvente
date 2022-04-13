@@ -64,9 +64,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $addres;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="users")
+     */
+    private $commander;
+
+
+
     public function __construct()
     {
         $this->addres = new ArrayCollection();
+        $this->commander = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -228,5 +236,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->getNomUser();
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommander(): Collection
+    {
+        return $this->commander;
+    }
+
+    public function addCommander(Commande $commander): self
+    {
+        if (!$this->commander->contains($commander)) {
+            $this->commander[] = $commander;
+            $commander->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommander(Commande $commander): self
+    {
+        if ($this->commander->removeElement($commander)) {
+            // set the owning side to null (unless already changed)
+            if ($commander->getUsers() === $this) {
+                $commander->setUsers(null);
+            }
+        }
+
+        return $this;
     }
 }

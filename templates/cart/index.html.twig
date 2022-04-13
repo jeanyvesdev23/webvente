@@ -48,6 +48,7 @@
 											{{cart.quantite}}
 										</div>
 									</td>
+
 									<td>
 										<div class="total-pro">
 											{{cart.quantite * cart.produit.prixPro}}
@@ -67,11 +68,13 @@
 						<div class="total">
 							<span class="pe-5">TOTAL :
 								{{data.total}}</span>
-							<button class="btn btn-primary">PROCEED TO CHECKOUT
-								<span>
-									<i class="bi-chevron-right"></i>
-								</span>
-							</button>
+							<a href="{{path("app_checkout")}}">
+								<button class="btn btn-primary">PROCEED TO CHECKOUT
+									<span>
+										<i class="bi-chevron-right"></i>
+									</span>
+								</button>
+							</a>
 
 						</div>
 					</div>

@@ -5,30 +5,25 @@ namespace App\Form;
 use App\Entity\Addres;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddresType extends AbstractType
+class CheckoutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $user = $options["user"];
         $builder
-            ->add('fullName', null, [
-                "attr" => [
-                    "placholder" => "dsfdffg"
-                ]
+            ->add('Address', EntityType::class, [
+                'class' => new Addres
 
-
-            ])
-            ->add('numero')
-            ->add('ville')
-            ->add('parcelle')
-            ->add('moreInformation');
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Addres::class,
+            "user" => array()
         ]);
     }
 }

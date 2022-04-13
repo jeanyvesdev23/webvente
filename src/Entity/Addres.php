@@ -20,20 +20,12 @@ class Addres
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pays;
+
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $province;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $region;
+    private $ville;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -55,43 +47,26 @@ class Addres
      */
     private $numero;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $moreInformation;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPays(): ?string
+
+
+    public function getVille(): ?string
     {
-        return $this->pays;
+        return $this->ville;
     }
 
-    public function setPays(string $pays): self
+    public function setVille(string $ville): self
     {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    public function getProvince(): ?string
-    {
-        return $this->province;
-    }
-
-    public function setProvince(string $province): self
-    {
-        $this->province = $province;
-
-        return $this;
-    }
-
-    public function getRegion(): ?string
-    {
-        return $this->region;
-    }
-
-    public function setRegion(string $region): self
-    {
-        $this->region = $region;
+        $this->ville = $ville;
 
         return $this;
     }
@@ -146,5 +121,17 @@ class Addres
     public function __toString()
     {
         return $this->getParcelle();
+    }
+
+    public function getMoreInformation(): ?string
+    {
+        return $this->moreInformation;
+    }
+
+    public function setMoreInformation(?string $moreInformation): self
+    {
+        $this->moreInformation = $moreInformation;
+
+        return $this;
     }
 }

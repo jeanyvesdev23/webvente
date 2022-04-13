@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repository\ProduitRepository;
-
+use Doctrine\ORM\Query\Expr\Func;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Cartservices
@@ -15,7 +15,6 @@ class Cartservices
         $this->session = $session;
         $this->produitRepository = $produitRepository;
     }
-
 
     public function getcart()
     {
@@ -45,7 +44,6 @@ class Cartservices
         foreach ($cart as $id => $qte) {
             $product = $this->produitRepository->find($id);
             if ($product) {
-
                 $fullCart["produit"][] = [
                     "quantite" => $qte,
                     "produit" => $product
@@ -57,10 +55,11 @@ class Cartservices
             }
             $fullCart["data"] = [
                 "total" => $subTotal,
-                "toatlqte" => $totalqte
+                "totalqte" => $totalqte
             ];
             # code...
         }
+
         return $fullCart;
     }
     public function deleteCart($id)
@@ -70,5 +69,9 @@ class Cartservices
             unset($cart[$id]);
         }
         $this->updateCart($cart);
+    }
+    public function deleteAllCart()
+    {
+        $this->updateCart([]);
     }
 }

@@ -40,7 +40,7 @@ class Categorie
     private $descriptionCate;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="categorie", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="categorie", cascade={"persist"},orphanRemoval=true)
      */
     private $produit;
 

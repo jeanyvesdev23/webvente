@@ -1,20 +1,108 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CheckoutController!{% endblock %}
+{% block title "Checkout"%}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="container" style="margin-top:11rem">
+		<div class="row">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+			<div class="col-8">
+				<div class="address-fac p-4" style="border:1px solid white">
+					<h5 class="pb-3" style="border-bottom:1px solid white">Adresse de facturation</h5>
+					<div class="formulaire pt-1">
+						{{ form_start(form )}}
+						<div class="row">
+							<div class="col-6">
+								{{ form_row(form.fullName,{
+                          label:false ,
+                            "attr":{"placeholder":"Votre nom complet"}
+                        }) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/JEAN YVES/symfony/webvente/src/Controller/CheckoutController.php'|file_link(0) }}">src/Controller/CheckoutController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/JEAN YVES/symfony/webvente/templates/checkout/index.html.twig'|file_link(0) }}">templates/checkout/index.html.twig</a></code></li>
-    </ul>
-</div>
+							</div>
+							<div class="col-6">
+
+								{{ form_row(form.numero,{
+                             label:false ,
+                            "attr":{"placeholder":"Votre numero de telephone"}
+                        }) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+
+								{{ form_row(form.ville,{
+                            label:false ,
+                            "attr":{"placeholder":"Votre ville ou region"}                         
+                          
+                           
+                        }) }}
+
+
+							</div>
+							<div class="col-6">
+
+								{{ form_row(form.parcelle,{
+                           label:false ,
+                            "attr":{"placeholder":"Votre adresse domicile"}
+                        }) }}
+							</div>
+						</div>
+						{{ form_row(form.moreInformation,{
+                            label:false ,
+                            "attr":{"placeholder":"Information pour le livreur"}
+                        }) }}
+
+
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="panier-total p-4" style="border:1px solid white">
+					<h5 class="pb-1">Panier total</h5>
+					<div class="liste-panier">
+						<ul class="ps-3" style="list-style-type:none">
+
+							{% for cart in carts.produit %}
+								<li class="">
+									<span class=""><img src="./asset/upload/product/{{cart.produit.imagePro}}" height="40px" alt="" width="50px">
+									</span>
+									<span class="pe-1 ps-1">{{cart.produit.nomPro}}</span>
+									<span class="pe-1 ps-1">
+										<small>X</small>
+										{{cart.quantite}}</span>
+									<span class="">({{cart.quantite * cart.produit.prixPro}}
+										<small>Ar</small>
+										)</span>
+								</li>
+
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="mt-5 validation-com">
+						<div class="mb-0 d-flex justify-content-between" style="border-bottom:1px solid white">
+							<p>Sous-total</p>
+							<p>{{carts.data.total}}</p>
+						</div>
+						<div class="d-flex justify-content-between">
+							<p>Frais de transport</p>
+							<p>gratuit</p>
+						</div>
+						<div class="d-flex justify-content-between">
+							<p>Total
+								<br><small>(y compris TVA)</small>
+							</p>
+							<p>{{carts.data.total}}</p>
+						</div>
+
+					</div>
+					<div class="commande">
+						<button class="btn btn-warning w-100">CONFIRMER LA COMMANDE</button>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 {% endblock %}

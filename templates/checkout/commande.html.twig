@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Checkout"%}
+
+{% block body %}
+	<div class="container" style="margin-top:11rem">
+		<div class="row">
+
+			<div class="col-md-7 mx-auto">
+
+				<div class="address-fac p-4" style="border:1px solid white">
+					<div class="processus text-center">
+						<p>Processus</p>
+					</div>
+					<div class="d-flex justify-content-center">
+						<div class="commande-confirmer">
+							<p>
+								<span>
+									<i class="bi-check-circle-fill"></i>
+								</span>
+							</p>
+							<h4>Commande confirmer</h4>
+							<p>Votre ulistration vous parviendra bientot</p>
+							<a href="">voir le facture</a>
+							<button class="btn btn-primary">ACCEDER A VOTRE COMMANDE</button>
+						</div>
+						<div class="detail">
+							<div class="d-flex justify-content-between">
+								<p>
+									<span>
+										<i class="bi-stopwatch"></i>Livraison en 3 jours</span>
+								</p>
+								<p>
+									<span>
+										<i class="bi-arrow-repeat"></i>
+									</span>2 max revisions</p>
+							</div>
+							<div class="articles">
+								<h6>votre produits</h6>
+								<ul class="ps-3" style="list-style-type:none">
+
+									{% for commande in commandes.produit %}
+										<li class="">
+											<span class="">
+												<i class="bi-check"></i>
+											</span>
+											<span class="pe-1 ps-1">{{commande.produit.nomPro}}</span>
+
+										</li>
+
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="table">
+								<table>
+									<tr>
+										<td>
+											<span>{{commandes.data.totalqte}}</span>
+										</td>
+										<td>Unite</td>
+									</tr>
+									<tr>
+										<td>
+											<span>Sub total</span>
+										</td>
+										<td>
+											<span>{{commandes.data.total}}
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td>Frais de livraison</td>
+										<td>gratuit</td>
+									</tr>
+									<tr>
+										<td>Total</td>
+										<td>{{commandes.data.total}}
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

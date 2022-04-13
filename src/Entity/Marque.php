@@ -38,7 +38,7 @@ class Marque
     private $imageMarque;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="marque")
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="marque",cascade={"persist"})
      */
     private $produit;
 

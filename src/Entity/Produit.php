@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Traits\timestandable;
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,7 +33,7 @@ class Produit
     private $prixPro;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true)
      */
     private $status;
 
@@ -51,13 +53,13 @@ class Produit
     private $imagePro;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="produit")
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="produit",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="produit")
+     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="produit",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $marque;
@@ -66,6 +68,19 @@ class Produit
      * @ORM\Column(type="text", nullable=true)
      */
     private $descriptionPro;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="produits", cascade={"persist"})
+     */
+    private $commandes;
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+    }
+
+
+
 
     public function getId(): ?int
     {
@@ -101,7 +116,7 @@ class Produit
         return $this->status;
     }
 
-    public function setStatus(bool $status): self
+    public function setStatus(?bool $status): self
     {
         $this->status = $status;
 
@@ -178,5 +193,36 @@ class Produit
         $this->descriptionPro = $descriptionPro;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            $commande->removeProduit($this);
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->getNomPro();
     }
 }
