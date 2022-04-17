@@ -70,14 +70,10 @@ class Produit
     private $descriptionPro;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="produits", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="produits")
      */
-    private $commandes;
+    private $commande;
 
-    public function __construct()
-    {
-        $this->commandes = new ArrayCollection();
-    }
 
 
 
@@ -203,26 +199,21 @@ class Produit
         return $this->commandes;
     }
 
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->addProduit($this);
-        }
 
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeProduit($this);
-        }
-
-        return $this;
-    }
     public function __toString()
     {
         return $this->getNomPro();
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
+
+        return $this;
     }
 }

@@ -12,15 +12,10 @@ class AddresType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fullName', null, [
-                "attr" => [
-                    "placholder" => "dsfdffg"
-                ]
-
-
-            ])
+            ->add('fullName')
             ->add('numero')
             ->add('ville')
+            ->add('postal')
             ->add('parcelle')
             ->add('moreInformation');
     }

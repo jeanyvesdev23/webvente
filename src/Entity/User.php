@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Addres::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Addres::class, mappedBy="user",cascade={"persist"})
      */
     private $addres;
 
@@ -188,6 +188,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->prenomUser = $prenomUser;
 
         return $this;
+    }
+    public function getfullName()
+    {
+        return $this->getNomUser() . ' ' . $this->getPrenomUser();
     }
 
 

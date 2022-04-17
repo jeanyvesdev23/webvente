@@ -6,6 +6,7 @@ use App\Entity\Addres;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CheckoutType extends AbstractType
@@ -15,8 +16,15 @@ class CheckoutType extends AbstractType
         $user = $options["user"];
         $builder
             ->add('Address', EntityType::class, [
-                'class' => new Addres
+                'class' => Addres::class,
+                'choices' => $user->getAddres(),
+                'multiple' => false,
+                'expanded' => true,
+                'label' => "Addresse de livraison"
 
+            ])
+            ->add('Information', TextareaType::class, [
+                'label' => 'Information pour lr livreure'
             ]);
     }
 

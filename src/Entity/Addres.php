@@ -52,6 +52,11 @@ class Addres
      */
     private $moreInformation;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $postal;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,7 +125,15 @@ class Addres
     }
     public function __toString()
     {
-        return $this->getParcelle();
+
+        $data =  $this->getFullName() . 'all';
+        $data .= 'Tél : ' . $this->getNumero() . 'all';
+        $data .= 'Address :' . $this->getParcelle() . 'all' . 'all';
+        $data .=  $this->getPostal() . '-' . $this->getVille() . 'all';
+
+
+
+        return $data;
     }
 
     public function getMoreInformation(): ?string
@@ -131,6 +144,18 @@ class Addres
     public function setMoreInformation(?string $moreInformation): self
     {
         $this->moreInformation = $moreInformation;
+
+        return $this;
+    }
+
+    public function getPostal(): ?int
+    {
+        return $this->postal;
+    }
+
+    public function setPostal(int $postal): self
+    {
+        $this->postal = $postal;
 
         return $this;
     }

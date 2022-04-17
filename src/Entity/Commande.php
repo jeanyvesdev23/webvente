@@ -42,20 +42,39 @@ class Commande
      */
     private $statusCommande;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="commandes", cascade={"persist"})
-     */
-    private $produits;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commander")
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="commande")
+     */
+    private $produits;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $addressLivraison;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $information;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Panier::class, mappedBy="commande", orphanRemoval=true,cascade={"persist"})
+     */
+    private $panier;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+        $this->panier = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -110,6 +129,20 @@ class Commande
         return $this;
     }
 
+
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): self
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Produit>
      */
@@ -122,6 +155,7 @@ class Commande
     {
         if (!$this->produits->contains($produit)) {
             $this->produits[] = $produit;
+            $produit->setCommande($this);
         }
 
         return $this;
@@ -129,19 +163,66 @@ class Commande
 
     public function removeProduit(Produit $produit): self
     {
-        $this->produits->removeElement($produit);
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getCommande() === $this) {
+                $produit->setCommande(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getUsers(): ?User
+    public function getAddressLivraison(): ?string
     {
-        return $this->users;
+        return $this->addressLivraison;
     }
 
-    public function setUsers(?User $users): self
+    public function setAddressLivraison(string $addressLivraison): self
     {
-        $this->users = $users;
+        $this->addressLivraison = $addressLivraison;
+
+        return $this;
+    }
+
+    public function getInformation(): ?string
+    {
+        return $this->information;
+    }
+
+    public function setInformation(string $information): self
+    {
+        $this->information = $information;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPanier(): Collection
+    {
+        return $this->panier;
+    }
+
+    public function addPanier(Panier $panier): self
+    {
+        if (!$this->panier->contains($panier)) {
+            $this->panier[] = $panier;
+            $panier->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): self
+    {
+        if ($this->panier->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getCommande() === $this) {
+                $panier->setCommande(null);
+            }
+        }
 
         return $this;
     }

@@ -6,57 +6,19 @@
 	<div class="container" style="margin-top:11rem">
 		<div class="row">
 
-			<div class="col-8">
+			<div class="col-7">
 				<div class="address-fac p-4" style="border:1px solid white">
 					<h5 class="pb-3" style="border-bottom:1px solid white">Adresse de facturation</h5>
 					<div class="formulaire pt-1">
 						{{ form_start(form )}}
-						<div class="row">
-							<div class="col-6">
-								{{ form_row(form.fullName,{
-                          label:false ,
-                            "attr":{"placeholder":"Votre nom complet"}
-                        }) }}
-
-							</div>
-							<div class="col-6">
-
-								{{ form_row(form.numero,{
-                             label:false ,
-                            "attr":{"placeholder":"Votre numero de telephone"}
-                        }) }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-
-								{{ form_row(form.ville,{
-                            label:false ,
-                            "attr":{"placeholder":"Votre ville ou region"}                         
-                          
-                           
-                        }) }}
-
-
-							</div>
-							<div class="col-6">
-
-								{{ form_row(form.parcelle,{
-                           label:false ,
-                            "attr":{"placeholder":"Votre adresse domicile"}
-                        }) }}
-							</div>
-						</div>
-						{{ form_row(form.moreInformation,{
-                            label:false ,
-                            "attr":{"placeholder":"Information pour le livreur"}
-                        }) }}
-
+						
+						{{ form_row(form.Address) | replace({"all": "</br>"})|raw  }}
+						{{ form_row(form.Information)  }}						
 
 					</div>
 				</div>
 			</div>
-			<div class="col-4">
+			<div class="col-5">
 				<div class="panier-total p-4" style="border:1px solid white">
 					<h5 class="pb-1">Panier total</h5>
 					<div class="liste-panier">
@@ -96,9 +58,9 @@
 
 					</div>
 					<div class="commande">
-						<button class="btn btn-warning w-100">CONFIRMER LA COMMANDE</button>
-						{{ form_end(form) }}
+						<button class="btn btn-warning w-100">CONFIRMER LA COMMANDE</button>				
 					</div>
+					{{ form_end(form) }}
 				</div>
 			</div>
 

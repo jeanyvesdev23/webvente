@@ -13,7 +13,7 @@
 						<p>Processus</p>
 					</div>
 					<div class="d-flex justify-content-center">
-						<div class="commande-confirmer">
+						<div class="commande-confirmer text-center">
 							<p>
 								<span>
 									<i class="bi-check-circle-fill"></i>
@@ -39,12 +39,12 @@
 								<h6>votre produits</h6>
 								<ul class="ps-3" style="list-style-type:none">
 
-									{% for commande in commandes.produit %}
+									{% for panier in panier %}
 										<li class="">
 											<span class="">
 												<i class="bi-check"></i>
 											</span>
-											<span class="pe-1 ps-1">{{commande.produit.nomPro}}</span>
+											<span class="pe-1 ps-1">{{panier.nameProduct}}</span>
 
 										</li>
 
@@ -52,31 +52,25 @@
 								</ul>
 							</div>
 							<div class="table">
-								<table>
-									<tr>
-										<td>
-											<span>{{commandes.data.totalqte}}</span>
-										</td>
-										<td>Unite</td>
-									</tr>
-									<tr>
-										<td>
-											<span>Sub total</span>
-										</td>
-										<td>
-											<span>{{commandes.data.total}}
-											</span>
-										</td>
-									</tr>
-									<tr>
-										<td>Frais de livraison</td>
-										<td>gratuit</td>
-									</tr>
-									<tr>
-										<td>Total</td>
-										<td>{{commandes.data.total}}
-										</td>
-									</tr>
+								<table class="text-center">
+									 <tr>
+									 <td>{{commande.quantite}}</td>
+									  <td>Unite</td>
+									 </tr>
+									 <tr>
+									 <td>Sub total</td>
+									 <td>{{commande.subtotal}}</td>
+									 
+									 </tr>
+									 <tr>
+									 <td>frais de Livraison</td>
+									  <td>Gratuit</td>
+									 </tr>
+									 <tr>
+									 <td>Total</td>
+									  <td>{{commande.subtotal}}</td>
+									 </tr>
+								
 								</table>
 							</div>
 						</div>
