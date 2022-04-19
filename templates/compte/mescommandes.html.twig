@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes commandes' %}
+
+{% block body %}
+	<div class="container" style="margin-top:200px">
+		<div class="compte-user row" >
+			<div class="col-4">
+				{% include "./partial/_compteuser.html.twig" %}
+			</div>  
+			<div class="p-3 col-8"style='border:1px solid white'>
+                <div style='border-bottom:1px solid black'>
+                    <h4 >Votre commandes</h4>
+                </div>
+            <div class="table"> 
+               <table class=" mt-4 table">
+                  <thead>
+                     <tr>
+                        <td>#Order</td>
+                        <td>Date</td>
+                        <td>Order total</td>
+                        <td>Order status</td>
+                        <td>Actions</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  {% for commande in commandes %}
+                     <tr>
+                        <td>{{commande.codeCommande |
+                        date("Yd") }}</td>
+                        <td>{{commande.createdAt | date("d/m/Y")}}</td>
+                        <td>{{commande.subtotal}}</td>
+                        <td><span class="badge  bg-primary">{{commande.statusCommande}}</span></td>
+                        <td><a href="{{path("app_compte_commandes_show",{id:commande.id})}}">
+                        
+                        <span type="button" class="btn rounded-pill btn-outline-primary ">VOIR COMMANDE</span>
+                        </a>
+                        </td>
+                     </tr>
+                  {% endfor %}
+                    
+                  </tbody>
+               </table>
+            </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

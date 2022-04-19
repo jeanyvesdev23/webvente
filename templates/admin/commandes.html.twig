@@ -1,0 +1,43 @@
+{% extends "dashboard.html.twig" %}
+{% block title "All commandes" %}
+{% block body %}
+
+	<div class="main-content">
+		<main>
+			<div class="titre">
+				<h4>Commandes</h4>
+			</div>
+			<div class="table">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>#</td>
+							<td>code commande</td>
+							<td>Quantiteé</td>
+							<td>Client</td>
+							<td>Montant</td>
+							<td>Status de Livraison</td>
+							<td>Status de paiement</td>
+							<td>Options</td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for commande in commandes %}
+							<tr>
+								<td>{{commande.id}}</td>
+								<td>{{commande.codeCommande | date("Yd")}}</td>
+								<td>{{commande.quantite}}</td>
+								<td>{{app.user.fullName}}</td>
+								<td>{{commande.subtotal}}
+								</td>
+								<td>{{commande.statusCommande}}</td>
+								<td>{{commande.isPayer}}</td>
+								<td>Options</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
+{% endblock %}

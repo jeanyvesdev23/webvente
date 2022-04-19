@@ -37,10 +37,7 @@ class Commande
      */
     private $subTotal;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $statusCommande;
+
 
 
     /**
@@ -67,6 +64,13 @@ class Commande
      * @ORM\OneToMany(targetEntity=Panier::class, mappedBy="commande", orphanRemoval=true,cascade={"persist"})
      */
     private $panier;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=StatusCommande::class, inversedBy="commande")
+     */
+    private $statusCommandes;
 
     public function __construct()
     {
@@ -117,17 +121,7 @@ class Commande
         return $this;
     }
 
-    public function getStatusCommande(): ?string
-    {
-        return $this->statusCommande;
-    }
 
-    public function setStatusCommande(?string $statusCommande): self
-    {
-        $this->statusCommande = $statusCommande;
-
-        return $this;
-    }
 
 
 
@@ -223,6 +217,20 @@ class Commande
                 $panier->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+
+
+    public function getStatusCommandes(): ?StatusCommande
+    {
+        return $this->statusCommandes;
+    }
+
+    public function setStatusCommandes(?StatusCommande $statusCommandes): self
+    {
+        $this->statusCommandes = $statusCommandes;
 
         return $this;
     }

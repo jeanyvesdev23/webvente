@@ -44,6 +44,11 @@ class Categorie
      */
     private $produit;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $icons;
+
     public function __construct()
     {
         $this->produit = new ArrayCollection();
@@ -122,5 +127,17 @@ class Categorie
     public function __toString()
     {
         return $this->getNomCate();
+    }
+
+    public function getIcons(): ?string
+    {
+        return $this->icons;
+    }
+
+    public function setIcons(string $icons): self
+    {
+        $this->icons = $icons;
+
+        return $this;
     }
 }

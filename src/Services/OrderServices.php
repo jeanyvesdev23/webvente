@@ -23,6 +23,7 @@ class OrderServices
             $panier = new Panier;
             $total = $produit['quantite'] * $produit['produit']->getPrixPro();
             $panier->setCommande($commande)
+                ->setImageProduct($produit["produit"]->getImagePro())
                 ->setNameProduct($produit['produit']->getNomPro())
                 ->setPriceProduct($produit["produit"]->getPrixPro())
                 ->setQteProduct($produit['quantite'])

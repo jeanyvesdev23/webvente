@@ -1,0 +1,86 @@
+{% extends "dashboard.html.twig" %}
+{% block title "Detail commandes" %}
+{% block body %}
+
+	<div class="main-content">
+		<main>
+			<div class="detail-commande">
+				<h4>Detail de la commande</h4>
+			</div>
+			<div class="info-user_commander d-flex justify-content-between align-items-center">
+				<div>
+					<h5>Information concernant au client</h5>
+					<p>Nom</p>
+					<p>E-mail</p>
+					<p>Télephone</p>
+				</div>
+				<div class=" d-flex justify-content-center">
+					<div>
+						{{form_start(form)}}
+						{{form_row(form.statusLivraison)}}
+						{{form_row(form.statusPaiement)}}
+						{{form_end(form)}}
+					</div>
+					<div>
+						<button class="btn btn-warning h-100">Valider</button>
+					</div>
+				</div>
+			</div>
+			<div class="address-liv d-flex justify-content-between ">
+				<div class="addres  d-flex justify-content-center ">
+					<div>
+						<h5>Addresse de livraison</h5>
+						<p>Address :</p>
+					</div>
+					<div>
+						<h5>Addresse de Facturation</h5>
+						<p>Address :</p>
+					</div>
+				</div>
+				<div class="info-commande">
+					<div>
+
+						<p>code commande</p>
+						<p>Date de creation</p>
+						<p>type de livraison</p>
+						<p>Mode de paiement</p>
+					</div>
+				</div>
+			</div>
+			<div class="table">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>#</td>
+							<td>Produit</td>
+							<td>Quantite</td>
+							<td>Prix unitaire</td>
+							<td>Total</td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for panier in panier %}
+							<tr>
+								<td>{{panier.id}}</td>
+								<td class="d-flex justify-content-center ">
+
+									<img src="/asset/upload/product/{{panier.imageProduct}}" width:"60px" height="60px" alt="" srcset="">
+									<div>
+
+										{{panier.nameProduct}}
+
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex libero a eligendi dignissimos, voluptatum aut.</p>
+									</div>
+
+								</td>
+								<td>{{panier.qteProduct}}</td>
+								<td>{{panier.priceProduct}}</td>
+								<td>{{panier.total}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
+{% endblock %}

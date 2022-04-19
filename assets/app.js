@@ -21,7 +21,7 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-//dashboard
+//dashboard menu
 
 let bcd = document.querySelectorAll(".bcd");
 for (let i = 0; i < bcd.length; i++) {
@@ -33,3 +33,19 @@ for (let i = 0; i < bcd.length; i++) {
     });
 
 }
+//liste de produit next et previous
+const productContainer = [...document.querySelectorAll(".product-container")];
+const prev = [...document.querySelectorAll(".prev")];
+const next = [...document.querySelectorAll(".next")];
+
+productContainer.forEach((item, i) => {
+    let containtDim = item.getBoundingClientRect();
+    let containtWidth = containtDim.width;
+
+    next[i].addEventListener('click', () => {
+        item.scrollLeft += containtWidth;
+    })
+    prev[i].addEventListener('click', () => {
+        item.scrollLeft -= containtWidth;
+    })
+})

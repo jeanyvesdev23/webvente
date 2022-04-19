@@ -1,54 +1,95 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block title"Show produit" %}
 
 {% block body %}
-    <h1>Produit</h1>
+	<div class="main-content">
+		<main>
+			<div class="pro-image row align-items-center">
+				<div class="col-3">
+					<img src="/asset/upload/product/{{produit.imagePro}}" width:"200px" height="200px" alt="" srcset="">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ produit.id }}</td>
-            </tr>
-            <tr>
-                <th>NomPro</th>
-                <td>{{ produit.nomPro }}</td>
-            </tr>
-            <tr>
-                <th>PrixPro</th>
-                <td>{{ produit.prixPro }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ produit.status ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Nouveau</th>
-                <td>{{ produit.nouveau ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Meilleur</th>
-                <td>{{ produit.meilleur ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>ImagePro</th>
-                <td>{{ produit.imagePro }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ produit.createdAt ? produit.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdateAt</th>
-                <td>{{ produit.updateAt ? produit.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+				</div>
+				<div class="col-9 ">
+					<h4>{{produit.nomPro}}</h4>
+					<span>
+						<i class="bi-star-fill"></i>
+						<i class="bi-star-fill"></i>
+						<i class="bi-star-fill"></i>
+						<i class="bi-star-fill"></i>
+						<i class="bi-star"></i>
+					</span>
+					<div class="d-flex text-center">
+						<div>
+							<p>commantaire</p>
+							<p>2</p>
+						</div>
+						<div>
+							<p>stock</p>
+							<p>2</p>
+						</div>
+						<div>
+							<p>Total vendu :</p>
+							<p>2</p>
+						</div>
+					</div>
+				</div>
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<div class="info_produit">
+						<div class="d-flex justify-content-between aling-items-center">
+							<p>status</p>
+							<p>publier</p>
+						</div>
+						<div class="d-flex justify-content-between aling-items-center">
+							<p>Marque</p>
+							<p>marque</p>
+						</div>
+						<div class="d-flex justify-content-between aling-items-center">
+							<p>Categorie</p>
+							<p>categorie</p>
+						</div>
+						<div class="d-flex justify-content-between aling-items-center">
+							<p>garantie</p>
+							<p>à la garantie</p>
+						</div>
 
-    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+					</div>
+					<div class="info_produit">
+						<h4>Taxe sur le valeur ajouter</h4>
+						<div class="d-flex justify-content-between aling-items-center">
+							<p>GST</p>
+							<p>23.344</p>
+						</div>
+						<div class="d-flex justify-content-between aling-items-center">
+							<p>TAX</p>
+							<p>0.121</p>
+						</div>
 
-    {{ include('produit/_delete_form.html.twig') }}
+
+					</div>
+				</div>
+				<div class="col-9 ps-5">
+					<div class="prix-pro">
+						<h4>Prix produit , sstock</h4>
+						<div class="d-gird">
+							<p>Prix</p>
+							<p>325225</p>
+							<p>Stocker</p>
+							<p>En stock</p>
+						</div>
+					</div>
+					<div class="galerie">
+						<h4>Galerie</h4>
+						<div class="text-center w-100">
+
+							<img src="/asset/upload/product/{{produit.imagePro}}" width:"100%" height="400px" alt="" srcset="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
 {% endblock %}

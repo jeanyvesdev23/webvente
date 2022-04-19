@@ -1,49 +1,97 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title 'All produit' %}
 
 {% block body %}
-    <h1>Produit index</h1>
+	<div class="main-content">
+		<main>
+			<div class="prod d-flex justify-content-between pt-4 align-items-center">
+				<h5>Tous les produits</h5>
+				<a href="{{path("app_produit_new")}}">
+					<button class="btn btn-warning">Ajouter un nouveau produit</button>
+				</a>
+			</div>
+			<div class="prod d-flex justify-content-between p-3 align-items-center">
+				<h5>Tous les produits</h5>
+				<div>
+					<input type="text">
+					<input type="text">
+				</div>
+			</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomPro</th>
-                <th>PrixPro</th>
-                <th>Status</th>
-                <th>Nouveau</th>
-                <th>Meilleur</th>
-                <th>ImagePro</th>
-                <th>CreatedAt</th>
-                <th>UpdateAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.nomPro }}</td>
-                <td>{{ produit.prixPro }}</td>
-                <td>{{ produit.status ? 'Yes' : 'No' }}</td>
-                <td>{{ produit.nouveau ? 'Yes' : 'No' }}</td>
-                <td>{{ produit.meilleur ? 'Yes' : 'No' }}</td>
-                <td>{{ produit.imagePro }}</td>
-                <td>{{ produit.createdAt ? produit.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ produit.updateAt ? produit.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nom</th>
+						<th>Info</th>
+						<th>Categorie</th>
+						<th>Marque</th>
+						<th>Publier</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for produit in produits %}
+						<tr>
+							<td>{{ produit.id }}</td>
+							<td>
+								<div class="d-flex  ps-4 pe-0 m-0  align-items-center">
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+									<img src="/asset/upload/product/{{produit.imagePro}}" width:"60px" height="60px" alt="" srcset="">
+									{{produit.nomPro}}
+								</div>
+							</td>
+							<td>
+								<div class="info">
+									<p>Evaluation:
+										<span>
+											<i class="bi-star-fill"></i>
+											<i class="bi-star-fill"></i>
+											<i class="bi-star-fill"></i>
+											<i class="bi-star-half"></i>
+											<i class="bi-star"></i>
+										</span>
+										<br>Total vendu :
+										<br>
+										Prix:
+										{{ produit.prixPro }}</p>
+
+								</div>
+							</td>
+							<td>
+								<span class="badge bg-secondary">{{produit.categorie}}</span>
+							</td>
+							<td>marque</td>
+							<td>{{ produit.status ? 'Yes' : 'No' }}</td>
+
+							<td>
+								<div class="d-flex justify-content-center align-items-center m-0">
+
+									<a href="{{ path('app_produit_show2', {'id': produit.id}) }}">
+										<span>
+											<i class="bi-eye-fill"></i>
+										</span>
+									</a>
+									<a href="{{ path('app_produit_edit', {'id': produit.id}) }}">
+										<span>
+											<i class="bi-pencil-square"></i>
+										</span>
+									</a>
+									{{ include('produit/_delete_form.html.twig') }}
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="10">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</main>
+
+	</div>
+
+
 {% endblock %}
