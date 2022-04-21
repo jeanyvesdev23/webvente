@@ -20,10 +20,16 @@ class Cartservices
     {
         return $this->session->get("cart", []);
     }
+    public function getfav()
+    {
+        return $this->session->get("favorite", []);
+    }
     public function updateCart($cart)
     {
+        $this->session->set("favorite", $cart);
         $this->session->set("cart", $cart);
         $this->session->set("cartData", $this->getFullCart());
+        $this->session->set("favoriteData", $this->getfavorite());
     }
     public function addCart($id)
     {
@@ -34,6 +40,31 @@ class Cartservices
             $cart[$id] = 1;
         }
         $this->updateCart($cart);
+    }
+    public function addfavorite($id)
+    {
+        $fav = $this->getfav();
+        if (isset($fav[$id])) {
+            $fav[$id]++;
+        } else {
+            $fav[$id] = 1;
+        }
+        $this->updateCart($fav);
+    }
+    public function getfavorite()
+    {
+        $favorite = $this->getfav();
+        $fav_produit = [];
+        foreach ($favorite as $id) {
+            $produit = $this->produitRepository->find($id);
+            if ($produit) {
+                $fav_produit[] = [
+                    'produit' => $produit
+                ];
+            }
+        }
+
+        return $fav_produit;
     }
     public function getFullCart()
     {
@@ -64,14 +95,39 @@ class Cartservices
     }
     public function deleteCart($id)
     {
-        $cart = $this->session->set("cart", []);
+        $cart = $this->getcart();
+
         if (isset($cart[$id])) {
             unset($cart[$id]);
+            $this->updateCart($cart);
         }
-        $this->updateCart($cart);
+    }
+    public function deleteFromCart($id)
+    {
+        $cart = $this->getcart();
+
+        if (isset($cart[$id])) {
+            if ($cart[$id] > 1) {
+                $cart[$id]--;
+            } else {
+
+                unset($cart[$id]);
+            }
+            $this->updateCart($cart);
+        }
     }
     public function deleteAllCart()
     {
         $this->updateCart([]);
+    }
+    public function delCart($id)
+    {
+        $cart = $this->getcart();
+        if (isset($cart[$id])) {
+            $cart[$id]--;
+        } else {
+            unset($cart[$id]);
+        }
+        $this->updateCart($cart);
     }
 }

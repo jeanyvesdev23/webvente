@@ -72,6 +72,13 @@ class Commande
      */
     private $statusCommandes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=StatusPaiement::class, inversedBy="commande")
+     */
+    private $statusPaiement;
+
+
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -231,6 +238,17 @@ class Commande
     public function setStatusCommandes(?StatusCommande $statusCommandes): self
     {
         $this->statusCommandes = $statusCommandes;
+
+        return $this;
+    }
+    public function getStatusPaiement(): ?StatusPaiement
+    {
+        return $this->statusPaiement;
+    }
+
+    public function setStatusPaiement(?StatusPaiement $statusPaiement): self
+    {
+        $this->statusPaiement = $statusPaiement;
 
         return $this;
     }

@@ -18,7 +18,7 @@ class OrderServices
         $commande = new Commande;
         $address = $data["checkout"]["Address"];
         $information = $data["checkout"]["Information"];
-        $commande->setCodeCommande(new \DateTime)->setStatusCommande("commande passer")->setSubTotal($data["data"]["total"])->setQuantite($data["data"]["totalqte"])->setUsers($user)->setAddressLivraison($address)->setInformation($information);
+        $commande->setCodeCommande(new \DateTime)->setSubTotal($data["data"]["total"])->setQuantite($data["data"]["totalqte"])->setUsers($user)->setAddressLivraison($address)->setInformation($information);
         foreach ($data["produit"] as $produit) {
             $panier = new Panier;
             $total = $produit['quantite'] * $produit['produit']->getPrixPro();

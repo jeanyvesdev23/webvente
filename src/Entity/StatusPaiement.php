@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\StatusCommandeRepository;
+use App\Repository\StatusPaiementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=StatusCommandeRepository::class)
+ * @ORM\Entity(repositoryClass=StatusPaiementRepository::class)
  */
-class StatusCommande
+class StatusPaiement
 {
     /**
      * @ORM\Id
@@ -22,25 +22,21 @@ class StatusCommande
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $statusLivraison;
-
+    private $isPayer;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $typeLivraison;
-
-
-
-    /**
-     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="statusCommandes")
-     */
-    private $commande;
-
+    private $typePayer;
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $style;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="statusPaiement")
+     */
+    private $commande;
 
     public function __construct()
     {
@@ -52,33 +48,29 @@ class StatusCommande
         return $this->id;
     }
 
-    public function getStatusLivraison(): ?string
+    public function getIsPayer(): ?string
     {
-        return $this->statusLivraison;
+        return $this->isPayer;
     }
 
-    public function setStatusLivraison(string $statusLivraison): self
+    public function setIsPayer(string $isPayer): self
     {
-        $this->statusLivraison = $statusLivraison;
+        $this->isPayer = $isPayer;
 
         return $this;
     }
 
-
-
-    public function getTypeLivraison(): ?string
+    public function getTypePayer(): ?string
     {
-        return $this->typeLivraison;
+        return $this->typePayer;
     }
 
-    public function setTypeLivraison(string $typeLivraison): self
+    public function setTypePayer(string $typePayer): self
     {
-        $this->typeLivraison = $typeLivraison;
+        $this->typePayer = $typePayer;
 
         return $this;
     }
-
-
 
     /**
      * @return Collection<int, Commande>
@@ -92,7 +84,7 @@ class StatusCommande
     {
         if (!$this->commande->contains($commande)) {
             $this->commande[] = $commande;
-            $commande->setStatusCommandes($this);
+            $commande->setStatusPaiement($this);
         }
 
         return $this;
@@ -102,18 +94,13 @@ class StatusCommande
     {
         if ($this->commande->removeElement($commande)) {
             // set the owning side to null (unless already changed)
-            if ($commande->getStatusCommandes() === $this) {
-                $commande->setStatusCommandes(null);
+            if ($commande->getStatusPaiement() === $this) {
+                $commande->setStatusPaiement(null);
             }
         }
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->getStatusLivraison();
-    }
-
     public function getStyle(): ?string
     {
         return $this->style;
@@ -124,5 +111,9 @@ class StatusCommande
         $this->style = $style;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->getIsPayer();
     }
 }

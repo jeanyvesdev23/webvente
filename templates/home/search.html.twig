@@ -1,33 +1,15 @@
-{% extends 'base.html.twig' %}
-
-{% block title 'All produit' %}
-
+{% extends "base.html.twig" %}
+{% block title "Resultat pour le recherche" %}
 {% block body %}
-	<div class="container " style="margin-top:11rem">
+	<div class="container mt">
 		<div class="row">
-			<div class="col-3">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">CATHEGORIES
-					</a>
-					{% for categorie in categories %}
+			<div class="col-9 mx-auto">
 
-						<a href="#" class="list-group-item list-group-item-action list-group-item-primary">{{categorie.nomCate}}</a>
-					{% endfor %}
+				<div class="liste-comerce top ">
+					<div class="new">
+						<h6>Resultat pour la recherche</h6>
+					</div>
 
-				</div>
-			</div>
-			<div class="col-9">
-
-				<div class="liste-comerce top d-flex justify-content-between">
-					<div class="new">
-						<h6>Nouveau produit</h6>
-					</div>
-					<div class="new">
-						<h6>Meilleur produit</h6>
-					</div>
-					<div class="new">
-						<h6>Futur produit</h6>
-					</div>
 				</div>
 
 				<div class="liste-produit">
@@ -37,7 +19,7 @@
 						<div class="product-card  m-1 bg-white box">
 							<div class="product-image p-2 text-center">
 								<a href="{{path("app_produit_show",{id:produit.id})}}">
-									<img src="./asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
+									<img src="../asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
 								</a>
 							</div>
 							<div class="cart-flex ">
@@ -76,7 +58,6 @@
 
 
 			</div>
-
 		</div>
 	</div>
 {% endblock %}

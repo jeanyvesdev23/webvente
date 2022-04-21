@@ -13,9 +13,11 @@
 				<h3>{{produit.nomPro}}</h3>
 				<p>{{categorie.nomCate}}</p>
 				<h3>{{produit.prixPro}}
-					<span>
-						<i class="bi-heart"></i>
-					</span>
+					<a href="{{path("add_favorite",{id:produit.id})}}">
+						<span>
+							<i class="bi-heart"></i>
+						</span>
+					</a>
 				</h3>
 				<p>{{produit.descriptionPro}}
 				</p>

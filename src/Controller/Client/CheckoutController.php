@@ -34,9 +34,15 @@ class CheckoutController extends AbstractController implements Countable
         } elseif (!$users) {
             return $this->redirectToRoute("app_login");
         }
-        $form = $this->createForm(CheckoutType::class, null, ['user' => $users])->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $session->get("checkout_data", []);
+        $form = $this->createForm(CheckoutType::class,  null, ['user' => $users])->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid() && $session->get('checkout_data', [])) {
+            if ($session->get("checkout_data", [])) {
+                $data = $session->get("checkout_data", []);
+            } else {
+                $data = $form->getData();
+                $data = $session->set("checkout_data", $data);
+            }
+
             $carts["checkout"] = $data;
             $orderServices->savecart($carts, $users);
             $commande = $commande->findAll();

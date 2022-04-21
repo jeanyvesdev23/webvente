@@ -40,13 +40,18 @@
 		</ul>
 		<nav class="navbar navbar-light bg-primary display-inline-block container">
 			<h3 class="ps-4">Webvente</h3>
-			<form>
+			<form action="{{path("app_produit_search")}}" methode="get">
 				<div class="input-group">
-					<select name="categorie" id="categorie" class="form-selecte form-control br">
-						<option value="0">Categorie</option>
+					<select name="categorie" id="categorie" class="form-selecte form-control adi">
+						<option value="0">All categorie</option>
+						<option value="Smartphone">Smartphone</option>
+						<option value="2">Ordinateur</option>
+						<option value="3">Sport</option>
+						<option value="4">Vétement</option>
+						<option value="5">Télévision</option>
 					</select>
-					<input type="text" class="form-control" placeholder="Search here" aria-label="Username" aria-describedby="basic-addon1" style="width:400px">
-					<button type="submit" class="btn btn-warning br">
+					<input type="text" class="form-control" name="nomPro" placeholder="Search here" aria-label="Username" aria-describedby="basic-addon1" style="width:400px">
+					<button type="submit" class="btn btn-warning adi">
 						<i class="bi-search"></i>
 					</button>
 				</div>
@@ -55,10 +60,10 @@
 				<span>
 					<i class="bi-cart-check-fill fs-5"></i>
 
-					<small class="ps-4">CART - 123411  Ar</small>
+					<small class="ps-4">CART - 122234 Ar</small>
 				</span>
 
-				<span class="numb-cart bg-warning text-dark text-center">8</span>
+				<span class="numb-cart bg-warning text-dark text-center">3</span>
 
 			</button>
 		</nav>

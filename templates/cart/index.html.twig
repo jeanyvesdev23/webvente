@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!
-{% endblock %}
+{% block title "Votre panier" %}
 
 {% block body %}
 	<div class="container" style="margin-top:200px">
@@ -13,14 +12,14 @@
 			{% if carts|length > 0 %}
 
 				<div class="contenu">
-					<table class="table text-center">
+					<table class="table table-striped text-center fs-6">
 						<thead>
 							<tr>
 								<th></th>
 								<th>Produit</th>
 								<th>Prix</th>
 								<th>Quantiter</th>
-								<th>Toatal</th>
+								<th>Total</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -45,7 +44,17 @@
 									</td>
 									<td>
 										<div class="quantite-pro">
+											<a href="{{path("deletefrom_cart",{id:cart.produit.id})}}">
+												<span class="badge bg-secondary">
+													<i class="bi-caret-left-fill"></i>
+												</span>
+											</a>
 											{{cart.quantite}}
+											<a href="{{path("add_cart",{id:cart.produit.id})}}">
+												<span class="badge bg-secondary">
+													<i class="bi-caret-right-fill"></i>
+												</span>
+											</a>
 										</div>
 									</td>
 
@@ -55,7 +64,9 @@
 										</div>
 									</td>
 									<td>
-										<span class="badge rounded-pill bg-danger">delete</span>
+										<a href="{{path("delete_cart",{id:cart.produit.id})}}">
+											<span class="badge rounded-pill bg-danger">delete</span>
+										</a>
 									</td>
 
 								</tr>
@@ -64,7 +75,9 @@
 					</table>
 
 					<div class="t-footer d-flex justify-content-between">
-						<button class="btn btn-primary">CONTINUER MES ACHATS</button>
+						<a href="{{path("app_produit")}}">
+							<button class="btn btn-primary">CONTINUER MES ACHATS</button>
+						</a>
 						<div class="total">
 							<span class="pe-5">TOTAL :
 								{{data.total}}</span>

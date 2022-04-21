@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Addres
-{% endblock %}
+{% block title "Nouvelle addresse"%}
 
 {% block body %}
 	<div class="container" style="margin-top:200px">
 		<div class="row">
 			<div class="col-md-6 mx-auto">
 
-				<h1 class="text-center">Creation de nouveau adresse</h1>
+				<h1 class="text-center">Creation de nouvelle adresse</h1>
 
 				{{ include('addres/_form.html.twig') }}
 
-				<a href="{{ path('app_addres_index') }}">back to list</a>
+				<a href="{{ path('app_compte') }}">back to compte</a>
 			</div>
 
 		</div>

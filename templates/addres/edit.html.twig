@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Addres{% endblock %}
+{% block title %}Edit Addres
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Addres</h1>
+	<h1>Edit Addres</h1>
 
-    {{ include('addres/_form.html.twig', {'button_label': 'Update'}) }}
+	{{ include('addres/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_addres_index') }}">back to list</a>
+	<a href="{{ path('app_addres_index') }}">back to list</a>
 
-    {{ include('addres/_delete_form.html.twig') }}
+	{{ include('addres/_delete_form.html.twig') }}
 {% endblock %}

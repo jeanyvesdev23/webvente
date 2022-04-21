@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Repository\MarqueRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
-use App\Repository\MarqueRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,13 +25,31 @@ class HomeController extends AbstractController
     /**
      * @Route("/produit", name="app_produit", methods={"GET"})
      */
-    public function produit(ProduitRepository $produitRepository, CategorieRepository $categorieRepository, MarqueRepository $marqueRepository): Response
+    public function produit(ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
     {
-        $produits = $produitRepository->findAll();
-        $categories = $categorieRepository->findAll();
         return $this->render('home/produit.html.twig', [
-            'produits' => $produits,
-            'categories' => $categories
+            'produits' => $produitRepository->findAll(),
+            'categories' => $categorieRepository->findAll()
+        ]);
+    }
+    /**
+     * @Route("/produit/seach", name="app_produit_search", methods={"GET"})
+     */
+    public function search(ProduitRepository $produitRepository, CategorieRepository $categorieRepository, Request $request): Response
+    {
+
+        $result = $request->query->get("nomPro");
+        $result1 = $request->query->get("categorie");
+
+        $resulta = $produitRepository->search($result, $result1);
+        if ($resulta == null) {
+            return $this->redirectToRoute("app_produit");
+        }
+
+
+        return $this->render('home/search.html.twig', [
+            'produits' => $resulta,
+            'categories' => $categorieRepository->findAll()
         ]);
     }
 

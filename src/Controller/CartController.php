@@ -35,7 +35,8 @@ class CartController extends AbstractController
      */
     public function addCart($id)
     {
-        $carts = $this->cartservices->addCart($id);
+        $this->cartservices->addCart($id);
+
         return $this->redirectToRoute("app_cart");
     }
     /**
@@ -43,7 +44,28 @@ class CartController extends AbstractController
      */
     public function deleteCArt($id)
     {
-        $carts = $this->cartservices->deleteCart($id);
+        $this->cartservices->deleteCart($id);
+
         return $this->redirectToRoute("app_cart");
+    }
+    /**
+     * @Route("/deletefromcart/{id<[0-9]+>}",name="deletefrom_cart")
+     */
+    public function deletefromCArt($id)
+    {
+        $this->cartservices->deleteFromCart($id);
+
+        return $this->redirectToRoute("app_cart");
+    }
+    /**
+     * @Route("/addFavorite/{id<[0-9]+>}",name="add_favorite")
+     */
+    public function addfavorite($id)
+    {
+        $this->cartservices->addfavorite($id);
+
+        return $this->redirectToRoute("app_produit_show", [
+            "id" => $id
+        ]);
     }
 }

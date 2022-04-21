@@ -4,7 +4,7 @@
     top:0%;
     left: 0%;
     position: fixed;
-    background-color: brown;
+    background-color: rgb(14, 2, 43);
     z-index: 100;
     .sidebar-brand{
         text-align: center; 
@@ -17,20 +17,20 @@
             padding-top :30px;;
             li{
                 width: 100%;
-                padding-bottom: 1rem;
-                padding-left: 0rem;
+                padding: 0.5rem;               
                 position:relative;
                 list-style: none;
                 transition: all 0.4s ease; 
                
-                .sub-menu{
+                ul.sub-menu{
                     padding-left: 15px;                    
-                    margin-top: -10px;
+                    margin-top: -2rem;
+                    list-style-type: circle;
                     display: none;
                     li{
                         a{
                             font-size: 13px;
-                            padding: 1rem;
+                            padding: 0.5rem;
                         }
                     }
                 }        
@@ -45,22 +45,25 @@
                         color: #fff;
                         font-size: 1rem;
                         padding-left: 1rem;
+                        padding-top: 0%;
                     
                         i{
                             text-align: center;
                             height: 10px;
                             min-width: 78px;                  
-                            padding-right: 1rem;
+                            padding-right: 0.5rem;
+                           
                         }
                     }
                     i{
-                        padding-right: 1rem;
+                        padding-right: 0.5rem;
+                        color: whitesmoke;
                     }
                     a.active{
-                        background-color: #fff;
+                        background-color: rgb(78, 64, 204);
                         padding-top: 0.5rem;
                         padding-bottom: 0.5rem;
-                        color: aqua;
+                        
                         width: 100%;
                         border-radius: 30px 0px 0px 30px;
                         
@@ -76,19 +79,11 @@
                         text-align: center;
                         height: 10px;
                         min-width: 78px;                  
-                        padding-right: 1rem;
+                        padding-right: 0.5rem;
                     }
                 }
             
-                a.active{
-                    background-color: #fff;
-                    padding-top: 0.5rem;
-                    padding-bottom: 0.5rem;
-                    color: aqua;
-                    width: 100%;
-                    border-radius: 30px 0px 0px 30px;
-                    
-                }
+               
             }
             li.showMenu{                   
                 .sub-menu{
@@ -98,7 +93,9 @@
         }
         }
         li:hover{
-            background-color: rgb(199, 5, 5);
+            width: 100%;
+            background-color: rgb(65, 43, 161);
+            border-radius: 20px 0px 0px 20px;
         }
     }
 }
@@ -131,7 +128,18 @@
     }
 }
 .main-content{
-    margin-left: 255px;
+    margin-left: 255px; 
+    .brc{
+        border-radius: 50%;
+    }
+    .bsw{
+        margin-top: 0rem;
+        border: 2px solid rgb(236, 230, 230);
+        .prod{
+            border-bottom: 2px solid whitesmoke;
+            
+        }
+    }
     
     main{
         margin-top: 100px;

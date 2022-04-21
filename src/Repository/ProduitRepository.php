@@ -45,22 +45,28 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Produit[] Returns an array of Produit objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Produit[] Returns an array of Produit objects
+     */
+
+    public function search($value, $number = null)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        if ($number == '0') {
+            $query = $this->createQueryBuilder('p')
+                ->andWhere('p.nomPro LIKE :val')
+                ->setParameter('val', '%' . $value . '%');
+        } else {
+            $query = $this->createQueryBuilder('p')
+                ->andWhere('p.nomPro LIKE :val')
+                ->setParameter('val', '%' . $value . '%')
+                ->join('p.categorie', 'c')
+                ->andWhere('c.id IN (:valu) ')
+                ->setParameter('valu', (int)$number);
+        }
+
+        return $query->getQuery()->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Produit
