@@ -1,108 +1,111 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block title %}Tableau de baord
-{% endblock %}
+{% block title "Administration" %}
 
 {% block body %}
 	<div class="main-content">
 
 		<main>
 			<div class="cards">
-				<div class="cards-single">
+				<div class="cards-single bgb">
 					<div>
 						<span>Clients totaux</span>
-						<h4>23</h4>
+						<h4>{{users}}</h4>
 					</div>
-					<div>
+					<div class=" tfmp">
 						<span>
-							<i class="bi-person"></i>
+							<i class="bi-people"></i>
 						</span>
 					</div>
 				</div>
-				<div class="cards-single">
+				<div class="cards-single bgy">
 					<div>
-						<span>Produit totaut</span>
-						<h4>45</h4>
+						<span>Produit totaux</span>
+						<h4>{{produits}}</h4>
 					</div>
-					<div>
+					<div class=" tfmp">
 						<span>
-							<i class="bi-person"></i>
+							<i class="bi-layout-text-sidebar"></i>
 						</span>
 					</div>
 				</div>
-				<div class="cards-single">
+				<div class="cards-single bgi">
 					<div>
-						<span>Total de commande</span>
-						<h4>65</h4>
+						<span>Total des commandes</span>
+						<h4>{{commandes}}</h4>
 					</div>
-					<div>
+					<div class=" tfmp">
 						<span>
-							<i class="bi-person"></i>
+							<i class="bi-list-check"></i>
 						</span>
 					</div>
 				</div>
-				<div class="cards-single">
+				<div class="cards-single bgd">
 					<div>
-						<span>Total des ventes</span>
-						<h4>12</h4>
+						<span>Ventes total</span>
+						<h4>{{vendus}}
+							Ar</h4>
 					</div>
-					<div>
+					<div class=" tfmp">
 						<span>
-							<i class="bi-person"></i>
+							<i class="bi-receipt"></i>
 						</span>
 					</div>
 				</div>
 			</div>
-			<div class="d-flex">
+			<div class="d-flexe">
 				<div class="statistique">
-					<div class="stati">
+					<div class="stati cards-single">
 						<p>statistiques des commandes</p>
-						<span>
-							<i class="bi-person"></i>
-						</span>
+						<div class="tfm">
+
+							<span>
+								<i class="bi-graph-up"></i>
+							</span>
+						</div>
 					</div>
-					<div class="card">
+					<div class="carde">
 						<div class="card-single">
 							<div>
-								<h4>12</h4>
-								<span>Total des ventes</span>
+								<h4 class="fs-6 m-0">{{categories}}</h4>
+								<span class="fs-7">categorie total</span>
+							</div>
+
+							<span>
+								<i class="bi-grid"></i>
+							</span>
+
+						</div>
+						<div class="card-single">
+							<div>
+								<h4 class="fs-6 m-0">{{marques}}</h4>
+								<span class="fs-7">Marque total</span>
 							</div>
 							<div>
 								<span>
-									<i class="bi-person"></i>
+									<i class="bi-aspect-ratio"></i>
 								</span>
 							</div>
 						</div>
 						<div class="card-single">
 							<div>
-								<h4>12</h4>
-								<span>Total des ventes</span>
+								<h4 class="fs-6 m-0">12</h4>
+								<span class="fs-7">Bons de reduction</span>
 							</div>
 							<div>
 								<span>
-									<i class="bi-person"></i>
+									<i class="bi-tag"></i>
 								</span>
 							</div>
 						</div>
 						<div class="card-single">
 							<div>
-								<h4>12</h4>
-								<span>Total des ventes</span>
+								<h4 class="fs-6 m-0">12</h4>
+								<span class="fs-7">Des offres</span>
 							</div>
 							<div>
 								<span>
-									<i class="bi-person"></i>
-								</span>
-							</div>
-						</div>
-						<div class="card-single">
-							<div>
-								<h4>12</h4>
-								<span>Total des ventes</span>
-							</div>
-							<div>
-								<span>
-									<i class="bi-person"></i>
+									<i class="bi-award"></i>
 								</span>
 							</div>
 						</div>
@@ -110,134 +113,78 @@
 				</div>
 				<div class="commande">
 					<div class="commande-type">
-						<div>
-							<span>
-								<i class="bi-person"></i>
+						<div class="fw-bold">
+							<span class="text-warning fs-5 pe-1">
+								<i class="bi-clipboard-minus"></i>
 							</span>
-							<span>commande passee</span>
+							<span>commande passée</span>
 						</div>
-						<h4>23</h4>
+						<h5 class="m-0 text-warning">{{passer}}</h5>
 					</div>
 					<div class="commande-type">
-						<div>
-							<span>
-								<i class="bi-person"></i>
+						<div class="fw-bold">
+							<span class="text-primary fs-6 ">
+								<i class="bi-clipboard-check"></i>
 							</span>
-							<span>commande passee</span>
+							<span>commande confirmé</span>
 						</div>
-						<h4>23</h4>
+						<h5 class="m-0 text-primary">{{confirmer}}</h5>
 					</div>
 					<div class="commande-type">
-						<div>
-							<span>
-								<i class="bi-person"></i>
+						<div class="fw-bold">
+							<span class="text-info fs-5 pe-1">
+								<i class="bi-box"></i>
 							</span>
-							<span>commande passee</span>
+							<span>commande traité</span>
 						</div>
-						<h4>23</h4>
+						<h5 class="m-0 text-info">{{traiter}}</h5>
 					</div>
 					<div class="commande-type">
-						<div>
-							<span>
-								<i class="bi-person"></i>
+						<div class="fw-bold">
+							<span class="text-success fs-5 pe-1">
+								<i class="bi-truck"></i>
 							</span>
-							<span>commande passee</span>
+							<span>commande livré</span>
 						</div>
-						<h4>23</h4>
+						<h5 class="m-0 text-success">{{livrer}}</h5>
 					</div>
 				</div>
 				<div class="categorie">
 					<div class="catego-sup">
-						<h5>Categorie superieur</h5>
+						<h6 class="fw-bold p-3">Catégorie supérieure</h6>
 						<div class="catego-liste">
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Phone</span>
+							{% for categorie in categorie %}
+								<div class="liste">
+									<div>
+										<span>
+											<i class="{{categorie.icons}}"></i>
+										</span>
+										<span>{{categorie.nomCate}}</span>
+									</div>
+									<h6 class="pe-2 text-danger">12320 Ar</h6>
 								</div>
-								<h6 class="pe-2">12320 Ar</h6>
-							</div>
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Pc</span>
-								</div>
-								<h6 class="pe-2">23412 Ar</h6>
-							</div>
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Composante</span>
-								</div>
-								<h6 class="pe-2">10002 Ar</h6>
-							</div>
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Smart watch</span>
-								</div>
-								<h6 class="pe-2">122334 Ar</h6>
-							</div>
+							{% endfor %}
+
 						</div>
 					</div>
 				</div>
 				<div class="categorie">
 					<div class="catego-sup">
-						<h5>Meilleur marque</h5>
+						<h6 class="fw-bold p-3">Les meilleures marques</h6>
 						<div class="catego-liste">
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Phone</span>
+							{% for marque in marque %}
+
+								<div class="liste">
+									<div>
+										<span>
+											<i class="bi-aspect-ratio"></i>
+										</span>
+										<span>{{marque.nomMarque}}</span>
+									</div>
+									<h6 class='text-danger pe-2'>12320 Ar</h6>
 								</div>
-								<h6>12320 Ar</h6>
-							</div>
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Phone</span>
-								</div>
-								<h6>12320 Ar</h6>
-							</div>
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Pc</span>
-								</div>
-								<h6>23412 Ar</h6>
-							</div>
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Composante</span>
-								</div>
-								<h6>10002 Ar</h6>
-							</div>
-							<div class="liste">
-								<div>
-									<span>
-										<i class="bi-person"></i>
-									</span>
-									<span>Smart watch</span>
-								</div>
-								<h6>122334 Ar</h6>
-							</div>
+							{% endfor %}
+
 						</div>
 					</div>
 				</div>

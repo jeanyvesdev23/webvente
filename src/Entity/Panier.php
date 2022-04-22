@@ -51,6 +51,11 @@ class Panier
      */
     private $imageProduct;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $descriptionProduct;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +129,18 @@ class Panier
     public function setImageProduct(string $imageProduct): self
     {
         $this->imageProduct = $imageProduct;
+
+        return $this;
+    }
+
+    public function getDescriptionProduct(): ?string
+    {
+        return $this->descriptionProduct;
+    }
+
+    public function setDescriptionProduct(?string $descriptionProduct): self
+    {
+        $this->descriptionProduct = $descriptionProduct;
 
         return $this;
     }

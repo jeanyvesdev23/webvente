@@ -3,21 +3,40 @@
 {% block title 'Mes commandes' %}
 
 {% block body %}
-	<div class="container" style="margin-top:200px">
+	<div class="container mtt">
 		<div class=" row">
-			<div class="col-9 mx-auto">
+			<div class="col-9 bcf mx-auto">
 
-				<div class="commande-id bg-white p-3" style='border-radius:5px '>
+				<div class="commande-id m-5 bce p-3">
 					<div class="d-flex justify-content-between me-5 ms-5">
-						<h4>Commande #id</h4>
+						<h4>Commande #{{commande.codeCommande|date("Hi")}}</h4>
 						<div class="info-commande text-end">
 
-							<p class="mb-0">date de cration</p>
-							<p class="mb-0">date d'arriver</p>
-							<p class="mb-0">client</p>
-							<p class="mb-0">telephone</p>
-							<p class="mb-0">quantiter</p>
-							<p>Total</p>
+							<p class="mb-0">creé le
+								<span class="text-dark fw-bold ">
+									{{commande.createdAt|date("d-m-Y H:i")}}
+
+								</span>
+							</p>
+
+
+							<p class="mb-0">Arrivé prevus<span class="text-dark fw-bold ">
+									{{commande.createdAt|date("d-m-Y ")}}
+								</span>
+							</p>
+							<p class="mb-0">client :<span class="text-dark fw-bold ">
+									{{app.user.prenomUser}}</span>
+							</p>
+							<p class="mb-0">Télephone:<span class="text-dark fw-bold ">
+									{{app.user.numberPhone}}</span>
+							</p>
+							<p class="mb-0">quantité :<span class="text-dark fw-bold ">
+									{{commande.quantite}}</span>
+							</p>
+							<p>Total :<span class="text-dark fw-bold ">
+									{{commande.subtotal}}
+									Ar</span>
+							</p>
 						</div>
 					</div>
 					<div class="d-flex justify-content-between  me-5 ms-5 text-center">
@@ -46,12 +65,22 @@
 								<img src="/asset/upload/product/{{panier.imageProduct}}" width:"300px" height="300px" alt="" srcset="">
 
 							</div>
-							<div class="info-product col-8 text-center">
-								<h6>commande #id</h6>
-								<h5>nom de produit</h5>
-								<p>descriptionde produit</p>
-								<p>prix et date de creation</p>
-								<button>Commande effectuee</button>
+							<div class="info-product p-5 col-8 text-center">
+								<h6>
+									<span>
+										<i class="bi-heart-fill"></i>
+									</span>Commande numéro #{{commande.codeCommande|date("Hi")}}</h6>
+								<h5 class="fs-1">{{panier.nameProduct}}</h5>
+								<p>
+									<span class="text-dark fw-bold ">{{panier.descriptionProduct}}</span>
+								</p>
+								<p>
+									<span class="text-dark fw-bold ">Prix :
+									</span>
+									{{panier.priceProduct}}
+									,<span class="text-dark fw-bold ">{{panier.createdAt|date("d/m/Y ")}}</span>
+								</p>
+								<button class="btn btn-info">Commande effectuee</button>
 							</div>
 						</div>
 					{% endfor %}

@@ -3,10 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Commande;
+use App\Entity\Produit;
 use App\Form\CommandeType;
-use App\Form\StatusCommandeType;
+use App\Repository\CategorieRepository;
 use App\Repository\PanierRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\UserRepository;
+use App\Repository\ProduitRepository;
+use App\Repository\MarqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +25,33 @@ class AdminController extends AbstractController
     /**
      * @Route(" ", name="app_admin")
      */
-    public function index(): Response
+    public function index(ProduitRepository $produit, CategorieRepository $categorie, MarqueRepository $marque, CommandeRepository $commande, UserRepository $user): Response
     {
-        return $this->render('admin/index.html.twig', []);
+
+        $vendus = $commande->findBy(["statusPaiement" => 2]);
+
+        $totaux = 0;
+        for ($i = 0; $i < $commande->count(["statusPaiement" => 2]); $i++) {
+            $total[] = $vendus[$i]->getSubTotal();
+        }
+        foreach ($total as $key => $value) {
+            $totaux += $value;
+        }
+
+        return $this->render('admin/index.html.twig', [
+            "produits" => $produit->count([]),
+            "commandes" => $commande->count([]),
+            "passer" => $commande->count(["statusCommandes" => 1]),
+            "confirmer" => $commande->count(["statusCommandes" => 2]),
+            "traiter" => $commande->count(["statusCommandes" => 4]),
+            "livrer" => $commande->count(["statusCommandes" => 3]),
+            "vendus" => $totaux,
+            "users" => $user->count([]),
+            "categorie" => $categorie->findBy([], [], 4),
+            "categories" => $categorie->count([]),
+            "marque" => $marque->findBy([], [], 5),
+            "marques" => $marque->count([])
+        ]);
     }
     /**
      * @Route("/commandes",name="app_commandes")
@@ -54,5 +82,19 @@ class AdminController extends AbstractController
             "panier" => $panier->findBy(["commande" => $id]),
             "form" => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/produit/isStatus/{id}",name="app_status")
+     */
+    public function ispublier(Produit $produit, EntityManagerInterface $em)
+    {
+        if ($produit->getStatus() == true) {
+            $status = false;
+        } else {
+            $status = true;
+        }
+        $produit->setStatus($status);
+        $em->flush();
+        return $this->redirectToRoute("app_produit_index");
     }
 }

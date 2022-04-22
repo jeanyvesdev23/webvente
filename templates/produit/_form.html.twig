@@ -1,4 +1,44 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="row">
+	<div class="col-md-8 mx-auto">
+		<div class="row">
+			<div class="col-6">
+
+				{{ form_row(form.nomPro) }}
+			</div>
+			<div class="col-6">
+
+				{{ form_row(form.prixPro) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+
+				{{ form_row(form.categorie) }}
+			</div>
+			<div class="col-6">
+
+				{{ form_row(form.marque) }}
+			</div>
+		</div>
+		<div class="row ">
+			<div class="col-4 ps-5">
+				{{ form_row(form.status) }}
+
+			</div>
+			<div class="col-4">
+				{{ form_row(form.nouveau) }}
+
+			</div>
+			<div class="col-4">
+				{{ form_row(form.meilleur) }}
+
+			</div>
+		</div>
+		{{ form_row(form.imagePro) }}
+		{{ form_row(form.descriptionPro) }}
+		<button class="btn btn-warning w-100">{{ button_label|default('Ajouter') }}</button>
+
+	</div>
+</div>
 {{ form_end(form) }}

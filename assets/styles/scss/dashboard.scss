@@ -107,8 +107,9 @@
         padding: 1rem;
         border-bottom: 1px solid #fff;
         box-shadow: 4px 2px 10px rgba(0 ,0, 0 ,0.2);
+        background-color: whitesmoke;
         position: fixed;
-        z-index: 100;
+        //z-index: 100;
         height: 90px;
         top:0%;
         width: calc(100% - 250px);
@@ -129,6 +130,13 @@
 }
 .main-content{
     margin-left: 255px; 
+    .bus{
+        border: 2px solid white;
+        background-color: #f5f5f5;
+        .bbu{
+            border-bottom: 2px solid white;
+        }
+    }
     .brc{
         border-radius: 50%;
     }
@@ -151,15 +159,35 @@
             grid-gap:2rem;
             margin-top: 3rem;
             .cards-single{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background-color: #fff;
-                padding: 2rem;
+               
+               border-radius: 5px;
+                padding: 1rem;
+                .tfmp{
+                    text-align: end;
+                    font-size: xxx-large;
+                    margin-top: -2rem;
+                   
+                }
+
+            }
+            .bgb{               
+                background-color: rgb(97, 65, 240);             
+
+            }
+            .bgy{               
+                background-color: rgb(238, 226, 64);             
+
+            }
+            .bgi{               
+                background-color: rgb(65, 228, 240);             
+
+            }
+            .bgd{               
+                background-color: rgb(241, 61, 48);             
 
             }
         }
-        .d-flex{
+        .d-flexe{
             display: grid;
             grid-template-columns: repeat(4,1fr);
             grid-gap:2rem;
@@ -168,19 +196,30 @@
                 display: block;
                 .stati{
                     display: block;                   
-                    background-color: #fff;
+                    background-color: rgb(236, 44, 44);
                     margin-bottom: 1rem;
+                    padding: 1rem;
+                    border-radius: 5px;
+                    .tfm{
+                        text-align: end;
+                        font-size: xxx-large;
+                    }
                 }
-                .card{
+                .carde{
                     display: grid;
-                    grid-template-columns: repeat(2,1fr);
+                    grid-template-columns: repeat(2,1fr);                   
                     grid-gap:0.5rem;
                     .card-single{
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;                       
+                        display: flex;                        
+                        align-items: center; 
+                        justify-content: space-between;                      
                         padding: 0.5rem;
-                        background-color: aqua;
+                        background-color: #ffffff;
+                        border-radius: 5px;
+                        border: 1px solid wheat;
+                        .fs-7{
+                            font-size: 0.6rem;
+                        }
                     }
                 }
             }

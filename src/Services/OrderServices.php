@@ -26,6 +26,7 @@ class OrderServices
                 ->setImageProduct($produit["produit"]->getImagePro())
                 ->setNameProduct($produit['produit']->getNomPro())
                 ->setPriceProduct($produit["produit"]->getPrixPro())
+                ->setDescriptionProduct($produit["produit"]->getDescriptionPro())
                 ->setQteProduct($produit['quantite'])
                 ->setTotal($total);
 

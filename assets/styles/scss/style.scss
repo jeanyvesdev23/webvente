@@ -147,13 +147,10 @@
 }
    
     //futur product
-    .liste-comerce{
+    .liste-comerce{    
        
-        background-color: #fff;
-        border-bottom: 1px solid rgb(243, 240, 240);
-        height: 50px;
-        border-radius: 5px;
-       
+        border-bottom: 1px solid #999;     
+             
         .new{
           padding: 1rem;
             font-size: 10px;
@@ -184,8 +181,8 @@
     }
     //listes des produits
     .futur-product{
-        background-color: rgb(252, 252, 252);
-        border: 1px solid whitesmoke;
+        background-color: #eee;
+        border: 1px solid #999;
     }
    
         .product-container{
@@ -194,7 +191,7 @@
             overflow-x: auto;
             scroll-behavior:smooth;   
             padding-left: 0%;
-            background-color: #fff;
+            
             .product-card{
                 flex : 0 0 auto;
                 width: 250px;

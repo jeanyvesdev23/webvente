@@ -2,27 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Addres;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddresType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fullName')
-            ->add('numero')
-            ->add('ville')
-            ->add('postal')
-            ->add('parcelle');
+            ->add('nomUser')
+            ->add('prenomUser')
+            ->add('email')
+            ->add('numberPhone');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Addres::class,
+            'data_class' => User::class,
         ]);
     }
 }

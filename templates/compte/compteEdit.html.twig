@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block title "Edit compte" %}
+{% block body %}
+	<div class="container mt">
+		<div class="row">
+			<div class="col-3">
+				{% include "./partial/_compteuser.html.twig" %}
+			</div>
+			<div class="p-4 br col-9">
+				<div class="fav ">
+					<h5>Informations personnel</h5>
+				</div>
+				<div class="form mt-2 p-3">
+					{{form_start(form)}}
+					<div class="row">
+						<div class="col-6">
+							{{form_row(form.nomUser)}}
+						</div>
+						<div class="col-6">
+							{{form_row(form.prenomUser)}}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							{{form_row(form.email)}}
+						</div>
+						<div class="col-6">
+							{{form_row(form.numberPhone)}}
+						</div>
+					</div>
+					<button type="submit" class="btn btn-warning">ENREGISTER</button>
+					{{form_end(form)}}
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

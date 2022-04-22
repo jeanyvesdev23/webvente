@@ -2,14 +2,18 @@
 
 namespace App\Controller\Client;
 
-use App\Entity\Commande;
 use App\Entity\User;
-use App\Repository\CommandeRepository;
-use App\Repository\PanierRepository;
+use App\Form\UserType;
+use App\Entity\Commande;
+use App\Form\AddresType;
 use App\Services\Cartservices;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PanierRepository;
+use App\Repository\CommandeRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CompteController extends AbstractController
 {
@@ -47,7 +51,8 @@ class CompteController extends AbstractController
     {
 
         return $this->render("compte/commande_show.html.twig", [
-            "commandes" => $commande,
+            "users" => $this->getUser(),
+            "commande" => $commande,
             "panier" => $panier->findBy(["commande" => $id])
         ]);
     }
@@ -64,11 +69,34 @@ class CompteController extends AbstractController
     /**
      * @Route("/compte/edit/{id}",name="app_compte_edit")
      */
-    public function editCompte(User $user)
+    public function editCompte(Request $request, EntityManagerInterface $em)
     {
+        $users = $this->getUser();
+        $form = $this->createForm(UserType::class, $users)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute("app_compte");
+        }
 
-        return $this->render("compte/favoriteproduit.html.twig", [
-            "fav_produit" => $favorite->getfavorite()
+        return $this->render("compte/compteEdit.html.twig", [
+            "form" => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/addres/edit/{id}",name="app_addres_edit")
+     */
+    public function editAddres(Request $request, EntityManagerInterface $em)
+    {
+        $users = $this->getUser()->getAddres()->getValues();
+
+        $form = $this->createForm(AddresType::class, $users[0])->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute("app_compte");
+        }
+
+        return $this->render("compte/addresEdit.html.twig", [
+            "form" => $form->createView()
         ]);
     }
 }

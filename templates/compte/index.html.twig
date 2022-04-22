@@ -38,9 +38,11 @@
 				<div class="d-flex pb-2 justify-content-between" style="border-bottom:1px solid black">
 
 					<h5>INFORMATIONS</h5>
-					<span class="badge bg-secondary">
-						<i class="bi-pencil-fill"></i>
-					</span>
+					<a href="{{path("app_compte_edit",{id:app.user.id})}}">
+						<span class="badge bg-secondary">
+							<i class="bi-pencil-fill"></i>
+						</span>
+					</a>
 				</div>
 				<div class="info pt-4">
 
@@ -54,9 +56,13 @@
 				<div class="d-flex pb-2 justify-content-between" style="border-bottom:1px solid black">
 
 					<h5>ADRESSES</h5>
-					<span class="badge bg-secondary">
-						<i class="bi-pencil-fill"></i>
-					</span>
+					{% for addres in app.user.addres %}
+						<a href="{{path("app_addres_edit",{id:addres.id})}}">
+							<span class="badge bg-secondary">
+								<i class="bi-pencil-fill"></i>
+							</span>
+						</a>
+					{% endfor %}
 				</div>
 				<div class="info pt-2">
 					{% if app.user.addres | length > 0 %}

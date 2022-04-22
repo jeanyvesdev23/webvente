@@ -69,6 +69,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $commander;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageUser;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numberPhone;
+
 
 
     public function __construct()
@@ -268,6 +278,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $commander->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImageUser(): ?string
+    {
+        return $this->imageUser;
+    }
+
+    public function setImageUser(?string $imageUser): self
+    {
+        $this->imageUser = $imageUser;
+
+        return $this;
+    }
+
+    public function getNumberPhone(): ?string
+    {
+        return $this->numberPhone;
+    }
+
+    public function setNumberPhone(?string $numberPhone): self
+    {
+        $this->numberPhone = $numberPhone;
 
         return $this;
     }

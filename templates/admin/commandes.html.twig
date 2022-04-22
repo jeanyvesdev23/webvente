@@ -8,7 +8,7 @@
 				<h4>Commandes</h4>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table table-striped text-center">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -31,7 +31,7 @@
 								<td>{{commande.subtotal}}
 								</td>
 								<td>
-									<span class="badge {{commande.statusCommandes.style |default(" bg-warning")}}">{{commande.statusCommandes|default("passée")}}</span>
+									<span class="badge {{commande.statusCommandes.style |default(" bg-dark")}}">{{commande.statusCommandes|default("news")}}</span>
 								</td>
 								<td>
 									<span class="badge  {{commande.statusPaiement.style |default(" bg-danger")}}">{{commande.statusPaiement|default("Non payé")}}</span>

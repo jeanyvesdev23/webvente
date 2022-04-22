@@ -21,12 +21,12 @@
 					</div>
 				</div>
 
-				<table class="table table-striped text-center">
+				<table class="table text-center">
 					<thead class="fs-6">
 						<tr>
 							<th>#</th>
-							<th>Nom</th>
-							<th>Info</th>
+							<th class="text-start ps-5">Nom</th>
+							<th class="text-start">Info</th>
 							<th>Categorie</th>
 							<th>Marque</th>
 							<th>Publier</th>
@@ -45,9 +45,9 @@
 									</div>
 								</td>
 								<td>
-									<div class="info">
-										<p>Evaluation:
-											<span>
+									<div class="info  text-start">
+										<span>Evaluation:
+											<span class="text-warning">
 												<i class="bi-star-fill"></i>
 												<i class="bi-star-fill"></i>
 												<i class="bi-star-fill"></i>
@@ -57,7 +57,10 @@
 											<br>Total vendu :
 											<br>
 											Prix:
-											{{ produit.prixPro }}</p>
+											<small class"fw-bold">
+												{{ produit.prixPro }}
+											</small>
+										</span>
 
 									</div>
 								</td>
@@ -66,9 +69,23 @@
 								</td>
 								<td>marque</td>
 								<td>
-									<span class="text-success fs-3">
-										<i class="bi-toggle-on"></i>
-									</span>
+									{% if produit.status == true %}
+
+										<a href="{{path("app_status",{id:produit.id})}}">
+
+											<span class="text-success fs-3">
+												<i class="bi-toggle-on"></i>
+											</span>
+										</a>
+									{% else %}
+										<a href="{{path("app_status",{id:produit.id})}}">
+
+											<span class="text-success fs-3">
+												<i class="bi-toggle-off"></i>
+											</span>
+										</a>
+
+									{% endif %}
 								</td>
 
 								<td>
