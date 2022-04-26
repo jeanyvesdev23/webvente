@@ -1,0 +1,76 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title 'Tous les contacts' %}
+
+{% block body %}
+	<div class="main-content">
+		<main>
+			<div class="bus">
+
+				<div class="p-3 bbw ">
+					<h5>Tous les contacts</h5>
+				</div>
+				<div class="p-3  ">
+
+					<div class=" bbw pe-3 pb-3 d-flex justify-content-between  align-items-center">
+						<h5>contacts</h5>
+						<div class="d-flex">
+							<input type="text" class="form-control" placeholder="Tapez le email ou nom et entrez">
+
+						</div>
+					</div>
+
+					<table class="table p-4 mt-3 text-center">
+						<thead class="fs-6">
+							<tr>
+								<th>#</th>
+								<th class="text-start ps-5">Nom</th>
+								<th class="text-start">Address email</th>
+								<th>Subject</th>
+								<th>Message</th>
+								<th>Options</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							{% for contact in contacts %}
+								<tr>
+									<td>{{ contact.id }}</td>
+									<td>
+										{{contact.name}}
+									</td>
+									<td>
+										{{contact.email}}
+									</td>
+									<td>
+										{{contact.subject}}
+									</td>
+
+									<td>{{contact.message}}</td>
+									<td>
+										<div class="options">
+											<a href="{{path("app_contact_detail",{id:contact.id})}}">
+												<span>
+													<i class="bi-eye"></i>
+												</span>
+											</a>
+										</div>
+									</td>
+
+
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="10">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+
+	</div>
+
+
+{% endblock %}

@@ -1,43 +1,83 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block title %}Categorie index{% endblock %}
+{% block title "Categories" %}
 
 {% block body %}
-    <h1>Categorie index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomCate</th>
-                <th>ImageCate</th>
-                <th>DescriptionCate</th>
-                <th>CreatedAt</th>
-                <th>UpdateAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorie in categories %}
-            <tr>
-                <td>{{ categorie.id }}</td>
-                <td>{{ categorie.nomCate }}</td>
-                <td>{{ categorie.imageCate }}</td>
-                <td>{{ categorie.descriptionCate }}</td>
-                <td>{{ categorie.createdAt ? categorie.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ categorie.updateAt ? categorie.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}">show</a>
-                    <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="main-content">
+		<main>
 
-    <a href="{{ path('app_categorie_new') }}">Create new</a>
+			<div class="row pt-5">
+
+				<div class="col-7">
+					<div class="">
+						<div class="d-flex p-3 justify-content-between bo_ba align-items-center">
+							<h6>Tous les categories</h6>
+							<div class="w-50">
+
+								<input type="text" name="categorie" width="100px" class='form-control' placeholder="Tapez le nom et entrez">
+							</div>
+
+						</div>
+						<div class="p-3">
+							<table class=" table table-borderless text-center pe-3">
+								<thead class="bo_ba">
+									<tr>
+										<th>Id</th>
+										<th>Nom</th>
+										<th>Photo</th>
+										<th>actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for categorie in categories %}
+										<tr>
+											<td>{{ categorie.id }}</td>
+											<td>{{ categorie.nomCate }}</td>
+											<td>
+												<img src="/asset/upload/product/{{categorie.imageCate}}" width:"60px" height="60px" alt="" srcset="">
+											</td>
+
+											<td>
+												<div class="d-flex justify-content-center align-items-center m-0">
+
+													<a href="{{ path('app_categorie_show', {'id': categorie.id}) }}">
+
+														<button class="btn btn-sm brc btn-outline-warning">
+															<i class="bi-eye-fill"></i>
+														</button>
+
+													</a>
+													<a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">
+														<button class="btn btn-sm brc btn-outline-primary">
+															<i class="bi-pencil-square"></i>
+														</button>
+
+													</a>
+												</div>
+											</td>
+										</tr>
+
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-5 ">
+					<div class="">
+						<div class="bbw p-3">
+							<h6>Ajoute une nouvelle categorie</h6>
+						</div>
+						<div class="p-3">
+							{{ include('categorie/_form.html.twig') }}
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</main>
+	</div>
+
+
 {% endblock %}

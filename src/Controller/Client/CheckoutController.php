@@ -35,8 +35,10 @@ class CheckoutController extends AbstractController implements Countable
             return $this->redirectToRoute("app_login");
         }
         $form = $this->createForm(CheckoutType::class,  null, ['user' => $users])->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && $session->get('checkout_data', [])) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $session->get('checkout_data', []);
             if ($session->get("checkout_data", [])) {
+
                 $data = $session->get("checkout_data", []);
             } else {
                 $data = $form->getData();
@@ -50,8 +52,6 @@ class CheckoutController extends AbstractController implements Countable
                 'id' => count($commande) + 83
             ]);
         }
-
-
 
         return $this->render('checkout/index.html.twig', [
             "carts" => $carts,

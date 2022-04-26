@@ -4,51 +4,65 @@
 
 	<div class="main-content">
 		<main>
-			<div class="titre">
-				<h4>Commandes</h4>
-			</div>
-			<div class="table">
-				<table class="table table-striped text-center">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>code commande</th>
-							<th>Quantiteé</th>
-							<th>Client</th>
-							<th>Montant en Ar</th>
-							<th>Status de commande</th>
-							<th>Status de paiement</th>
-							<th>Options</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for commande in commandes %}
+			<div class="bus ">
+
+				<div class="d-flex justify-content-between align-items-center p-3 bbu">
+					<h5>Commandes</h5>
+					<div class="form d-flex">
+						<form action="" class="form d-flex">
+							<select name="statusL" id="statusL " class="form-select form-control-sm">
+								<option value="0">Filtrer par etat de commande</option>
+							</select>
+							<select name="statusL" id="statusL" class="form-select form-group">
+								<option value="0">Filtrer par etat de paiement</option>
+							</select>
+
+						</form>
+					</div>
+				</div>
+				<div class="table pe-4 ps-4">
+					<table class="table table-striped text-center">
+						<thead>
 							<tr>
-								<td>{{commande.id}}</td>
-								<td>{{commande.codeCommande|date("Hi")}}</td>
-								<td>{{commande.quantite}}</td>
-								<td>{{app.user.fullName}}</td>
-								<td>{{commande.subtotal}}
-								</td>
-								<td>
-									<span class="badge {{commande.statusCommandes.style |default(" bg-dark")}}">{{commande.statusCommandes|default("news")}}</span>
-								</td>
-								<td>
-									<span class="badge  {{commande.statusPaiement.style |default(" bg-danger")}}">{{commande.statusPaiement|default("Non payé")}}</span>
-								</td>
-								<td>
-									<div class="options">
-										<a href="{{path("app_commandes_detail",{id:commande.id})}}">
-											<span>
-												<i class="bi-eye"></i>
-											</span>
-										</a>
-									</div>
-								</td>
+								<th>#</th>
+								<th>code</th>
+								<th>Quantiteé</th>
+								<th>Client</th>
+								<th>Montant en Ar</th>
+								<th>Etat de commande</th>
+								<th>Etat de paiement</th>
+								<th>Options</th>
 							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{% for commande in commandes %}
+								<tr>
+									<td>{{commande.id}}</td>
+									<td>{{commande.codeCommande|date("Hi")}}</td>
+									<td>{{commande.quantite}}</td>
+									<td>{{commande.users.prenomUser}}</td>
+									<td>{{commande.subtotal}}
+									</td>
+									<td>
+										<span class="badge {{commande.statusCommandes.style |default(" bg-dark")}}">{{commande.statusCommandes|default("news")}}</span>
+									</td>
+									<td>
+										<span class="badge  {{commande.statusPaiement.style |default(" bg-danger")}}">{{commande.statusPaiement|default("Non payé")}}</span>
+									</td>
+									<td>
+										<div class="options">
+											<a href="{{path("app_commandes_detail",{id:commande.id})}}">
+												<span>
+													<i class="bi-eye"></i>
+												</span>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</main>
 	</div>

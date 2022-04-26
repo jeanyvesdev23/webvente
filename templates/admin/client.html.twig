@@ -1,0 +1,78 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title 'Tous les clients' %}
+
+{% block body %}
+	<div class="main-content">
+		<main>
+			<div class="bus">
+
+				<div class="p-3 bbw ">
+					<h5>Tous les clients</h5>
+				</div>
+				<div class="p-3  ">
+
+					<div class=" bbw pe-3 pb-3 d-flex justify-content-between  align-items-center">
+						<h5>Clients</h5>
+						<div class="d-flex">
+							<input type="text" class="form-control" placeholder="Tapez le email ou nom et entrez">
+
+						</div>
+					</div>
+
+					<table class="table p-4 mt-3 text-center">
+						<thead class="fs-6">
+							<tr>
+								<th>#</th>
+								<th class="text-start ps-5">Nom</th>
+								<th class="text-start">Address email</th>
+								<th>Télephone</th>
+								<th>Total à payé</th>
+								<th>Nombre de commande</th>
+								<th>Options</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							{% for client in clients %}
+								<tr>
+									<td>{{ client.id }}</td>
+									<td>
+										{{client.prenomUser}}
+									</td>
+									<td>
+										{{client.email}}
+									</td>
+									<td>
+										{{client.numberPhone}}
+									</td>
+
+									<td></td>
+									<td>{{client.commander|length}}</td>
+									<td>
+										<div class="options">
+											<a href="{{path("app_client_detail",{id:client.id})}}">
+												<span>
+													<i class="bi-eye"></i>
+												</span>
+											</a>
+										</div>
+									</td>
+
+
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="10">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+
+	</div>
+
+
+{% endblock %}

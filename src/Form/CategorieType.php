@@ -13,13 +13,17 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomCate')
+            ->add('nomCate', null, [
+                "label" => "Nom"
+            ])
             ->add('imageCate', FileType::class, [
                 "label" => "Image (png ou jpg) file",
                 "mapped" => false,
                 "required" => false
             ])
-            ->add('descriptionCate');
+            ->add('descriptionCate', null, [
+                "label" => "Description"
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

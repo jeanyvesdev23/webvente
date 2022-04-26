@@ -5,13 +5,13 @@
 {% block body %}
 	<div class="container" style="margin-top:200px">
 
-		<div class="votre-panier me-5 ms-5">
-			<div class="titre">
+		<div class="votre-panier me-5 ms-5 ba-ba">
+			<div class="titre p-3 fav">
 				<h5>Votre panier</h5>
 			</div>
 			{% if carts|length > 0 %}
 
-				<div class="contenu">
+				<div class="contenu p-4">
 					<table class="table table-striped text-center fs-6">
 						<thead>
 							<tr>
@@ -40,18 +40,19 @@
 									<td>
 										<div class="tprix-pro">
 											{{cart.produit.prixPro}}
+											Ar
 										</div>
 									</td>
 									<td>
 										<div class="quantite-pro">
 											<a href="{{path("deletefrom_cart",{id:cart.produit.id})}}">
-												<span class="badge bg-secondary">
+												<span class="text-danger">
 													<i class="bi-caret-left-fill"></i>
 												</span>
 											</a>
 											{{cart.quantite}}
 											<a href="{{path("add_cart",{id:cart.produit.id})}}">
-												<span class="badge bg-secondary">
+												<span class="text-danger">
 													<i class="bi-caret-right-fill"></i>
 												</span>
 											</a>
@@ -61,6 +62,7 @@
 									<td>
 										<div class="total-pro">
 											{{cart.quantite * cart.produit.prixPro}}
+											Ar
 										</div>
 									</td>
 									<td>
@@ -76,13 +78,17 @@
 
 					<div class="t-footer d-flex justify-content-between">
 						<a href="{{path("app_produit")}}">
-							<button class="btn btn-primary">CONTINUER MES ACHATS</button>
+							<button class="btn btn-sm btn-primary">
+								<span>
+									<i class="bi-chevron-left"></i>
+								</span>CONTINUER MES ACHATS</button>
 						</a>
 						<div class="total">
-							<span class="pe-5">TOTAL :
-								{{data.total}}</span>
+							<span class="pe-5 fw-bold">TOTAL :
+								{{data.total}}
+								Ar</span>
 							<a href="{{path("app_checkout")}}">
-								<button class="btn btn-primary">PROCEED TO CHECKOUT
+								<button class="btn btn-sm btn-primary">PROCEED TO CHECKOUT
 									<span>
 										<i class="bi-chevron-right"></i>
 									</span>

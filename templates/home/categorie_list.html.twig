@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+{% block title %}categorie
+{% endblock %}
+{% block body %}
+	<div class="container mt">
+		<div class="col-10 mx-auto">
+
+			<div class="liste-comerce ba-ba bo-ra top d-flex justify-content-between">
+				<div class="new">
+					<h6>Categorie >
+						{{categorie.nomCate}}</h6>
+				</div>
+				<div class="d-flex justifu-content-between">
+					<div class="new">
+						<h6>Populaire</h6>
+					</div>
+					<div class="new">
+						<h6>New</h6>
+					</div>
+					<div class="new">
+						<h6>Offre</h6>
+					</div>
+				</div>
+			</div>
+
+			<div class="liste-produit m-3">
+
+				{% for produit in produits %}
+
+					<div class="product-card  m-1 bg-white box">
+						<div class="product-image p-2 text-center">
+							<a href="{{path("app_produit_show",{id:produit.id})}}">
+								<img src="../../asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
+							</a>
+						</div>
+						<div class="cart-flex ">
+							<div class="product-info p-2">
+								<h4 class="product-title fs-5">{{produit.nomPro}}</h4>
+								<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
+								<span class="text-warning fs-6 pb-0">
+									<i class="bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star"></i>
+								</span>
+							</div>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="fw-bold fs-6 ps-2">
+
+									<span class="product-price ">{{produit.prixPro}}
+										Ar</span>
+									<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+										Ar</span>
+								</div>
+								<div class="cart-panier pe-3 ">
+									<span>
+										<a href="{{path("add_cart",{id:produit.id})}}">
+
+											<i class="bi-cart-plus-fill"></i>
+										</a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+
+		</div>
+	</div>
+{% endblock %}

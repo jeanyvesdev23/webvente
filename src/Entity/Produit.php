@@ -74,6 +74,21 @@ class Produit
      */
     private $commande;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $autrePrix;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="produits")
+     */
+    private $commenter;
+
+    public function __construct()
+    {
+        $this->commenter = new ArrayCollection();
+    }
+
 
 
 
@@ -213,6 +228,48 @@ class Produit
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getAutrePrix(): ?float
+    {
+        return $this->autrePrix;
+    }
+
+    public function setAutrePrix(?float $autrePrix): self
+    {
+        $this->autrePrix = $autrePrix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommenter(): Collection
+    {
+        return $this->commenter;
+    }
+
+    public function addCommenter(Commentaire $commenter): self
+    {
+        if (!$this->commenter->contains($commenter)) {
+            $this->commenter[] = $commenter;
+            $commenter->setProduits($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommenter(Commentaire $commenter): self
+    {
+        if ($this->commenter->removeElement($commenter)) {
+            // set the owning side to null (unless already changed)
+            if ($commenter->getProduits() === $this) {
+                $commenter->setProduits(null);
+            }
+        }
 
         return $this;
     }

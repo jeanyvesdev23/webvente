@@ -1,0 +1,118 @@
+{% extends "dashboard.html.twig" %}
+{% block title "client detail" %}
+{% block body %}
+
+	<div class="main-content">
+		<main>
+			<div class="row ">
+				<div class="col-sm-4 fs-6">
+					<div class="bus">
+
+						<div class="client text-center pt-4 d-block">
+							<img src="../../../asset/upload/product/children.jpg" width="150px" height="150px" alt="" srcset="" style='border-radius:50%'>
+							<h6 class="mt-3">
+								{{client.prenomUser}}
+							</h6>
+						</div>
+						<div class="info-client  mt-5">
+							<h6 class='ps-2'>Information sur le compte</h6>
+							<ul class="ul">
+								<li class="p-1">Nom et prenom :
+									<span>{{client.fullName}}</span>
+
+								</li>
+								<li class="p-1">Addresse email :
+									<span>{{client.email}}</span>
+
+								</li>
+								<li class="p-1">Télephone :
+									<span>{{client.numberPhone}}</span>
+								</li>
+
+								<li class="p-1">Date d'inscrispantion
+									<span>{{client.createdAt|date("d-m-Y h:i")}}</span>
+
+								</li>
+							</ul>
+						</div>
+						<div class="autre-info-client mt-5">
+							<h6 class='ps-2'>Autres informations
+							</h6>
+							<ul class="ul">
+								<li class="p-1">Nombre de commande:
+									<span>{{client.commander|length}}</span>
+
+								</li>
+								<li class="p-1">Total à payé :
+
+									{{total}}
+									Ar
+
+
+								</li>
+								<li class="p-1">Nombre de produit dans le panier
+
+
+								</li>
+								<li class="p-1">Nombre de produit preferé
+
+
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-8 ">
+					<div class="bus">
+						<div class=" p-3 bbu pt-4">
+							<h5>Commandes de ce client</h5>
+
+						</div>
+						<div class="table pe-4 pb-4 ps-4">
+							<table class="table table-striped text-center">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>code</th>
+										<th>Quantiteé</th>
+										<th>Montant en Ar</th>
+										<th>Etat</th>
+										<th>Etat de paiement</th>
+										<th>Options</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for commande in client.commander %}
+										<tr>
+											<td>{{commande.id}}</td>
+											<td>{{commande.codeCommande|date("Hi")}}</td>
+											<td>{{commande.quantite}}</td>
+											<td>{{commande.subtotal}}
+											</td>
+											<td>
+												<span class="badge {{commande.statusCommandes.style |default(" bg-dark")}}">{{commande.statusCommandes|default("news")}}</span>
+											</td>
+											<td>
+												<span class="badge  {{commande.statusPaiement.style |default(" bg-danger")}}">{{commande.statusPaiement|default("Non payé")}}</span>
+											</td>
+											<td>
+												<div class="options">
+													<a href="{{path("app_commandes_detail",{id:commande.id})}}">
+														<span>
+															<i class="bi-eye"></i>
+														</span>
+													</a>
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+{% endblock %}

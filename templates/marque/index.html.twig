@@ -1,0 +1,78 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title "Categories" %}
+
+{% block body %}
+
+	<div class="main-content">
+		<main>
+
+			<div class="row pt-5">
+
+				<div class="col-7">
+					<div class="bus">
+						<div class="d-flex p-3 bbw justify-content-between bbw align-items-center">
+							<h6>Tous les marques</h6>
+							<div class="w-50">
+
+								<input type="text" name="marque" width="100px" class='form-control' placeholder="Tapez le nom et entrez">
+							</div>
+
+						</div>
+						<div class="p-3">
+							<table class=" table table-borderless text-center pe-3">
+								<thead class="bbw">
+									<tr>
+										<th>Id</th>
+										<th>Nom</th>
+										<th>Photo</th>
+										<th>actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for marque in marques %}
+										<tr>
+											<td>{{ marque.id }}</td>
+											<td>{{ marque.nomMarque }}</td>
+											<td>
+												<img src="/asset/upload/product/{{marque.imageMarque}}" width:"60px" height="60px" alt="" srcset="">
+											</td>
+
+											<td>
+												<div class="d-flex justify-content-center align-items-center m-0">
+
+													<a href="{{ path('app_marque_show', {'id': marque.id}) }}">
+
+														<button class="btn btn-sm brc btn-outline-warning">
+															<i class="bi-eye-fill"></i>
+														</button>
+
+													</a>
+													{{ include("marque/_delete_form.html.twig") }}
+												</div>
+											</td>
+										</tr>
+
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-5 ">
+					<div class="bus">
+						<div class="bbw p-3">
+							<h6>Ajoute une nouvelle marque</h6>
+						</div>
+						<div class="p-3">
+							{{ include('marque/_form.html.twig') }}
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</main>
+	</div>
+
+
+{% endblock %}

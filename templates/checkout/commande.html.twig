@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title "Checkout"%}
+{% block title "commande enregistré"%}
 
 {% block body %}
 	<div class="container" style="margin-top:11rem">
@@ -8,21 +8,23 @@
 
 			<div class="col-md-9 mx-auto">
 
-				<div class="address-fac p-4" style="border:1px solid white">
-					<div class="processus text-center">
+				<div class="address-fac p-4 ba-ba">
+					<div class="processus bo_bo text-center">
 						<p>Processus</p>
 					</div>
 					<div class="row">
 						<div class="col-6 p-5 text-center">
-							<p>
+							<p class="fs-1 text-success opacity-100">
 								<span>
 									<i class="bi-check-circle-fill"></i>
 								</span>
 							</p>
 							<h4>Commande confirmer</h4>
 							<p>Votre ulistration vous parviendra bientot</p>
-							<a href="">voir le facture</a>
-							<button class="btn btn-primary">ACCEDER A VOTRE COMMANDE</button>
+							<a href="" class="nav-link">voir le facture</a>
+							<a href="{{path("app_compte_commandes")}}">
+								<button class="btn btn-warning btn-sm">ACCEDER A VOTRE COMMANDE</button>
+							</a>
 						</div>
 						<div class="col-6 p-3">
 							<div class="d-flex justify-content-between">
@@ -37,10 +39,10 @@
 							</div>
 							<div class="articles">
 								<h6>votre produits</h6>
-								<ul class="ps-3" style="list-style-type:none">
+								<ul class="ps-3 ul">
 
 									{% for panier in panier %}
-										<li class="">
+										<li>
 											<span class="">
 												<i class="bi-check"></i>
 											</span>
@@ -59,7 +61,8 @@
 									</tr>
 									<tr>
 										<td>Sub total</td>
-										<td>{{commande.subtotal}}</td>
+										<td>{{commande.subtotal}}
+											Ar</td>
 
 									</tr>
 									<tr>
@@ -68,7 +71,8 @@
 									</tr>
 									<tr>
 										<td>Total</td>
-										<td>{{commande.subtotal}}</td>
+										<td>{{commande.subtotal}}
+											Ar</td>
 									</tr>
 
 								</table>

@@ -7,21 +7,21 @@
 		<div class="row">
 
 			<div class="col-7">
-				<div class="address-fac p-4" style="border:1px solid white">
-					<h5 class="pb-3" style="border-bottom:1px solid white">Adresse de facturation</h5>
+				<div class="address-fac p-4  ba-ba">
+					<h5 class="pb-3 bo_bo">Adresse de facturation</h5>
 					<div class="formulaire pt-1">
 						{{ form_start(form )}}
-						
+
 						{{ form_row(form.Address) | replace({"all": "</br>"})|raw  }}
-						{{ form_row(form.Information)  }}						
+						{{ form_row(form.Information)  }}
 
 					</div>
 				</div>
 			</div>
 			<div class="col-5">
-				<div class="panier-total p-4" style="border:1px solid white">
-					<h5 class="pb-1">Panier total</h5>
-					<div class="liste-panier">
+				<div class="panier-total p-4  ba-ba">
+					<h5 class="pb-3 bo_bo">Panier total</h5>
+					<div class="liste-panier pt-2">
 						<ul class="ps-3" style="list-style-type:none">
 
 							{% for cart in carts.produit %}
@@ -41,7 +41,7 @@
 						</ul>
 					</div>
 					<div class="mt-5 validation-com">
-						<div class="mb-0 d-flex justify-content-between" style="border-bottom:1px solid white">
+						<div class="mb-0 d-flex justify-content-between">
 							<p>Sous-total</p>
 							<p>{{carts.data.total}}</p>
 						</div>
@@ -58,7 +58,7 @@
 
 					</div>
 					<div class="commande">
-						<button class="btn btn-warning w-100">CONFIRMER LA COMMANDE</button>				
+						<button class="btn btn-warning w-100">CONFIRMER LA COMMANDE</button>
 					</div>
 					{{ form_end(form) }}
 				</div>

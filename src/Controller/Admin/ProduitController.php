@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Form\PromotionType;
 use App\Repository\ProduitRepository;
+use App\Repository\CommentaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +27,16 @@ class ProduitController extends AbstractController
     {
         return $this->render('produit/index.html.twig', [
             'produits' => $produitRepository->findAll(),
+        ]);
+    }
+    /**
+     * @Route("/commentaire", name="app_commentaire", methods={"GET", "POST"})
+     */
+    public function commentaire(CommentaireRepository $commentaireRepository): Response
+    {
+
+        return $this->render('produit/commentaire.html.twig', [
+            "commentaires" => $commentaireRepository->findAll()
         ]);
     }
 
@@ -53,7 +65,7 @@ class ProduitController extends AbstractController
 
             $produitRepository->add($produit);
 
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('produit/new.html.twig', [
@@ -71,6 +83,7 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="app_produit_edit", methods={"GET", "POST"})
@@ -102,7 +115,25 @@ class ProduitController extends AbstractController
             'form' => $form,
         ]);
     }
+    /**
+     * @Route("/promotion/{id}", name="app_promotion", methods={"GET", "POST"})
+     */
+    public function promotion(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
+    {
+        $form = $this->createForm(PromotionType::class, $produit);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $produitRepository->add($produit);
+            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('produit/promotion.html.twig', [
+            'produit' => $produit,
+            'form' => $form,
+        ]);
+    }
     /**
      * @Route("/{id}", name="app_produit_delete", methods={"POST"})
      */

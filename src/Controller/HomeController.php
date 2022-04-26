@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\Produit;
 use App\Repository\MarqueRepository;
 use App\Repository\ProduitRepository;
@@ -64,6 +65,18 @@ class HomeController extends AbstractController
             'produit' => $produit,
             'categorie' => $categorie,
             'marque' => $marque
+        ]);
+    }
+    /**
+     * @Route("/produit/categorie/{id<[0-9]+>}", name="app_categorie_list", methods={"GET"})
+     */
+    public function categorielist(Categorie $categorie): Response
+    {
+
+        return $this->render('home/categorie_list.html.twig', [
+            "categorie" => $categorie,
+            'produits' => $categorie->getProduit()->getValues()
+
         ]);
     }
 }

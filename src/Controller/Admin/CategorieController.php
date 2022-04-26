@@ -14,25 +14,14 @@ use symfony\Component\HttpFoundation\File\UploadedFile;
 use symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
- * @Route("/categorie")
+ * @Route("admin/categorie")
  */
 class CategorieController extends AbstractController
 {
     /**
      * @Route("/", name="app_categorie_index", methods={"GET"})
      */
-    public function index(CategorieRepository $categorieRepository): Response
-    {
-        return $this->render('categorie/index.html.twig', [
-            'categories' => $categorieRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="app_categorie_new", methods={"GET", "POST"})
-     */
-
-    public function new(Request $request, CategorieRepository $categorieRepository, SluggerInterface $sluggerInterface): Response
+    public function index(CategorieRepository $categorieRepository, Request $request, SluggerInterface $sluggerInterface): Response
     {
         $categorie = new Categorie();
         $form = $this->createForm(CategorieType::class, $categorie);
@@ -43,7 +32,7 @@ class CategorieController extends AbstractController
             if ($image) {
                 $origineFile = pathinfo($image->getClientOriginalName(), 1);
                 $slugerFile = $sluggerInterface->slug($origineFile);
-                $newFile = $slugerFile . '' . uniqid() . '.' . $image->gueesExtension();
+                $newFile = $slugerFile . '' . uniqid() . '.' . $image->guessExtension();
                 try {
                     $image->move($this->getParameter("images_directory"), $newFile);
                 } catch (\Throwable $th) {
@@ -52,15 +41,17 @@ class CategorieController extends AbstractController
             }
             $categorie->setImageCate($newFile);
             $categorieRepository->add($categorie);
-            dd($categorie);
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-        }
 
-        return $this->renderForm('categorie/new.html.twig', [
-            'categorie' => $categorie,
-            'form' => $form,
+            return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('categorie/index.html.twig', [
+            'categories' => $categorieRepository->findBy([], [], 6),
+            "form" => $form->createView()
         ]);
     }
+
+
+
 
     /**
      * @Route("/{id}", name="app_categorie_show", methods={"GET"})
@@ -75,12 +66,24 @@ class CategorieController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_categorie_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Categorie $categorie, CategorieRepository $categorieRepository): Response
+    public function edit(Request $request, Categorie $categorie, CategorieRepository $categorieRepository, SluggerInterface $sluggerInterface): Response
     {
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get("imageCate")->getData();
+            if ($image) {
+                $origineFile = pathinfo($image->getClientOriginalName(), 1);
+                $slugerFile = $sluggerInterface->slug($origineFile);
+                $newFile = $slugerFile . '' . uniqid() . '.' . $image->guessExtension();
+                try {
+                    $image->move($this->getParameter("images_directory"), $newFile);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+            }
+            $categorie->setImageCate($newFile);
             $categorieRepository->add($categorie);
             return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
         }

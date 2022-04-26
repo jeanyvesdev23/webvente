@@ -32,8 +32,11 @@
 					<li>
 						<a href="{{path("app_produit_index")}}">Liste des produits</a>
 					</li>
+					<li class='mt-0'>
+						<a href="{{path("app_produit_new")}}">Ajouter produit</a>
+					</li>
 					<li>
-						<a href="{{path("app_produit_new")}}">Nouveau produit</a>
+						<a href="{{path("app_commentaire")}}">Commantaire</a>
 					</li>
 				</ul>
 			</li>
@@ -42,48 +45,29 @@
 			<li>
 				<div class="icon-link">
 
-					<a href="">
+					<a href="{{path("app_categorie_index")}}">
 						<i class="bi-justify"></i>
 						<span>
 							Categories
 						</span>
 					</a>
-					<i class="bi-chevron-down bcd"></i>
-				</div>
-				<ul class="sub-menu">
-					<li>
-						<a href="">categorie</a>
-					</li>
-					<li>
-						<a href="">ajouter categorie</a>
-					</li>
 
-				</ul>
+				</div>
+
 			</li>
 
 			<li>
 				<div class="icon-link">
 
-					<a href="">
+					<a href="{{path("app_marque_index")}}">
 						<i class="bi-tags-fill"></i>
 						<span>
 							Marque
 						</span>
 					</a>
-					<i class="bi-chevron-down bcd"></i>
-				</div>
-				<ul class="sub-menu">
-					<li>
-						<a href="">marque</a>
-					</li>
-					<li>
-						<a href="">ajouter marque</a>
-					</li>
-					<li>
-						<a href="">commantaire</a>
-					</li>
 
-				</ul>
+				</div>
+
 			</li>
 
 			<li>
@@ -96,12 +80,24 @@
 			</li>
 
 			<li>
-				<a href="">
-					<i class="bi-person-fill"></i>
-					<span>
-						Clients
-					</span>
-				</a>
+				<div class="icon-link">
+					<a href="">
+						<i class="bi-person-fill"></i>
+						<span>
+							Clients
+						</span>
+					</a>
+					<i class="bi-chevron-down bcd"></i>
+				</div>
+				<ul class="sub-menu">
+					<li>
+						<a href="{{path("app_client")}}">Liste des clients</a>
+					</li>
+					<li>
+						<a href="{{path("app_contact_list")}}">Contact</a>
+					</li>
+
+				</ul>
 			</li>
 
 			<li>
@@ -120,7 +116,7 @@
 						<a href="">Des offres</a>
 					</li>
 					<li>
-						<a href="">Nouveau offre</a>
+						<a href="">Ajouter offre</a>
 					</li>
 
 				</ul>
@@ -142,7 +138,7 @@
 						<a href="">Liste des Users</a>
 					</li>
 					<li>
-						<a href="">Nouveau User</a>
+						<a href="">Ajouter User</a>
 					</li>
 
 				</ul>
@@ -152,10 +148,10 @@
 </div>
 <div class="entete">
 	<header>
-		<h2>Welcome to tableau de board</h2>
+		<h4>Welcome to tableau de board</h4>
 		<div class="user-connecte"><img src="/asset/upload/product/children.jpg" width="50px" height="50px" alt="children"><div>
-				<h4>Jean yves</h4>
-				<small>Super admin</small>
+				<h4>{{app.user.prenomUser}}</h4>
+				<span>Super admin</span>
 			</div>
 		</div>
 	</header>

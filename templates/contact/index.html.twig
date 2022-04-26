@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Contact" %}
+
+{% block body %}
+	<div class="container mt">
+		<div class="row">
+			<div class="col-7  p-4">
+				<h6>GET IN TOUCH</h6>
+				<h2>Visit of on our agency locations or contact us taoday</h2>
+				<h6>Head today</h6>
+				<ul class="ul mt-3">
+					<li class="m-2">
+						<i class="bi-book pe-2"></i>101-Antananarivo lot 34 parcelle 23/45 à Ambohipo</li>
+					<li class="m-2">
+						<i class="bi-envelope pe-2"></i>sitevente@gmail.com</li>
+					<li class="m-2">
+						<i class="bi-telephone pe-2"></i>+2613476598 ou +261320983476</li>
+					<li class="m-2">
+						<i class="bi-phone pe-2"></i>Lundi au samadi 07h jusqua 09h</li>
+				</ul>
+			</div>
+			<div class="col-5">
+				<div class="user-connecte">
+					<img src="/asset/upload/product/children.jpg" width="70px" height="70px" alt="">
+					<div class="info">
+						<h6>John doe</h6>
+						<span>Directeur general
+							<br>Phone : +2612354697
+							<br>E-mail : devgeneral@gmail.com</span>
+					</div>
+				</div>
+				<div class="user-connecte">
+					<img src="/asset/upload/product/children.jpg" width="70px" height="70px" alt="">
+					<div class="info">
+						<h6>John doe</h6>
+						<span>Directeur general
+							<br>Phone : +2612354697
+							<br>E-mail : devgeneral@gmail.com</span>
+					</div>
+				</div>
+				<div class="user-connecte">
+					<img src="/asset/upload/product/children.jpg" width="70px" height="70px" alt="">
+					<div class="info">
+						<h6>John doe</h6>
+						<span>Directeur general
+							<br>Phone : +2612354697
+							<br>E-mail : devgeneral@gmail.com</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8 mx-auto mt-2 p-3">
+
+				<h4>Envoye a nous une meesage</h4>
+				<div class="form mt-4">
+					{{form_start(form)}}
+					{{form_widget(form)}}
+
+					<button class="btn btn-warning ">Envoyer</button>
+					{{form_end(form)}}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

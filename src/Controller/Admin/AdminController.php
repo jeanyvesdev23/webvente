@@ -2,15 +2,18 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Commande;
+use App\Entity\User;
 use App\Entity\Produit;
+use App\Entity\Commande;
+use App\Entity\Contact;
 use App\Form\CommandeType;
-use App\Repository\CategorieRepository;
-use App\Repository\PanierRepository;
-use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
-use App\Repository\ProduitRepository;
+use App\Repository\ContactRepository;
 use App\Repository\MarqueRepository;
+use App\Repository\PanierRepository;
+use App\Repository\ProduitRepository;
+use App\Repository\CommandeRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,7 +89,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/produit/isStatus/{id}",name="app_status")
      */
-    public function ispublier(Produit $produit, EntityManagerInterface $em)
+    public function ispublierpro(Produit $produit, EntityManagerInterface $em)
     {
         if ($produit->getStatus() == true) {
             $status = false;
@@ -96,5 +99,77 @@ class AdminController extends AbstractController
         $produit->setStatus($status);
         $em->flush();
         return $this->redirectToRoute("app_produit_index");
+    }
+    /**
+     * @Route("/produit/commentaire/isStatus/{id}",name="app_status_com")
+     */
+    public function ispubliercom(Produit $produit, EntityManagerInterface $em)
+    {
+        if ($produit->getStatus() == true) {
+            $status = false;
+        } else {
+            $status = true;
+        }
+        $produit->setStatus($status);
+        $em->flush();
+        return $this->redirectToRoute("app_pcommentaire");
+    }
+    /**
+     * @Route("/client",name="app_client")
+     */
+    public function client(UserRepository $user)
+    {
+
+
+        return $this->render("admin/client.html.twig", [
+            "clients" => $user->findAll()
+        ]);
+    }
+    /**
+     * @Route("/client/detail/{id}",name="app_client_detail")
+     */
+    public function clientDetail(User $user, CommandeRepository $commande)
+    {
+        $vendus = $commande->findBy(["statusPaiement" => 2, "users" => $user->getId()]);
+        $totaux = 0;
+        if ($vendus) {
+
+            for ($i = 0; $i < $commande->count(["statusPaiement" => 2, "users" => $user->getId()]); $i++) {
+                $total[] = $vendus[$i]->getSubTotal();
+            }
+            foreach ($total as $key => $value) {
+                $totaux += $value;
+            }
+        }
+
+        return $this->render("admin/clientDetail.html.twig", [
+            "client" => $user,
+            "total" => $totaux
+
+        ]);
+    }
+    /**
+     * @Route("/contacts",name="app_contact_list")
+     */
+    public function contactList(ContactRepository $contact)
+    {
+
+
+        return $this->render("admin/contactList.html.twig", [
+            "contacts" => $contact->findAll()
+
+        ]);
+    }
+    /**
+     * @Route("/contacts/{id}",name="app_contact_ldetail")
+     */
+    public function contactDetail(Contact $contact)
+    {
+
+
+        return $this->render("admin/contactDetail.html.twig", [
+            "contacts" => $contact
+
+        ]);
     }
 }

@@ -130,24 +130,49 @@
 }
 .main-content{
     margin-left: 255px; 
-    .bus{
-        border: 2px solid white;
-        background-color: #f5f5f5;
+    .var{
+        background-color: #eee;
+        width: 7rem;
+        border-radius: 5px;
+        margin-right: 1rem;
+        p{
+            margin: auto;
+        }
+    }
+    .var1{
+        background-color:#f10d78;
+        width: 13rem;
+        border-radius: 5px;
+       
+        p{
+            margin: auto;
+        }
+    }
+    .info_produit{
+        margin-left: 1rem;
+        border: 1px solid white;
+        .dja{
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            p{
+                opacity: 1;
+            }
+        }     
+    }
+    .bus{      
+        background-color: #eee;
         .bbu{
-            border-bottom: 2px solid white;
+            border-bottom: 1px solid #999;
+        }
+        .bbw{
+            border-bottom: 1px solid white;
         }
     }
     .brc{
         border-radius: 50%;
     }
-    .bsw{
-        margin-top: 0rem;
-        border: 2px solid rgb(236, 230, 230);
-        .prod{
-            border-bottom: 2px solid whitesmoke;
-            
-        }
-    }
+    
     
     main{
         margin-top: 100px;

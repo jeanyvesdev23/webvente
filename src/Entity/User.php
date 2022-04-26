@@ -79,12 +79,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $numberPhone;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="users")
+     */
+    private $commentaires;
+
 
 
     public function __construct()
     {
         $this->addres = new ArrayCollection();
         $this->commander = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -302,6 +308,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNumberPhone(?string $numberPhone): self
     {
         $this->numberPhone = $numberPhone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUsers() === $this) {
+                $commentaire->setUsers(null);
+            }
+        }
 
         return $this;
     }

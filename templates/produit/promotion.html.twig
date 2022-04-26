@@ -1,0 +1,20 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Edit Produit
+{% endblock %}
+
+{% block body %}
+	<div class="main-content">
+		<main>
+
+			<div class="form mt-5 align-items-center">
+				{{form_start(form)}}
+				{{form_widget(form)}}
+				<button class="btn btn-success">Modifier</button>
+				{{form_end(form)}}
+			</div>
+
+
+		</main>
+	</div>
+{% endblock %}

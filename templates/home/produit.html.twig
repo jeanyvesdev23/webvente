@@ -57,8 +57,10 @@
 
 										<span class="product-price ">{{produit.prixPro}}
 											Ar</span>
-										<span class="opacity-50 text-decoration-line-through">{{produit.prixPro}}
-											Ar</span>
+										{% if produit.autrePrix != null %}
+											<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+												Ar</span>
+										{% endif %}
 									</div>
 									<div class="cart-panier pe-3 ">
 										<span>
