@@ -8,11 +8,18 @@
 
 			<div class="col-7">
 				<div class="address-fac p-4  ba-ba">
-					<h5 class="pb-3 bo_bo">Adresse de facturation</h5>
+					<h5 class="pb-3 bo_bo">Adresse de Livraison</h5>
 					<div class="formulaire pt-1">
 						{{ form_start(form )}}
 
 						{{ form_row(form.Address) | replace({"all": "</br>"})|raw  }}
+						{% for addres in app.user.addres %}
+							<div class="text-end">
+								<a href="{{path("app_addres_edit",{id:addres.id})}}">
+									<button class="btn btn-sm btn-primary " type="button">Modifier addresse</button>
+								</a>
+							</div>
+						{% endfor %}
 						{{ form_row(form.Information)  }}
 
 					</div>
@@ -43,17 +50,19 @@
 					<div class="mt-5 validation-com">
 						<div class="mb-0 d-flex justify-content-between">
 							<p>Sous-total</p>
-							<p>{{carts.data.total}}</p>
+							<p>{{carts.data.total}}
+								Ar</p>
 						</div>
 						<div class="d-flex justify-content-between">
 							<p>Frais de transport</p>
-							<p>gratuit</p>
+							<p>Gratuit</p>
 						</div>
 						<div class="d-flex justify-content-between">
 							<p>Total
 								<br><small>(y compris TVA)</small>
 							</p>
-							<p>{{carts.data.total}}</p>
+							<p>{{carts.data.total}}
+								Ar</p>
 						</div>
 
 					</div>

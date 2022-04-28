@@ -24,7 +24,7 @@ class CheckoutType extends AbstractType
 
             ])
             ->add('Information', TextareaType::class, [
-                'label' => 'Information pour lr livreure'
+                'label' => 'Information pour le livreure'
             ]);
     }
 

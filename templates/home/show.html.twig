@@ -7,26 +7,31 @@
 	<div class="container" style="margin-top:200px">
 		<div class="centre">
 			<div class="image-show p-3">
-				<img src="/asset/upload/product/{{produit.imagePro}}" width:"500px" height="500px" alt="" srcset="">
+				<img src="/asset/upload/product/{{produit.imagePro}}" width="100%" alt="" srcset="">
 			</div>
 			<div class="show-info">
 				<h3>{{produit.nomPro}}</h3>
-				<p>{{categorie.nomCate}}</p>
-				<h3>{{produit.prixPro}}
-					<span class="opacity-50 text-decoration-line-through">
-						{{produit.autrePrix}}
-					</span>
-					<a href="{{path("add_favorite",{id:produit.id})}}">
+				<p class="badge bg-danger">{{produit.categorie.nomCate}}</p>
+				<h4>{{produit.prixPro}}
+					Ar
+					{% if produit.autrePrix %}
+
+						<span class="opacity-50 text-decoration-line-through">
+							{{produit.autrePrix}}
+							Ar
+						</span>
+					{% endif %}
+					<a class="text-dark favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
 						<span>
-							<i class="bi-heart"></i>
+							<i class="bi-heart-fill"></i>
 						</span>
 					</a>
-				</h3>
+				</h4>
 				<p>{{produit.descriptionPro}}
 				</p>
 				<h5>Marque:</h5>
 
-				<img src="/asset/upload/product/{{marque.imageMarque}}" width:"400px" height="150px" alt="" srcset="">
+				<img src="/asset/upload/product/{{produit.marque.imageMarque}}" width:"400px" height="150px" alt="" srcset="">
 				<div>
 
 					<small class="pt-3">Choisissez votre couleur</small>
@@ -52,6 +57,57 @@
 							</span>Ajouter au panier</button>
 					</a>
 				</div>
+			</div>
+		</div>
+		<div class="rox text-center mt-4">
+			<div class="col-8 mx-auto">
+
+				<h5>Commentaire
+					<span class="badge bg-danger">{{counts}}</span>
+				</h5>
+				{% if app.user %}
+					{% if commentaire|length > 0  %}
+						<div class="note w-100 p-3 bg-info">
+							<span>Note global donnée par utilisateur
+								<br>
+								<i class="bi-star-fill"></i>
+								<i class="bi-star-fill"></i>
+								<i class="bi-star-fill"></i>
+								<i class="bi-star-fill"></i>
+								<i class="bi-star-fill"></i><br><small>(calculée sur  1 avis )</small>
+							</span>
+						</div>
+						<div class="d-flex p-4 justify-content-between align-items-center">
+							{% for commentaire in commentaire %}
+								<div class="commentaire d-flex">
+									<img src="/asset/upload/product/{{commentaire.users.imageUser}}" class="brce" width="80px" height="80px" alt="">
+									<span>{{commentaire.users.prenomUser}}
+										<br>
+										{{commentaire.commentaire}}
+										<br><span class="text-warning">
+											<i class="bi-star-fill"></i>
+											<i class="bi-star-fill"></i>
+											<i class="bi-star-fill"></i>
+											<i class="bi-star-fill"></i>
+											<i class="bi-star-fill"></i>
+										</span>
+										<br><p>
+											Crée le
+											{{commentaire.createdAt|date("d-m-Y H:i")}}
+										</p>
+									</span>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+
+					<div class="form mt-3">
+						{{form_start(form)}}
+						{{form_widget(form)}}
+						<button class="btn btn-sm w-50 btn-warning">commenter</button>
+						{{form_end(form)}}
+					</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

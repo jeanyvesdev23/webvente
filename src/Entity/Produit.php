@@ -84,6 +84,11 @@ class Produit
      */
     private $commenter;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Wishlist::class, inversedBy="produits",cascade={"persist"})
+     */
+    private $wishlist;
+
     public function __construct()
     {
         $this->commenter = new ArrayCollection();
@@ -270,6 +275,18 @@ class Produit
                 $commenter->setProduits(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWishlist(): ?Wishlist
+    {
+        return $this->wishlist;
+    }
+
+    public function setWishlist(?Wishlist $wishlist): self
+    {
+        $this->wishlist = $wishlist;
 
         return $this;
     }

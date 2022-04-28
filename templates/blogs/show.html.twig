@@ -1,0 +1,105 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title"Show produit" %}
+
+{% block body %}
+	<div class="main-content">
+		<main>
+			<div class="bus">
+
+				<div class="pro-image d-flex p-4 align-items-center">
+					<div class="">
+						<img src="/asset/upload/product/{{blog.imageBog}}" width:"200px" height="200px" alt="" srcset="">
+
+					</div>
+					<div class=" ms-5">
+						<h4>{{blog.titreBlog}}</h4>
+						<span>
+							<i class="bi-star-fill"></i>
+							<i class="bi-star-fill"></i>
+							<i class="bi-star-fill"></i>
+							<i class="bi-star-fill"></i>
+							<i class="bi-star"></i>
+						</span>
+						<div class="d-flex mt-3">
+							<div class="var p-1 text-start">
+								<span class="fs-5 fw-bold">2</span><br>
+								<small>Commantaires</small>
+							</div>
+							<div class="var p-1 text-start">
+
+								<span class="fs-5 fw-bold">2</span><br>
+								<small>nombre de Like</small>
+							</div>
+							<div class="var p-1 text-start">
+
+								<span class="fs-5 fw-bold">2</span><br>
+								<small>nombre de partage</small>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-4">
+						<div class="info_produit p-3 ">
+							<div class="dja ">
+								<p>status</p>
+								<p>
+									<span class="badge bg-secondary">publier</span>
+								</p>
+							</div>
+							<div class="dja">
+								<p>Marque</p>
+								<p>
+									<span class="badge bg-secondary">marque</span>
+								</p>
+							</div>
+							<div class="dja">
+								<p>Categorie</p>
+								<p>
+									<span class="badge bg-secondary">categorie</span>
+								</p>
+							</div>
+							<div class="dja">
+								<p>garantie</p>
+								<p>
+									<span class="badge bg-secondary">à la garantie</span>
+								</p>
+							</div>
+							<div class="dja">
+								<p>Quantité d'achat minimum</p>
+								<p>1</p>
+							</div>
+							<div class="dja">
+								<p>Quantité d'achat maximum</p>
+								<p>10</p>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="col-8 ">
+						<div class="info_produit p-3">
+							<h6>Edit Blog</h6>
+
+							{{ include('blogs/_form.html.twig', {'button_label': 'Modifier'}) }}
+						</div>
+
+					</div>
+					<div>
+						<div class="info_produit mt-5 p-3">
+							<div class="bbw">
+								<h6>Galerie</h6>
+							</div>
+							<div class="text-center pt-4 w-100">
+
+								<img src="/asset/upload/product/{{blog.imageBog}}" width:"100%" height="400px" alt="" srcset="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+{% endblock %}

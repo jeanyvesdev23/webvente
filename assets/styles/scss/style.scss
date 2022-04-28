@@ -115,7 +115,9 @@ header{
 /*-----fin header-----*/
 
 /*----body page corps-----*/
-
+.brce{
+    border-radius: 50%;
+}
     .ul{
         list-style-type: none;
     }
@@ -141,44 +143,7 @@ header{
     .bo-ra{
         border-radius: 5px;
     }
-    //col-3
-    .product-containt{
-        padding: 0 10vw;
-        display:flex;
-        overflow-x: auto;
-        scroll-behavior:smooth;   
-        padding-left: 0%;
-        background-color: #fff;
-        .product-offre{
-            flex : 0 0 auto;
-            width: 250px;
-            height: 350px;                     
-            .product-image{
-                position: relative;
-                width:100%;
-                height: 60%;
-                overflow: hidden;                    
-                .discount-tag{
-                    position: absolute;
-                    border-radius: 50%;
-                    color: rgb(246, 246, 248);
-                    background-color: rgb(192, 150, 14);
-                    padding: 5px;
-                    top:10px;
-                    right: 10px;
-                    text-transform: uppercase;
-                    font-size: 20px;
-                } 
-                .product-dump{
-                    width: 100%;                  
-                }  
-            } 
-                    
-        }
-    }
-    .product-containt::-webkit-scrollbar{
-        display:none;
-    }
+  
    
     .bo_bo{  
         border-bottom: 1px solid #999; 
@@ -218,7 +183,7 @@ header{
         padding-left: 0%;        
         .product-card{
             flex : 0 0 auto;
-            width: 250px;
+            width: 240px;
             height: 350px;          
             border-radius: 7px;
             border-color: #fff;
@@ -227,7 +192,20 @@ header{
                 position: relative;
                 width:100%;
                 height: 60%;
-                overflow: hidden; 
+                overflow: hidden;
+                .discount-tag{
+                    position: absolute;
+                    border-radius: 50%;
+                    color: rgb(246, 246, 248);
+                    background-color: rgb(192, 150, 14);
+                    padding-top: 10px;
+                    top:10px;
+                    right: 15px;
+                    height: 60px;
+                    width: 60px;
+                    text-transform: uppercase;
+                    font-size: 20px;
+                }  
                 .product-dump{
                     width: 100%;                  
                 }  
@@ -319,7 +297,24 @@ header{
     border-color: #fff;
     border: 1px solid rgb(197, 169, 114);
 
-   }      
+   }  
+   //blog
+   .centre-blog{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-gap:1rem;
+        align-items: center;
+   }
+   .centre-blog-show{
+    display:block;   
+    margin-left: 180px;
+    margin-right: 180px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: #fff;
+    align-items: center;
+
+   }    
     
     //show produit 
     .centre{
@@ -334,12 +329,19 @@ header{
         align-items: center;
       
     }
+    a.favorite:hover span i{
+        color: rgb(240, 41, 41);
+    }
     //header en tete 
 
 //footer en pied de page
 footer{
     display: block;
     margin-bottom: 0%;
+    position: relative;
+    bottom: 0;
+    right: 0%;
+    left: 0%;
   
     ul{
         background-color: rgb(53, 53, 245);

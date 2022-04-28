@@ -30,7 +30,7 @@ class ProduitController extends AbstractController
         ]);
     }
     /**
-     * @Route("/commentaire", name="app_commentaire", methods={"GET", "POST"})
+     * @Route("/commentaire", name="app_commentaire_produit", methods={"GET", "POST"})
      */
     public function commentaire(CommentaireRepository $commentaireRepository): Response
     {

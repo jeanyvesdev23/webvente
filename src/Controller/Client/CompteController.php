@@ -2,21 +2,28 @@
 
 namespace App\Controller\Client;
 
+use Countable;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Entity\Commande;
+use App\Entity\Wishlist;
 use App\Form\AddresType;
 use App\Services\Cartservices;
 use App\Repository\PanierRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\WishlistRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class CompteController extends AbstractController
+class CompteController extends AbstractController implements Countable
 {
+    public function count(): int
+    {
+        return $this->count();
+    }
     /**
      * @Route("/compte", name="app_compte")
      */
@@ -59,7 +66,7 @@ class CompteController extends AbstractController
     /**
      * @Route("/compte/favorite/produit",name="app_favorite_produit")
      */
-    public function favoriteProduit(Cartservices $favorite)
+    public function favoriteProduit(Cartservices $favorite, WishlistRepository $wishlistRepository)
     {
 
         return $this->render("compte/favoriteproduit.html.twig", [
@@ -83,7 +90,7 @@ class CompteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/addres/edit/{id}",name="app_addres_edit")
+     * @Route("compte/addres/edit/{id}",name="app_addres_edit")
      */
     public function editAddres(Request $request, EntityManagerInterface $em)
     {

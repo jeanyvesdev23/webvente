@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
@@ -28,6 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
     private $email;
 
@@ -70,7 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $commander;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true,options={"default":"children.jpg"})
      */
     private $imageUser;
 
@@ -84,6 +86,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="user")
+     */
+    private $blogs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CommentaireBlog::class, mappedBy="users")
+     */
+    private $commentaireBlogs;
+
 
 
     public function __construct()
@@ -91,6 +103,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->addres = new ArrayCollection();
         $this->commander = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->blogs = new ArrayCollection();
+        $this->commentaireBlogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -336,6 +350,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commentaire->getUsers() === $this) {
                 $commentaire->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Blog>
+     */
+    public function getBlogs(): Collection
+    {
+        return $this->blogs;
+    }
+
+    public function addBlog(Blog $blog): self
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs[] = $blog;
+            $blog->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlog(Blog $blog): self
+    {
+        if ($this->blogs->removeElement($blog)) {
+            // set the owning side to null (unless already changed)
+            if ($blog->getUser() === $this) {
+                $blog->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommentaireBlog>
+     */
+    public function getCommentaireBlogs(): Collection
+    {
+        return $this->commentaireBlogs;
+    }
+
+    public function addCommentaireBlog(CommentaireBlog $commentaireBlog): self
+    {
+        if (!$this->commentaireBlogs->contains($commentaireBlog)) {
+            $this->commentaireBlogs[] = $commentaireBlog;
+            $commentaireBlog->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaireBlog(CommentaireBlog $commentaireBlog): self
+    {
+        if ($this->commentaireBlogs->removeElement($commentaireBlog)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaireBlog->getUsers() === $this) {
+                $commentaireBlog->setUsers(null);
             }
         }
 

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!
+{% endblock %}
+
+{% block body %}
+	<div class="container mt">
+		{% for blog in blog %}
+			<div class="centre-blog">
+				<div class="image-show p-3">
+					<img src="asset/upload/product/{{blog.imageBog}}" class="w-100" height="300px" alt="" srcset="">
+				</div>
+				<div class="show-info">
+					<h3>{{blog.titreBlog}}</h3>
+					<p>{{blog.descriptionBlog}}</p>
+
+					<a class="nav-link text-primary" href="{{path("app_blog_lire",{id:blog.id})}}">contituer a lire.......
+					</a>
+				</div>
+
+
+			</div>
+		{% endfor %}
+
+	</div>
+{% endblock %}

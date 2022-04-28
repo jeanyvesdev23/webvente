@@ -20,7 +20,7 @@ class StatusCommande
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,options={"default":"passée"})
      */
     private $statusLivraison;
 

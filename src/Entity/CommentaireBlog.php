@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use App\Entity\Traits\timestandable;
-use App\Repository\CommentaireRepository;
+use App\Repository\CommentaireBlogRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CommentaireRepository::class)
+ * @ORM\Entity(repositoryClass=CommentaireBlogRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class Commentaire
+class CommentaireBlog
 {
     use timestandable;
     /**
@@ -31,20 +31,19 @@ class Commentaire
     private $isPublier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="commenter")
+     * @ORM\Column(type="integer")
      */
-    private $produits;
+    private $numberEtoile;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaireBlogs")
      */
     private $users;
 
-
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="commentaireBlogs")
      */
-    private $numbreEtoile;
+    private $blog;
 
     public function getId(): ?int
     {
@@ -75,14 +74,14 @@ class Commentaire
         return $this;
     }
 
-    public function getProduits(): ?Produit
+    public function getNumberEtoile(): ?int
     {
-        return $this->produits;
+        return $this->numberEtoile;
     }
 
-    public function setProduits(?Produit $produits): self
+    public function setNumberEtoile(int $numberEtoile): self
     {
-        $this->produits = $produits;
+        $this->numberEtoile = $numberEtoile;
 
         return $this;
     }
@@ -99,16 +98,14 @@ class Commentaire
         return $this;
     }
 
-
-
-    public function getNumbreEtoile(): ?int
+    public function getBlog(): ?Blog
     {
-        return $this->numbreEtoile;
+        return $this->blog;
     }
 
-    public function setNumbreEtoile(int $numbreEtoile): self
+    public function setBlog(?Blog $blog): self
     {
-        $this->numbreEtoile = $numbreEtoile;
+        $this->blog = $blog;
 
         return $this;
     }

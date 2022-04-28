@@ -112,7 +112,7 @@ class AdminController extends AbstractController
         }
         $produit->setStatus($status);
         $em->flush();
-        return $this->redirectToRoute("app_pcommentaire");
+        return $this->redirectToRoute("app_commentaire");
     }
     /**
      * @Route("/client",name="app_client")
@@ -161,7 +161,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/contacts/{id}",name="app_contact_ldetail")
+     * @Route("/contacts/{id}",name="app_contact_detail")
      */
     public function contactDetail(Contact $contact)
     {
