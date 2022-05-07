@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\timestandable;
+use App\Repository\ContactRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
  */
 class Contact
 {
+    use timestandable;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,21 +22,26 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank     
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank   
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank   
      */
     private $subject;
 
     /**
      * @ORM\Column(type="text")
+     *  @Assert\NotBlank   
+     * @Assert\Length(min=20,minMessage="Votre message est trop court")
      */
     private $message;
 

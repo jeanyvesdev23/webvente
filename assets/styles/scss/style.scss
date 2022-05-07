@@ -75,9 +75,7 @@ header{
                     background-color: blue;
                     content: "";
                 }
-                a:active{
-                    background-color: blue;
-                }
+               
             }
         }
     }
@@ -113,6 +111,15 @@ header{
     }
 }
 /*-----fin header-----*/
+/*----input------*/
+.form-control:focus,.form-select:focus{
+    border-color: #bbb8b8;    
+    box-shadow: none;
+}
+.btn:active:focus , .btn:focus{
+    box-shadow: none;
+}
+/*--x--input---x---*/
 
 /*----body page corps-----*/
 .brce{
@@ -174,7 +181,8 @@ header{
             }
         }    
     }
-    //listes des produits col-9   
+    //listes des produits col-9 
+
     .product-container{
         padding: 0 10vw;
         display:flex;
@@ -236,25 +244,43 @@ header{
         }
     }
     
-    .top-product{
+   
         .top{
             width: 100%;
             height: 50px;
             background-color: whitesmoke;
             border-radius: 5px;
-            h5{
-                padding: 1rem;
+            h6{
+               margin:0rem 1rem;
+               cursor: pointer;
+               padding: 0% 0.7rem;
+               height: 1.5rem;
+            }
+            h6:hover{
+                background-color: #ddd;              
+                border-radius: 5px;             
+            }
+            h6.active{
+                background-color: #ddd;              
+                border-radius: 5px;  
             }
         }
         .liste-top{
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-between;
             .wm{
                 width: 241px;
                 margin: 0.5rem;
+                cursor: pointer;
+                text-decoration: none;
+                color: #1d1b1b;
+            }
+            .wm:hover{
+                box-shadow: 1px 5px 10px #817575;
             }
         }
-    }
+    
   .section{
       background-image: url("../../images/offre.jpg");
       background-repeat: no-repeat;
@@ -288,6 +314,17 @@ header{
         border-radius: 0;
       }
 
+  }
+  .block{
+      animation: slidedown .3s;
+  }
+  @keyframes slidedown {
+      0%{
+          transform: translateY(300px);
+      }
+      100%{
+          transform: translateY(0);
+      }
   }
     
    .produit-offre{
@@ -334,45 +371,17 @@ header{
     }
     //header en tete 
 
-//footer en pied de page
-footer{
-    display: block;
-    margin-bottom: 0%;
-    position: relative;
-    bottom: 0;
-    right: 0%;
-    left: 0%;
-  
-    ul{
-        background-color: rgb(53, 53, 245);
-        list-style-type: none;
-        li{
-            padding-left: 2rem;
-            a{
-                text-decoration: none;
-                color: #fff;
-                font-size:25px;
-                font-weight: 200;
-            }
-            a:hover{
-                color: orange;
-            }
-        }
-    }
-    .copy{
-        background-color: rgb(0, 0, 243);
-        text-align: center;
-        color: aliceblue;
-        text-transform: capitalize;
-        margin-top: -1rem;
-    }
-}
+
 .container{
     //shop pages
+    .none{
+        display: none;
+    }
 .liste-produit{
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-gap: 1rem;
+    animation: slidedown .3s;
     .product-card{
         flex : 0 0 auto;
         width: 250px;
@@ -412,4 +421,45 @@ footer{
     }
 }
 
+}
+//footer en pied de page
+footer{
+    display: block;
+    margin-bottom: 0%;
+    position: relative;
+    bottom: 0;
+    right: 0%;
+    left: 0%;
+  
+    ul{
+        background-color: rgb(53, 53, 245);
+        list-style-type: none;
+        li{
+            padding-left: 2rem;
+            a{
+                text-decoration: none;
+                color: #fff;
+                font-size:25px;
+                font-weight: 200;
+            }
+            a:hover{
+                color: orange;
+            }
+        }
+    }
+    .copy{
+        background-color: rgb(0, 0, 243);
+        text-align: center;
+        color: aliceblue;
+        text-transform: capitalize;
+        margin-top: -1rem;
+    }
+}
+
+@media (max-width:400px) {
+    header{
+        .hidden{
+            display: none;
+        }
+    }
 }

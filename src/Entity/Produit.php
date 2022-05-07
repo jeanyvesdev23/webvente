@@ -7,6 +7,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
@@ -24,13 +25,32 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $nomPro;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $prixPro;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * 
+     */
+    private $imagePro;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank
+     */
+    private $descriptionPro;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $autrePrix;
 
     /**
      * @ORM\Column(type="boolean",nullable=true)
@@ -47,10 +67,7 @@ class Produit
      */
     private $meilleur;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imagePro;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="produit",cascade={"persist"})
@@ -64,20 +81,14 @@ class Produit
      */
     private $marque;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $descriptionPro;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="produits")
      */
     private $commande;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $autrePrix;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="produits")
@@ -88,6 +99,16 @@ class Produit
      * @ORM\ManyToOne(targetEntity=Wishlist::class, inversedBy="produits",cascade={"persist"})
      */
     private $wishlist;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isOffre;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isFutur;
 
     public function __construct()
     {
@@ -287,6 +308,30 @@ class Produit
     public function setWishlist(?Wishlist $wishlist): self
     {
         $this->wishlist = $wishlist;
+
+        return $this;
+    }
+
+    public function getIsOffre(): ?bool
+    {
+        return $this->isOffre;
+    }
+
+    public function setIsOffre(?bool $isOffre): self
+    {
+        $this->isOffre = $isOffre;
+
+        return $this;
+    }
+
+    public function getIsFutur(): ?bool
+    {
+        return $this->isFutur;
+    }
+
+    public function setIsFutur(?bool $isFutur): self
+    {
+        $this->isFutur = $isFutur;
 
         return $this;
     }

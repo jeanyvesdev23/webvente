@@ -68,15 +68,22 @@ class ProduitRepository extends ServiceEntityRepository
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Produit
+
+    public function searchwithCate($search)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $this->createQueryBuilder('p');
+        if ($search->getMinPrix()) {
+            $query = $query->andWhere("p.prixPro > " . $search->getMinPrix());
+        }
+        if ($search->getMaxPrix()) {
+            $query = $query->andWhere("p.prixPro < " . $search->getMaxPrix());
+        }
+        if ($search->getCategorie()) {
+            $query = $query->join('p.categorie', 'c')
+                ->andWhere('c.nomCate IN (:valu) ')
+                ->setParameter('valu', $search->getCategorie());
+        }
+
+        return $query->getQuery()->getResult();
     }
-    */
 }

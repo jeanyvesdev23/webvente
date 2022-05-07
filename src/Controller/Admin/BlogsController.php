@@ -79,8 +79,8 @@ class BlogsController extends AbstractController
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
+                $blog->setImageBog($newFile);
             }
-            $blog->setImageBog($newFile);
             $blogRepository->add($blog);
             return $this->redirectToRoute("app_blogs_index");
         }

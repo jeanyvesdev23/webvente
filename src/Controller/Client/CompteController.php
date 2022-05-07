@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use symfony\Component\HttpFoundation\File\UploadedFile;
+use symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class CompteController extends AbstractController implements Countable
 {
@@ -76,11 +79,23 @@ class CompteController extends AbstractController implements Countable
     /**
      * @Route("/compte/edit/{id}",name="app_compte_edit")
      */
-    public function editCompte(Request $request, EntityManagerInterface $em)
+    public function editCompte(Request $request, EntityManagerInterface $em, SluggerInterface $sluggerInterface)
     {
         $users = $this->getUser();
         $form = $this->createForm(UserType::class, $users)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get("imageUser")->getData();
+            if ($image) {
+                $origineFile = pathinfo($image->getClientOriginalName(), 1);
+                $slugerFile = $sluggerInterface->slug($origineFile);
+                $newFile = $slugerFile . '' . uniqid() . '.' . $image->guessExtension();
+                try {
+                    $image->move($this->getParameter("images_directory"), $newFile);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+                $users->setImageUser($newFile);
+            }
             $em->flush();
             return $this->redirectToRoute("app_compte");
         }
@@ -98,6 +113,7 @@ class CompteController extends AbstractController implements Countable
 
         $form = $this->createForm(AddresType::class, $users[0])->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em->flush();
             return $this->redirectToRoute("app_compte");
         }

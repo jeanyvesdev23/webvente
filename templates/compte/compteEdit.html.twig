@@ -13,6 +13,14 @@
 				<div class="form mt-2 p-3">
 					{{form_start(form)}}
 					<div class="row">
+						<div class="col-6 mx-auto">
+							<div class="d-flex align-items-center">
+								<img src="/asset/upload/product/{{app.user.imageUser}}" width="70px" height="70px" class="brce me-3" alt="" srcset="" style="border:1px solid #5c5858">
+								{{form_row(form.imageUser)}}
+							</div>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-6">
 							{{form_row(form.nomUser)}}
 						</div>

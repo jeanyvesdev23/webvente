@@ -5,16 +5,20 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Produit;
+use App\Entity\SearchProduct;
 use App\Form\CommentaireType;
+use App\Form\SearchType;
 use App\Repository\BlogRepository;
 use App\Repository\MarqueRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\CommentaireRepository;
+use App\Repository\SearchProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Serializer;
 
 class HomeController extends AbstractController
 {
@@ -23,31 +27,48 @@ class HomeController extends AbstractController
      */
     public function index(ProduitRepository $produitRepository, BlogRepository $blogRepository, CategorieRepository $categorieRepository): Response
     {
-        $produits = $produitRepository->findAll();
-        $categories = $categorieRepository->findAll();
-        $blog = $blogRepository->findBy([], [], 4);
-        return $this->render('home/index.html.twig', compact("produits", "categories", "blog"));
+
+
+        return $this->render('home/index.html.twig', [
+            "produits" => $produitRepository->findBy([], ["createdAt" => "DESC"], 8),
+            "categories" => $categorieRepository->findAll(),
+            "futur" => $produitRepository->findBy(["isFutur" => true]),
+            'news' => $produitRepository->findBy(['nouveau' => true]),
+            'best' => $produitRepository->findBy(['meilleur' => true]),
+            'offre' => $produitRepository->findBy(['isOffre' => true]),
+            "blog" => $blogRepository->findBy([], [], 4)
+        ]);
     }
     /**
-     * @Route("/produit", name="app_produit", methods={"GET"})
+     * @Route("/produit", name="app_produit", methods={"GET","POST"})
      */
-    public function produit(ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
+    public function produit(Request $request, SearchProductRepository $searchProductRepository, ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
     {
+        $produits = $produitRepository->findAll();
+        $search = new SearchProduct;
+        $form = $this->createForm(SearchType::class, $search)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $produits = $produitRepository->searchwithCate($search);
+        }
         return $this->render('home/produit.html.twig', [
-            'produits' => $produitRepository->findAll(),
-            'categories' => $categorieRepository->findAll()
+            'produits' => $produits,
+            'news' => $produitRepository->findBy(['nouveau' => true]),
+            'best' => $produitRepository->findBy(['meilleur' => true]),
+            'offre' => $produitRepository->findBy(['isOffre' => true]),
+            'categories' => $categorieRepository->findAll(),
+            "form" => $form->createView()
 
         ]);
     }
     /**
-     * @Route("/produit/seach", name="app_produit_search", methods={"GET"})
+     * @Route("/produit/search", name="app_produit_search", methods={"GET"})
      */
     public function search(ProduitRepository $produitRepository, CategorieRepository $categorieRepository, Request $request): Response
     {
 
         $result = $request->query->get("nomPro");
         $result1 = $request->query->get("categorie");
-
         $resulta = $produitRepository->search($result, $result1);
         if ($resulta == null) {
             return $this->redirectToRoute("app_produit");

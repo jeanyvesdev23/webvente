@@ -22,22 +22,26 @@
 			</div>
 		</div>
 		<div class="row ">
-			<div class="col-4 ps-5">
+			<div class="col-3 ps-5">
 				{{ form_row(form.status) }}
 
 			</div>
-			<div class="col-4">
+			<div class="col-3">
 				{{ form_row(form.nouveau) }}
 
 			</div>
-			<div class="col-4">
+			<div class="col-3">
 				{{ form_row(form.meilleur) }}
+
+			</div>
+			<div class="col-3">
+				{{ form_row(form.isFutur) }}
 
 			</div>
 		</div>
 		{{ form_row(form.imagePro) }}
 		{{ form_row(form.descriptionPro) }}
-		<button class="btn btn-warning w-100">{{ button_label|default('Ajouter') }}</button>
+		<button class="btn btn-warning w-100" formnovalidate>{{ button_label|default('Ajouter') }}</button>
 
 	</div>
 </div>

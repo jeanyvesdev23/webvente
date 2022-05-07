@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\timestandable;
 use App\Repository\CommentaireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
@@ -21,7 +22,16 @@ class Commentaire
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Nombre d'etoile ne peut pas être vide et nombre maximum 5")
+     * @Assert\Length(max=5)     
+     */
+    private $numbreEtoile;
+
+    /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Commmentaire ne peut pas être vide ")
+     * @Assert\Length(min=10,minMessage="Votre commentaire est trop court")
      */
     private $commentaire;
 
@@ -41,10 +51,6 @@ class Commentaire
     private $users;
 
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numbreEtoile;
 
     public function getId(): ?int
     {

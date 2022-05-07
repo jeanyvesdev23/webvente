@@ -22,7 +22,7 @@
 						<span class="pe-2">
 							<i class="bi-collection-fill"></i>
 						</span>
-						CATHEGORIES
+						CATEGORIES
 					</a>
 
 					{% for categorie in categories %}
@@ -87,18 +87,18 @@
 						</div>
 					</div>
 					<div class=" product-container ">
-						{% for produit in produits %}
+						{% for offre in offre %}
 							<div class="product-card  m-3 bg-white box">
 								<div class="product-image p-2 text-center">
 									<span class="discount-tag">-50%</span>
-									<a href="{{path("app_produit_show",{id:produit.id})}}">
-										<img src="./asset/upload/product/{{produit.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
+									<a href="{{path("app_produit_show",{id:offre.id})}}">
+										<img src="./asset/upload/product/{{offre.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
 									</a>
 								</div>
 								<div class="cart-flex ">
 									<div class=" p-2">
-										<h4 class=" fs-5">{{produit.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
+										<h4 class=" fs-5">{{offre.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{offre.categorie}}</span><br>
 										<span class="text-warning fs-6 pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -110,16 +110,16 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{produit.prixPro}}
+											<span class="product-price ">{{offre.prixPro}}
 												Ar</span>
-											{% if produit.autrePrix != null %}
-												<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+											{% if offre.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{offre.autrePrix}}
 													Ar</span>
 											{% endif %}
 										</div>
 										<div class="cart-panier pe-3 ">
 											<span>
-												<a href="{{path("add_cart",{id:produit.id})}}">
+												<a href="{{path("add_cart",{id:offre.id})}}">
 
 													<i class="bi-cart-plus-fill"></i>
 												</a>
@@ -160,17 +160,17 @@
 						</div>
 					</div>
 					<div class="product-container">
-						{% for produit in produits %}
+						{% for futur in futur %}
 							<div class="product-card  m-3 bg-white box">
 								<div class="product-image p-2 text-center">
-									<a href="{{path("app_produit_show",{id:produit.id})}}">
-										<img src="./asset/upload/product/{{produit.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
+									<a href="{{path("app_produit_show",{id:futur.id})}}">
+										<img src="./asset/upload/product/{{futur.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
 									</a>
 								</div>
 								<div class="cart-flex ">
 									<div class=" p-2">
-										<h4 class=" fs-5">{{produit.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
+										<h4 class=" fs-5">{{futur.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{futur.categorie}}</span><br>
 										<span class="text-warning fs-6 pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -182,16 +182,16 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{produit.prixPro}}
+											<span class="product-price ">{{futur.prixPro}}
 												Ar</span>
-											{% if produit.autrePrix != null %}
-												<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+											{% if futur.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{futur.autrePrix}}
 													Ar</span>
 											{% endif %}
 										</div>
 										<div class="cart-panier pe-3 ">
 											<span>
-												<a href="{{path("add_cart",{id:produit.id})}}">
+												<a href="{{path("add_cart",{id:futur.id})}}">
 
 													<i class="bi-cart-plus-fill"></i>
 												</a>
@@ -220,18 +220,18 @@
 						</div>
 					</div>
 					<div class=" product-container ">
-						{% for produit in produits %}
+						{% for best in best %}
 							<div class="product-card  m-3 bg-white box">
 								<div class="product-image p-2 text-center">
-									<span class="discount-tag">-50%</span>
-									<a href="{{path("app_produit_show",{id:produit.id})}}">
-										<img src="./asset/upload/product/{{produit.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
+
+									<a href="{{path("app_produit_show",{id:best.id})}}">
+										<img src="./asset/upload/product/{{best.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
 									</a>
 								</div>
 								<div class="cart-flex ">
 									<div class=" p-2">
-										<h4 class=" fs-5">{{produit.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
+										<h4 class=" fs-5">{{best.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{best.categorie}}</span><br>
 										<span class="text-warning fs-6 pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -243,16 +243,16 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{produit.prixPro}}
+											<span class="product-price ">{{best.prixPro}}
 												Ar</span>
-											{% if produit.autrePrix != null %}
-												<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+											{% if best.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{best.autrePrix}}
 													Ar</span>
 											{% endif %}
 										</div>
 										<div class="cart-panier pe-3 ">
 											<span>
-												<a href="{{path("add_cart",{id:produit.id})}}">
+												<a href="{{path("add_cart",{id:best.id})}}">
 
 													<i class="bi-cart-plus-fill"></i>
 												</a>
@@ -293,17 +293,17 @@
 						</div>
 					</div>
 					<div class="product-container">
-						{% for produit in produits %}
+						{% for new in news %}
 							<div class="product-card  m-3 bg-white box">
 								<div class="product-image p-2 text-center">
-									<a href="{{path("app_produit_show",{id:produit.id})}}">
-										<img src="./asset/upload/product/{{produit.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
+									<a href="{{path("app_produit_show",{id:new.id})}}">
+										<img src="./asset/upload/product/{{new.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
 									</a>
 								</div>
 								<div class="cart-flex ">
 									<div class="product-info p-2">
-										<h4 class="product-title fs-5">{{produit.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
+										<h4 class="product-title fs-5">{{new.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{new.categorie}}</span><br>
 										<span class="text-warning fs-6 pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -315,16 +315,16 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{produit.prixPro}}
+											<span class="product-price ">{{new.prixPro}}
 												Ar</span>
-											{% if produit.autrePrix != null %}
-												<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+											{% if new.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{new.autrePrix}}
 													Ar</span>
 											{% endif %}
 										</div>
 										<div class="cart-panier pe-3 ">
 											<span>
-												<a href="{{path("add_cart",{id:produit.id})}}">
+												<a href="{{path("add_cart",{id:new.id})}}">
 
 													<i class="bi-cart-plus-fill"></i>
 												</a>
@@ -349,13 +349,14 @@
 		</div>
 		<div class="top-product mt-4">
 			<div class="d-flex top justify-content-between align-items-center">
-				<h5>Random product</h5>
-				<h5>Top best</h5>
-				<h5>Top sale</h5>
+				<h6>Random product</h6>
+				<h6>Top best</h6>
+				<h6>Top sale</h6>
 			</div>
 			<div class="liste-top">
 				{% for produit in produits %}
-					<div class="d-flex wm justify-content-center align-items-center bg-white">
+					<a class="wm d-flex  justify-content-center align-items-center bg-white" href="{{path("app_produit_show",{id:produit.id})}}">
+
 
 						<img src="./asset/upload/product/{{produit.imagePro}}" width="150px" heigth="200px" alt="">
 						<div>
@@ -377,12 +378,11 @@
 								{% endif %}
 							</div>
 						</div>
-
-					</div>
+					</a>
 				{% endfor %}
 			</div>
 		</div>
-		<div class="top-product mt-4">
+		<div class="top-blog mt-4">
 			<div class="top">
 				<h5>Blog</h5>
 			</div>

@@ -3,77 +3,223 @@
 {% block title 'All produit' %}
 
 {% block body %}
-	<div class="container " style="margin-top:11rem">
+	<div class="container mt">
 		<div class="row">
 			<div class="col-3">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">CATHEGORIES
-					</a>
-					{% for categorie in categories %}
-
-						<a href="#" class="list-group-item list-group-item-action list-group-item-primary">{{categorie.nomCate}}</a>
-					{% endfor %}
+				<div class="list-group mt-5">
+					{{form_start(form)}}
+					<h6>Categories</h6>
+					{{form_row(form.Categorie)}}
+					<div class="row">
+						<h6>Prix</h6>
+						<div class="col-6">
+							{{form_row(form.minPrix)}}
+						</div>
+						<div class="col-6">
+							{{form_row(form.maxPrix)}}
+						</div>
+					</div>
+					<button class="btn btn-warning w-100" formnovalidate>Chercher</button>
+					{{form_end(form)}}
 
 				</div>
 			</div>
 			<div class="col-9 top-product">
+				<div class="align-items-center top d-flex justify-content-between">
+					<h6 id="All" class="active">Tous les produits</h6>
+					<div class="d-flex justify-content-between align-items-center">
 
-				<div class="liste-comerce top d-flex justify-content-between">
-					<div class="new">
-						<h6>Nouveau produit</h6>
+						<h6 id="news">Nouveau produit</h6>
+						<h6 id="best">Poupulaire</h6>
+						<h6 id="offre">Offre</h6>
 					</div>
-					<div class="new">
-						<h6>Meilleur produit</h6>
-					</div>
-					<div class="new">
-						<h6>Futur produit</h6>
+				</div>
+				<div id="list-produit">
+					<div class="liste-produit">
+						{% for produit in produits %}
+
+							<div class="product-card  m-1 bg-white box">
+								<div class="product-image p-2 text-center">
+									<a href="{{path("app_produit_show",{id:produit.id})}}">
+										<img src="./asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
+									</a>
+								</div>
+								<div class="cart-flex ">
+									<div class="product-info p-2">
+										<h4 class="product-title fs-5">{{produit.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
+										<span class="text-warning fs-6 pb-0">
+											<i class="bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star"></i>
+										</span>
+									</div>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="fw-bold fs-6 ps-2">
+
+											<span class="product-price ">{{produit.prixPro}}
+												Ar</span>
+											{% if produit.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+													Ar</span>
+											{% endif %}
+										</div>
+										<div class="cart-panier pe-3 ">
+											<span>
+												<a href="{{path("add_cart",{id:produit.id})}}">
+
+													<i class="bi-cart-plus-fill"></i>
+												</a>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+
 					</div>
 				</div>
 
-				<div class="liste-produit">
+				<div id="list-news" class="none">
+					<div class="liste-produit">
+						{% for news in news %}
 
-					{% for produit in produits %}
-
-						<div class="product-card  m-1 bg-white box">
-							<div class="product-image p-2 text-center">
-								<a href="{{path("app_produit_show",{id:produit.id})}}">
-									<img src="./asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
-								</a>
-							</div>
-							<div class="cart-flex ">
-								<div class="product-info p-2">
-									<h4 class="product-title fs-5">{{produit.nomPro}}</h4>
-									<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
-									<span class="text-warning fs-6 pb-0">
-										<i class="bi-star-fill"></i>
-										<i class="bi bi-star-fill"></i>
-										<i class="bi bi-star-fill"></i>
-										<i class="bi bi-star-fill"></i>
-										<i class="bi bi-star"></i>
-									</span>
+							<div class="product-card  m-1 bg-white box">
+								<div class="product-image p-2 text-center">
+									<a href="{{path("app_produit_show",{id:news.id})}}">
+										<img src="./asset/upload/product/{{news.imagePro}}" class="product-dump" alt="">
+									</a>
 								</div>
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="fw-bold fs-6 ps-2">
-
-										<span class="product-price ">{{produit.prixPro}}
-											Ar</span>
-										{% if produit.autrePrix != null %}
-											<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
-												Ar</span>
-										{% endif %}
-									</div>
-									<div class="cart-panier pe-3 ">
-										<span>
-											<a href="{{path("add_cart",{id:produit.id})}}">
-
-												<i class="bi-cart-plus-fill"></i>
-											</a>
+								<div class="cart-flex ">
+									<div class="product-info p-2">
+										<h4 class="product-title fs-5">{{news.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{news.categorie}}</span><br>
+										<span class="text-warning fs-6 pb-0">
+											<i class="bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star"></i>
 										</span>
 									</div>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="fw-bold fs-6 ps-2">
+
+											<span class="product-price ">{{news.prixPro}}
+												Ar</span>
+											{% if news.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{news.autrePrix}}
+													Ar</span>
+											{% endif %}
+										</div>
+										<div class="cart-panier pe-3 ">
+											<span>
+												<a href="{{path("add_cart",{id:news.id})}}">
+
+													<i class="bi-cart-plus-fill"></i>
+												</a>
+											</span>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					{% endfor %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div id="list-best" class="none">
+					<div class="liste-produit">
+						{% for best in best %}
+
+							<div class="product-card  m-1 bg-white box">
+								<div class="product-image p-2 text-center">
+									<a href="{{path("app_produit_show",{id:best.id})}}">
+										<img src="./asset/upload/product/{{best.imagePro}}" class="product-dump" alt="">
+									</a>
+								</div>
+								<div class="cart-flex ">
+									<div class="product-info p-2">
+										<h4 class="product-title fs-5">{{best.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{best.categorie}}</span><br>
+										<span class="text-warning fs-6 pb-0">
+											<i class="bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star"></i>
+										</span>
+									</div>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="fw-bold fs-6 ps-2">
+
+											<span class="product-price ">{{best.prixPro}}
+												Ar</span>
+											{% if best.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{best.autrePrix}}
+													Ar</span>
+											{% endif %}
+										</div>
+										<div class="cart-panier pe-3 ">
+											<span>
+												<a href="{{path("add_cart",{id:best.id})}}">
+
+													<i class="bi-cart-plus-fill"></i>
+												</a>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div id="list-offre" class="none">
+					<div class="liste-produit">
+						{% for offre in offre %}
+
+							<div class="product-card  m-1 bg-white box">
+								<div class="product-image p-2 text-center">
+									<a href="{{path("app_produit_show",{id:offre.id})}}">
+										<img src="./asset/upload/product/{{offre.imagePro}}" class="product-dump" alt="">
+									</a>
+								</div>
+								<div class="cart-flex ">
+									<div class="product-info p-2">
+										<h4 class="product-title fs-5">{{offre.nomPro}}</h4>
+										<span class="badge bg-danger mt-0">{{offre.categorie}}</span><br>
+										<span class="text-warning fs-6 pb-0">
+											<i class="bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star"></i>
+										</span>
+									</div>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="fw-bold fs-6 ps-2">
+
+											<span class="product-price ">{{offre.prixPro}}
+												Ar</span>
+											{% if offre.autrePrix != null %}
+												<span class="opacity-50 text-decoration-line-through">{{offre.autrePrix}}
+													Ar</span>
+											{% endif %}
+										</div>
+										<div class="cart-panier pe-3 ">
+											<span>
+												<a href="{{path("add_cart",{id:offre.id})}}">
+
+													<i class="bi-cart-plus-fill"></i>
+												</a>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 
 

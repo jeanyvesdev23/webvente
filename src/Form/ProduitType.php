@@ -43,6 +43,9 @@ class ProduitType extends AbstractType
             ->add('meilleur', null, [
                 "label" => "Meilleur"
             ])
+            ->add('isFutur', null, [
+                "label" => "Futur"
+            ])
             ->add('imagePro', FileType::class, [
                 "label" => "Image (png ou jpg) file",
                 "mapped" => false,

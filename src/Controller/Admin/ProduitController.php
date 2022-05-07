@@ -104,8 +104,8 @@ class ProduitController extends AbstractController
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
+                $produit->setImagePro($newFile);
             }
-            $produit->setImagePro($newFile);
             $produitRepository->add($produit);
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -124,7 +124,7 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $produit->setIsOffre(true);
             $produitRepository->add($produit);
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }

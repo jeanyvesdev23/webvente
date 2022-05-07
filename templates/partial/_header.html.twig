@@ -30,16 +30,21 @@
 						Logout</a>
 				</li>
 			{% else %}
-
+				<li class="nav-item fs">
+					<a class="nav-link  text-white " href="{{path("app_register")}}">
+						<i class="bi-person-badge"></i>
+						Register</a>
+				</li>
 				<li class="nav-item fs">
 					<a class="nav-link  text-white " href="{{path("app_login")}}">
 						<i class="bi-lock"></i>
 						Login</a>
 				</li>
+
 			{% endif %}
 		</ul>
 		<nav class="navbar navbar-light bg-primary display-inline-block container">
-			<h3 class="ps-4">Webvente</h3>
+			<img src="/asset/upload/product/images.jpg" alt="" width="130px" class="hidden ms-5" heigth="3rem" srcset="">
 			<form action="{{path("app_produit_search")}}" methode="get">
 				<div class="input-group">
 					<select name="categorie" id="categorie" class="form-selecte form-control adi">
@@ -51,12 +56,13 @@
 						<option value="5">Télévision</option>
 					</select>
 					<input type="text" class="form-control" name="nomPro" placeholder="Search here" aria-label="Username" aria-describedby="basic-addon1" style="width:400px">
-					<button type="submit" class="btn btn-warning adi">
+					<button type="submit" class="btn btn-sm btn-warning adi">
 						<i class="bi-search"></i>
 					</button>
 				</div>
 			</form>
 			<button type="submit" class="btn text-white bg-blue pe-4">
+
 				<span>
 					<i class="bi-cart-check-fill fs-5"></i>
 

@@ -86,19 +86,10 @@
 .mtt{
     margin-top: 135px;
 }
-.liste-top{
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(3,1fr);
-    .wm{
-        width: 250px;
-        margin: 0.5rem;
-        box-shadow: 0px 0px 5px 1px;
-    }
 
-}
 .fav{
-    border-bottom: 1px solid #999;;
+    border-bottom: 1px solid #999;
+    
 
 }
 .bcf{

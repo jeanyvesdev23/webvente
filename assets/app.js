@@ -49,3 +49,56 @@ productContainer.forEach((item, i) => {
         item.scrollLeft -= containtWidth;
     })
 })
+//liste produit news , best et futur
+const all = document.getElementById("All");
+const list_produit = document.getElementById("list-produit");
+const news = document.getElementById("news");
+const list_news = document.getElementById("list-news");
+const best = document.getElementById("best");
+const list_best = document.getElementById("list-best");
+const offre = document.getElementById("offre");
+const list_offre = document.getElementById("list-offre");
+
+
+news.addEventListener("click", (e) => {
+    list_produit.classList.add('none')
+    list_news.classList.replace("none", "block");
+    list_best.classList.replace("block", "none");
+    list_offre.classList.replace("block", "none");
+    news.classList.add('active')
+    best.classList.remove('active')
+    all.classList.remove('active')
+    offre.classList.remove('active')
+
+
+})
+best.addEventListener("click", () => {
+    list_produit.classList.add("none");
+    list_best.classList.replace("none", "block");
+    list_news.classList.replace("block", "none");
+    list_offre.classList.replace("block", "none");
+    best.classList.add('active')
+    news.classList.remove('active')
+    offre.classList.remove('active')
+    all.classList.remove('active')
+})
+all.addEventListener("click", () => {
+    list_produit.classList.remove("none");
+    list_news.classList.replace("block", "none");
+    list_best.classList.replace("block", "none");
+    list_offre.classList.replace("block", "none");
+    all.classList.add('active')
+    best.classList.remove('active')
+    news.classList.remove('active')
+    offre.classList.remove('active')
+})
+offre.addEventListener("click", () => {
+    list_produit.classList.add("none");
+    list_news.classList.replace("block", "none");
+    list_best.classList.replace("block", "none");
+    list_offre.classList.replace("none", "block");
+    offre.classList.add('active')
+    best.classList.remove('active')
+    news.classList.remove('active')
+    all.classList.remove('active')
+})

@@ -10,7 +10,7 @@
 				<img src="/asset/upload/product/{{produit.imagePro}}" width="100%" alt="" srcset="">
 			</div>
 			<div class="show-info">
-				<h3>{{produit.nomPro}}</h3>
+				<h3 class="pt-3">{{produit.nomPro}}</h3>
 				<p class="badge bg-danger">{{produit.categorie.nomCate}}</p>
 				<h4>{{produit.prixPro}}
 					Ar
@@ -104,7 +104,7 @@
 					<div class="form mt-3">
 						{{form_start(form)}}
 						{{form_widget(form)}}
-						<button class="btn btn-sm w-50 btn-warning">commenter</button>
+						<button class="btn btn-sm w-50 btn-warning" formnovalidate>commenter</button>
 						{{form_end(form)}}
 					</div>
 				{% endif %}
