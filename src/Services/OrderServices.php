@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Commande;
 use App\Entity\Panier;
+use App\Entity\StatusCommande;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OrderServices
@@ -15,6 +16,8 @@ class OrderServices
     }
     public function savecart($data, $user)
     {
+        $status = new StatusCommande;
+        $status->setStatusLivraison("passée");
         $commande = new Commande;
         $address = $data["checkout"]["Address"];
         $information = $data["checkout"]["Information"];

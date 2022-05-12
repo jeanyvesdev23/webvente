@@ -45,32 +45,31 @@ class MarqueRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Marque[] Returns an array of Marque objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function searchMarque($value, $offest, $limit)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('m.createdAt', 'desc')
+            ->setFirstResult($offest)
+            ->setMaxResults($limit)
+            ->andWhere('m.nomMarque LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+    /**
+     * @return marque[] Returns an array of Commentaire objects
+     */
 
-    /*
-    public function findOneBySomeField($value): ?Marque
+    public function countMarque($value, $offest, $limit)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('COUNT(m)')
+            ->orderBy("m.createdAt", "desc")
+            ->setFirstResult($offest)
+            ->setMaxResults($limit)
+            ->andWhere('m.nomMarque LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }

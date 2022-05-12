@@ -2,11 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Commentaire;
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Form\PromotionType;
+use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CommentaireRepository;
+use App\Repository\PanierRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,22 +25,70 @@ use symfony\Component\HttpFoundation\File\Exception\FileException;
 class ProduitController extends AbstractController
 {
     /**
-     * @Route("/", name="app_produit_index", methods={"GET"})
+     * @Route("", name="app_produit_index", methods={"GET","POST"})
      */
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(Request $request, ProduitRepository $produitRepository): Response
     {
+        $limit = 10;
+        $page = (int)$request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
+        $searchPro = $request->request->get("searchPro");
+        if ($searchPro == "") {
+            # code...
+            $produits = $produitRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
+        } else {
+
+            $result = $produitRepository->searchPro($searchPro);
+            if ($result == null) {
+                $produits = $produitRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
+            } else {
+                $produits = $result;
+            }
+        }
+
         return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produits,
+            'counts' => $produitRepository->count([]),
+            'page' => $page,
+            'limit' => $limit,
+            'offest' => $offest
         ]);
     }
     /**
      * @Route("/commentaire", name="app_commentaire_produit", methods={"GET", "POST"})
      */
-    public function commentaire(CommentaireRepository $commentaireRepository): Response
+    public function commentaire(Request $request, CommentaireRepository $commentaireRepository): Response
     {
+        $limit = 6;
+        $page = $request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
+        $commentaires = $commentaireRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
+        $counts = $commentaireRepository->count([]);
+        $search = $request->request->get("search");
+
+        if ($search == "") {
+            $commentaires;
+        } else {
+
+            $result = $commentaireRepository->searchComWithPro($search, $offest, $limit);
+
+            if ($result == null) {
+                $commentaires;
+            } else {
+                $commentaires = $result;
+                $counts = $commentaireRepository->countComWithPro($search, $offest, $limit);
+                foreach ($counts as $value) {
+                    $count = $value;
+                    foreach ($count as $value) {
+                        $counts = (int)$value;
+                    }
+                }
+            }
+        }
 
         return $this->render('produit/commentaire.html.twig', [
-            "commentaires" => $commentaireRepository->findAll()
+            "commentaires" => $commentaires,
+            "counts" => $counts, "page" => $page, "limit" => $limit, "offest" => $offest
         ]);
     }
 
@@ -77,10 +129,34 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{id}", name="app_produit_show2", methods={"GET"})
      */
-    public function show(Produit $produit): Response
+    public function show(Produit $produit, PanierRepository $panierRepository, EntityManagerInterface $em, CommentaireRepository $commentaire): Response
     {
+        $total = $panierRepository->totalVendu($produit->getNomPro());
+        foreach ($total as   $value) {
+            $key = $value;
+            foreach ($key as $nbtotal) {
+                $total = $nbtotal;
+            }
+        }
+        $totalVendu = (int)$total;
+
+        $stock = $panierRepository->StockenCours($produit->getNomPro());
+        foreach ($stock as   $value) {
+            $key = $value;
+            foreach ($key as $nbstock) {
+                $stock = $nbstock;
+            }
+        }
+        $proStock = $produit->setStock($produit->getStock() - (int)$stock);
+        if ($proStock->getStock() < 0) {
+            $proStock = $proStock->setStock(0);
+        }
+        $em->flush();
+
         return $this->render('produit/show.html.twig', [
+            'totalVendu' => $totalVendu,
             'produit' => $produit,
+            "countComm" => $commentaire->count(["produits" => $produit->getId()])
         ]);
     }
 
@@ -124,7 +200,7 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $produit->setIsOffre(true);
+            $produit->setIsOffre(true)->setIsFutur(false)->setNouveau(false);
             $produitRepository->add($produit);
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }

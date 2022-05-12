@@ -112,11 +112,15 @@ header{
 }
 /*-----fin header-----*/
 /*----input------*/
+.form-control.is-invalid:focus{
+    border-color: #eb0909;    
+    box-shadow: none;
+}
 .form-control:focus,.form-select:focus{
     border-color: #bbb8b8;    
     box-shadow: none;
 }
-.btn:active:focus , .btn:focus{
+.btn:active:focus , .btn:focus,.page-link:focus{
     box-shadow: none;
 }
 /*--x--input---x---*/
@@ -124,6 +128,9 @@ header{
 /*----body page corps-----*/
 .brce{
     border-radius: 50%;
+}
+.brcp{
+    border-radius: 5px;
 }
     .ul{
         list-style-type: none;

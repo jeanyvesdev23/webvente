@@ -13,98 +13,117 @@
 				<div class="p-3  ">
 
 					<div class=" bbw pe-3 pb-3 d-flex justify-content-between  align-items-center">
-						<h5>Avis sur le produit</h5>
-						<div class="d-flex">
-							<input type="text" class="form-control" placeholder="Tapez le nom et entrez">
+						<h6>Commentaires</h6>
+						<form action="" method="POST">
+							<input type="text" name="search" id="search" class="form-control" placeholder="Tapez le nom et entrez">
+						</form>
 
-						</div>
 					</div>
+				</div>
 
-					<table class="table p-4 mt-3 text-center">
-						<thead class="fs-6">
+				<table class="table p-4 mt-3 text-center">
+					<thead class="fs-6">
+						<tr>
+							<th>#</th>
+							<th class="text-start ps-5">Produit et evaluation</th>
+							<th class="text-start">Client</th>
+							<th>Commenter</th>
+							<th>Publier</th>
+
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for commentaire in commentaires %}
 							<tr>
-								<th>#</th>
-								<th class="text-start ps-5">Produit et evaluation</th>
-								<th class="text-start">Client</th>
-								<th>Commenter</th>
-								<th>Publier</th>
+								<td>{{ commentaire.id }}</td>
+								<td>
+									<div class="d-flex  ps-4 pe-0 m-0  align-items-center">
+
+										<img src="/asset/upload/product/{{commentaire.produits.imagePro}}" width:"60px" height="60px" alt="" srcset="">
+										{{commentaire.produits.nomPro}}
+									</div>
+								</td>
+								<td>
+									<div class="info  text-start">
+										<span>Nom :
+											{{commentaire.users.prenomUser}}
+											<br>
+											Email :
+											{{commentaire.users.email}}
+											<br>
+											Tél :
+											{{commentaire.users.numberPhone}}
+											<br>
+											Evaluation:
+											<small class="text-warning">
+												<i class="bi-star-fill"></i>
+												<i class="bi-star-fill"></i>
+												<i class="bi-star-fill"></i>
+												<i class="bi-star-half"></i>
+												<i class="bi-star"></i>
+											</small>
+
+										</span>
+
+									</div>
+								</td>
+								<td>
+									{{commentaire.commentaire}}
+								</td>
+
+								<td>
+									{% if commentaire.isPublier == true %}
+
+										<a href="{{path("app_status_com",{id:commentaire.id})}}">
+
+											<span class="text-success fs-3">
+												<i class="bi-toggle-on"></i>
+											</span>
+										</a>
+									{% else %}
+										<a href="{{path("app_status_com",{id:commentaire.id})}}">
+
+											<span class="text-success fs-3">
+												<i class="bi-toggle-off"></i>
+											</span>
+										</a>
+
+									{% endif %}
+								</td>
+
 
 							</tr>
-						</thead>
-						<tbody>
+						{% else %}
+							<tr>
+								<td colspan="10">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<nav aria-label="Page navigation example" class="mt-5 text-center">
+					<ul class="pagination text-center">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
 
-							{% for commentaire in commentaires %}
-								<tr>
-									<td>{{ commentaire.id }}</td>
-									<td>
-										<div class="d-flex  ps-4 pe-0 m-0  align-items-center">
+							<li class="page-item {{(page == item)? " active":" "}}">
+								<a class="page-link" href="?page={{item}}">{{item}}</a>
+							</li>
+						{% endfor %}
 
-											<img src="/asset/upload/product/{{commentaire.produits.imagePro}}" width:"60px" height="60px" alt="" srcset="">
-											{{commentaire.produits.nomPro}}
-										</div>
-									</td>
-									<td>
-										<div class="info  text-start">
-											<span>Nom :
-												{{commentaire.users.prenomUser}}
-												<br>
-												Email :
-												{{commentaire.users.email}}
-												<br>
-												Tél :
-												{{commentaire.users.numberPhone}}
-												<br>
-												Evaluation:
-												<small class="text-warning">
-													<i class="bi-star-fill"></i>
-													<i class="bi-star-fill"></i>
-													<i class="bi-star-fill"></i>
-													<i class="bi-star-half"></i>
-													<i class="bi-star"></i>
-												</small>
-
-											</span>
-
-										</div>
-									</td>
-									<td>
-										{{commentaire.commentaire}}
-									</td>
-
-									<td>
-										{% if commentaire.isPublier == true %}
-
-											<a href="{{path("app_status",{id:commentaire.id})}}">
-
-												<span class="text-success fs-3">
-													<i class="bi-toggle-on"></i>
-												</span>
-											</a>
-										{% else %}
-											<a href="{{path("app_status",{id:commentaire.id})}}">
-
-												<span class="text-success fs-3">
-													<i class="bi-toggle-off"></i>
-												</span>
-											</a>
-
-										{% endif %}
-									</td>
-
-
-								</tr>
-							{% else %}
-								<tr>
-									<td colspan="10">no records found</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
-		</main>
+		</div>
+	</main>
 
-	</div>
-
-
-{% endblock %}
+</div>{% endblock %}

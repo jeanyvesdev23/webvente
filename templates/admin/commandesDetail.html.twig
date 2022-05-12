@@ -67,7 +67,7 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Produit</th>
+								<th class="text-start ps-5">Produit</th>
 								<th>Quantite</th>
 								<th>Prix unitaire</th>
 								<th>Total</th>
@@ -79,29 +79,33 @@
 									<td>{{panier.id}}</td>
 									<td class="d-flex justify-content-start ">
 
-										<img src="../../asset/upload/product/{{panier.imageProduct}}" width:"60px" height="60px" alt="" srcset="">
-										<div class="ms-3">
+										<img src="../../asset/upload/product/{{panier.imageProduct}}" width="60px" height="60px" alt="" srcset="">
+										<div class="ms-4 text-start">
 
-											{{panier.nameProduct}}
+											<span class="fw-bold">
+												{{panier.nameProduct}}
+											</span>
 											<br>{{panier.descriptionProduct}}
 
 										</div>
 
 									</td>
 									<td>{{panier.qteProduct}}</td>
-									<td>{{panier.priceProduct}}</td>
-									<td>{{panier.total}}</td>
+									<td>{{panier.priceProduct}}
+										Ar</td>
+									<td>{{panier.total}}
+										Ar</td>
 								</tr>
 							{% endfor %}
-							<tr>
+							<tr class="fw-bold">
 								<td></td>
 								<td></td>
 								<td></td>
-								<th>Total
-								</th>
-								<th>
+								<td>Total
+								</td>
+								<td>
 									{{commandes.subTotal}}
-									Ar</th>
+									Ar</td>
 							</tr>
 						</tbody>
 

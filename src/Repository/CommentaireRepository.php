@@ -45,22 +45,40 @@ class CommentaireRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Commentaire[] Returns an array of Commentaire objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Commentaire[] Returns an array of Commentaire objects
+     */
+
+    public function searchComWithPro($value, $offest, $limit)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('c.createdAt', 'desc')
+            ->setFirstResult($offest)
+            ->setMaxResults($limit)
+            ->join('c.produits', 'n')
+            ->andWhere('n.nomPro LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+    /**
+     * @return Commentaire[] Returns an array of Commentaire objects
+     */
+
+    public function countComWithPro($value, $offest, $limit)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c)')
+            ->orderBy("c.createdAt", "desc")
+            ->setFirstResult($offest)
+            ->setMaxResults($limit)
+            ->join('c.produits', 'p')
+            ->andWhere('p.nomPro LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Commentaire

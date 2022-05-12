@@ -17,10 +17,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MarqueController extends AbstractController
 {
     /**
-     * @Route("/", name="app_marque_index", methods={"GET"})
+     * @Route("/", name="app_marque_index", methods={"GET","POST"})
      */
     public function index(MarqueRepository $marqueRepository, Request $request, SluggerInterface $sluggerInterface): Response
     {
+
+        $limit = 6;
+        $page = $request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
+        $marques = $marqueRepository->findBy([], [], $limit, $offest);
+        $counts = $marqueRepository->count([]);
+        $search = $request->request->get("search_marque");
+
+        if ($search == "") {
+            $marques;
+        } else {
+
+            $result = $marqueRepository->searchMarque($search, $offest, $limit);
+
+            if ($result == null) {
+                $marques;
+            } else {
+                $marques = $result;
+                $counts = $marqueRepository->countMarque($search, $offest, $limit);
+                foreach ($counts as $value) {
+                    $count = $value;
+                    foreach ($count as $value) {
+                        $counts = (int)$value;
+                    }
+                }
+            }
+        }
         $marque = new Marque();
         $form = $this->createForm(MarqueType::class, $marque);
         $form->handleRequest($request);
@@ -42,7 +69,8 @@ class MarqueController extends AbstractController
             return $this->redirectToRoute('app_marque_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('marque/index.html.twig', [
-            'marques' => $marqueRepository->findBy([], [], 6),
+            'marques' => $marques,
+            'counts' => $counts, "page" => $page, "limit" => $limit,
             "form" => $form->createView()
         ]);
     }

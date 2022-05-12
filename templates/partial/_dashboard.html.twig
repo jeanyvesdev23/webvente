@@ -1,10 +1,11 @@
 <div class="sidebar">
-	<div class="sidebar-brand">
-		<h2>
+	<div class="sidebar-brand mt-4">
+		<h2 class="text-white fw-bold">
 			<span>
 				<i class="bi-market"></i>
 			</span>
-			Webvente</h2>
+			Web<span class="text-warning">Vente</span>
+		</h2>
 	</div>
 	<div class="sidebar-menu">
 		<ul>
@@ -169,10 +170,12 @@
 </div>
 <div class="entete">
 	<header>
-		<h4>Welcome to tableau de board</h4>
-		<div class="user-connecte"><img src="/asset/upload/product/children.jpg" width="50px" height="50px" alt="children"><div>
-				<h4>{{app.user.prenomUser}}</h4>
-				<span>Super admin</span>
+		<h5>Welcome to tableau de board
+			{{app.user.fullName}}
+		</h5>
+		<div class="user-connecte"><img src="/asset/upload/product/{{app.user.imageUser}}" width="50px" height="50px" alt="children"><div>
+				<h6>{{app.user.prenomUser}}</h6>
+				<small class="text-dark ">Super admin</small>
 			</div>
 		</div>
 	</header>

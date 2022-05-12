@@ -14,14 +14,19 @@ use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\SearchProductRepository;
+use Countable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Serializer;
 
-class HomeController extends AbstractController
+class HomeController extends AbstractController implements Countable
 {
+    public function count(): int
+    {
+        return count($this);
+    }
     /**
      * @Route("/", name="app_home")
      */
@@ -36,7 +41,7 @@ class HomeController extends AbstractController
             'news' => $produitRepository->findBy(['nouveau' => true]),
             'best' => $produitRepository->findBy(['meilleur' => true]),
             'offre' => $produitRepository->findBy(['isOffre' => true]),
-            "blog" => $blogRepository->findBy([], [], 4)
+            "blog" => $blogRepository->findBy([], [], 3)
         ]);
     }
     /**
@@ -44,15 +49,29 @@ class HomeController extends AbstractController
      */
     public function produit(Request $request, SearchProductRepository $searchProductRepository, ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
     {
-        $produits = $produitRepository->findAll();
+        $limit = 6;
+        $page = (int)$request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
+        $produits = $produitRepository->findBy(["status" => true], ["createdAt" => "DESC"], $limit, $offest);
+        $counts = $produitRepository->count(["status" => true]);
         $search = new SearchProduct;
         $form = $this->createForm(SearchType::class, $search)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $produits = $produitRepository->searchwithCate($search);
+            $produits = $produitRepository->searchwithCate($search, $offest, $limit);
+            $counts = $produitRepository->searchwithCatecount($search);
+            foreach ($counts as  $value) {
+                $count = $value;
+                foreach ($count as $value) {
+                    $counts = (int)$value;
+                }
+            }
         }
+
         return $this->render('home/produit.html.twig', [
             'produits' => $produits,
+            'counts' => $counts,
+            'page' => $page, 'limit' => $limit, 'offest' => $offest,
             'news' => $produitRepository->findBy(['nouveau' => true]),
             'best' => $produitRepository->findBy(['meilleur' => true]),
             'offre' => $produitRepository->findBy(['isOffre' => true]),
@@ -80,6 +99,22 @@ class HomeController extends AbstractController
             'categories' => $categorieRepository->findAll()
         ]);
     }
+    /**
+     * @Route("/produit/searchAjax", name="app_produit_search_ajax", methods={"GET"})
+     */
+    public function searchAjax(ProduitRepository $produitRepository, CategorieRepository $categorieRepository, Request $request): Response
+    {
+
+        $result = (string) trim($request->query->get("nomPro"));
+        $resulta = $produitRepository->searchAjax($result);
+        foreach ($resulta as $r) {
+            $nomPro[] = $r->getNomPro();
+        }
+
+        return $this->render("home/searchAjax.html.twig", [
+            "resulta" => $nomPro
+        ]);
+    }
 
     /**
      * @Route("/produit/{id<[0-9]+>}/show", name="app_produit_show", methods={"GET","POST"})
@@ -101,7 +136,7 @@ class HomeController extends AbstractController
             'produit' => $produit,
             'form' => $form->createView(),
             "counts" => $commentaire->count(["produits" => $produit->getId()]),
-            'commentaire' => $commentaire->findBy(["produits" => $produit->getId()], ["createdAt" => "DESC"], 2)
+            'commentaire' => $commentaire->findBy(["produits" => $produit->getId(), "isPublier" => true], ["createdAt" => "DESC"], 2)
 
         ]);
     }

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Entity\Produit;
 use App\Entity\Commande;
+use App\Entity\Commentaire;
 use App\Entity\Contact;
 use App\Form\CommandeType;
 use App\Repository\UserRepository;
@@ -57,13 +58,25 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/commandes",name="app_commandes")
+     * @Route("/commandes",name="app_commandes"methodes={"GET","POST"})
      */
-    public function commandes(CommandeRepository $commandeRepository)
+    public function commandes(Request $request, CommandeRepository $commandeRepository)
     {
+        $limit = 10;
+        $page = $request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
+        $commandes = $commandeRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
+        $counts = $commandeRepository->count([]);
+        $searchEl = $request->request->get("statusL");
+        $searchEp = $request->request->get("statusP");
+        $searchC = $request->request->get("code");
+        if ($searchEl == "" || $searchEp == "" || $searchC == "") {
+            $commandes;
+        }
 
         return $this->render('admin/commandes.html.twig', [
-            "commandes" => $commandeRepository->findBy([], ["createdAt" => "DESC"])
+            "commandes" => $commandes,
+            "counts" => $counts, "page" => $page, "limit" => $limit
         ]);
     }
     /**
@@ -103,16 +116,16 @@ class AdminController extends AbstractController
     /**
      * @Route("/produit/commentaire/isStatus/{id}",name="app_status_com")
      */
-    public function ispubliercom(Produit $produit, EntityManagerInterface $em)
+    public function ispubliercom(Commentaire $commentaire, EntityManagerInterface $em)
     {
-        if ($produit->getStatus() == true) {
+        if ($commentaire->getIsPublier() == true) {
             $status = false;
         } else {
             $status = true;
         }
-        $produit->setStatus($status);
+        $commentaire->setIsPublier($status);
         $em->flush();
-        return $this->redirectToRoute("app_commentaire");
+        return $this->redirectToRoute("app_commentaire_produit");
     }
     /**
      * @Route("/client",name="app_client")

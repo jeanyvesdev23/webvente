@@ -16,6 +16,9 @@ class MarqueType extends AbstractType
             ->add('nomMarque', null, [
                 "label" => "Nom"
             ])
+            ->add('entreprise', null, [
+                "label" => "Entreprise"
+            ])
             ->add('imageMarque', FileType::class, [
                 "label" => "Image (png ou jpg) file",
                 "mapped" => false,

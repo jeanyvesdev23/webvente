@@ -36,11 +36,17 @@
 								</div>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="fw-bold fs-6 ps-2">
+										{% if produit.autrePrix %}
+											<span class="product-price text-danger ">{{produit.prixPro}}
+												Ar</span>
+											<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+												Ar</span>
+										{% else %}
 
-										<span class="product-price ">{{produit.prixPro}}
-											Ar</span>
-										<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
-											Ar</span>
+											<span class="product-price ">{{produit.prixPro}}
+												Ar</span>
+										{% endif %}
+
 									</div>
 									<div class="cart-panier pe-3 ">
 										<span>

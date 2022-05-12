@@ -51,6 +51,9 @@ class ProduitType extends AbstractType
                 "mapped" => false,
                 "required" => false
             ])
+            ->add('stock', null, [
+                "label" => "Nombre d'articles en stock"
+            ])
             ->add('descriptionPro', null, [
                 "label" => "Descrition pour le produit"
             ]);

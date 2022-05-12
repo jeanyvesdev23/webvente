@@ -33,6 +33,8 @@ class CheckoutController extends AbstractController implements Countable
             return $this->redirectToRoute("app_produit");
         } elseif (!$users) {
             return $this->redirectToRoute("app_login");
+        } elseif ($users->getAddres()->getValues() == null) {
+            return $this->redirectToRoute("app_addres_new");
         }
         $form = $this->createForm(CheckoutType::class,  null, ['user' => $users])->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

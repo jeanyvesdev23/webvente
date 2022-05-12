@@ -42,7 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * 
      */
     private $password;
 
@@ -82,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      */
     private $numberPhone;
 
@@ -100,6 +101,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $commentaireBlogs;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Produit::class, mappedBy="wishList")
+     */
+    private $wishlists;
+
 
 
     public function __construct()
@@ -109,6 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commentaires = new ArrayCollection();
         $this->blogs = new ArrayCollection();
         $this->commentaireBlogs = new ArrayCollection();
+        $this->wishlists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -415,6 +422,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($commentaireBlog->getUsers() === $this) {
                 $commentaireBlog->setUsers(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getWishlists(): Collection
+    {
+        return $this->wishlists;
+    }
+
+    public function addWishlist(Produit $wishlist): self
+    {
+        if (!$this->wishlists->contains($wishlist)) {
+            $this->wishlists[] = $wishlist;
+            $wishlist->addWishList($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWishlist(Produit $wishlist): self
+    {
+        if ($this->wishlists->removeElement($wishlist)) {
+            $wishlist->removeWishList($this);
         }
 
         return $this;

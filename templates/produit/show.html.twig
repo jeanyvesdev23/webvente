@@ -23,16 +23,17 @@
 						</span>
 						<div class="d-flex mt-3">
 							<div class="var p-1 text-start">
-								<span class="fs-5 fw-bold">2</span><br>
+								<span class="fs-5 fw-bold">{{countComm}}</span><br>
 								<small>Commantaires</small>
 							</div>
 							<div class="var p-1 text-start">
 
-								<span class="fs-5 fw-bold">2</span><br>
+								<span class="fs-5 fw-bold">{{produit.stock}}</span><br>
 								<small>Stock</small>
 							</div>
 							<div class="var1 p-1 text-start text-white">
-								<span class="fs-5 fw-bold">12345 Ar
+								<span class="fs-5 fw-bold">{{totalVendu}}
+									Ar
 								</span>
 								<small class="opacity-50">Montant vendu
 									<br>
@@ -49,25 +50,30 @@
 							<div class="dja ">
 								<p>status</p>
 								<p>
-									<span class="badge bg-secondary">publier</span>
+									{% if produit.status == true %}
+										<span class="badge bg-success">publier</span>
+									{% else %}
+										<span class="badge bg-danger">non publier</span>
+
+									{% endif %}
 								</p>
 							</div>
 							<div class="dja">
 								<p>Marque</p>
-								<p>
-									<span class="badge bg-secondary">marque</span>
-								</p>
+
+								<img src="../../asset/upload/product/{{produit.marque.imageMarque}}" width="50px" height="50px" alt="" srcset="">
+
 							</div>
-							<div class="dja">
+							<div class="dja mt-1">
 								<p>Categorie</p>
 								<p>
-									<span class="badge bg-secondary">categorie</span>
+									<span class="badge bg-success">{{produit.categorie}}</span>
 								</p>
 							</div>
 							<div class="dja">
 								<p>garantie</p>
 								<p>
-									<span class="badge bg-secondary">à la garantie</span>
+									<span class="badge bg-success">à la garantie</span>
 								</p>
 							</div>
 							<div class="dja">
@@ -111,11 +117,22 @@
 
 									<tr>
 										<td>Prix</td>
-										<td>stock</td>
+										<td>Stock</td>
 									</tr>
 									<tr>
-										<td>12345 Ar</td>
-										<td>En stock</td>
+										<td class="fw-bold">{{produit.prixPro}}
+											Ar</td>
+										<td>
+											{% if produit.stock %}
+												<span class="fw-bold">
+													En stock
+												</span>
+											{% else %}
+												<span class='text-danger'>
+													En cours d'approvisionnement
+												</span>
+											{% endif %}
+										</td>
 									</tr>
 								</table>
 							</div>
@@ -128,6 +145,17 @@
 
 								<img src="/asset/upload/product/{{produit.imagePro}}" width:"100%" height="400px" alt="" srcset="">
 							</div>
+						</div>
+					</div>
+					<div class=" m-3 p-3">
+						<div class="bbw">
+							<h6>Description du produit
+								{{produit.nomPro}}</h6>
+						</div>
+						<div class="pt-4 ">
+
+							<p>{{produit.descriptionPro}}</p>
+
 						</div>
 					</div>
 				</div>

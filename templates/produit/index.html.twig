@@ -16,11 +16,12 @@
 				<div class="p-3  ">
 
 					<div class=" bbw pe-3 pb-3 d-flex justify-content-between  align-items-center">
-						<h5>Tous les produits</h5>
-						<div class="d-flex">
-							<input type="text" class="form-control" placeholder="Search produit">
-							<input type="text" class="form-control" placeholder="Search produit">
-						</div>
+						<h5 class="ms-5">Produits</h5>
+						<form action="" method="post">
+							<input type="text" class="form-control" name="searchPro" placeholder="Tapez le nom et entrez">
+						</form>
+
+
 					</div>
 
 					<table class="table p-4 mt-3 text-center">
@@ -42,8 +43,10 @@
 									<td>
 										<div class="d-flex  ps-4 pe-0 m-0  align-items-center">
 
-											<img src="/asset/upload/product/{{produit.imagePro}}" width:"60px" height="60px" alt="" srcset="">
-											{{produit.nomPro}}
+											<img src="/asset/upload/product/{{produit.imagePro}}" width="80px" height="60px" alt="" srcset="" class="me-2">
+											<span class="fw-bold">
+												{{produit.nomPro}}
+											</span>
 										</div>
 									</td>
 									<td>
@@ -59,8 +62,9 @@
 												<br>Total vendu :
 												<br>
 												Prix:
-												<small class"fw-bold">
+												<small class="fw-bold text-dark">
 													{{ produit.prixPro }}
+													Ar
 												</small>
 											</span>
 
@@ -69,7 +73,7 @@
 									<td>
 										<span class="badge bg-secondary">{{produit.categorie}}</span>
 									</td>
-									<td>marque</td>
+									<td><img src="/asset/upload/product/{{produit.marque.imageMarque}}" width="80px" height="60px" alt="" srcset=""></td>
 									<td>
 										{% if produit.status == true %}
 
@@ -123,11 +127,30 @@
 							{% endfor %}
 						</tbody>
 					</table>
+					<nav aria-label="Page navigation example" class="mt-2 text-center">
+						<ul class="pagination text-center">
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
+
+								<li class="page-item {{(page == item)? " active":" "}}">
+									<a class="page-link" href="?page={{item}}">{{item}}</a>
+								</li>
+							{% endfor %}
+
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
 			</div>
-		</main>
+		</div>
+	</main>
 
-	</div>
-
-
-{% endblock %}
+</div>{% endblock %}

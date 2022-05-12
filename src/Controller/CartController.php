@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Cartservices;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CartController extends AbstractController
 {
@@ -60,12 +62,13 @@ class CartController extends AbstractController
     /**
      * @Route("/addFavorite/{id<[0-9]+>}",name="add_favorite")
      */
-    public function addfavorite($id)
+    public function addfavorite(Produit $id, EntityManagerInterface $em)
     {
-        $this->cartservices->addfavorite($id);
+        $id->addWishList($this->getUser());
+        $em->flush();
 
         return $this->redirectToRoute("app_produit_show", [
-            "id" => $id
+            "id" => $id->getId()
         ]);
     }
 }

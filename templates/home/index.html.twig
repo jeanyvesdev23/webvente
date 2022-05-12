@@ -110,7 +110,7 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{offre.prixPro}}
+											<span class="product-price text-danger">{{offre.prixPro}}
 												Ar</span>
 											{% if offre.autrePrix != null %}
 												<span class="opacity-50 text-decoration-line-through">{{offre.autrePrix}}
@@ -384,12 +384,12 @@
 		</div>
 		<div class="top-blog mt-4">
 			<div class="top">
-				<h5>Blog</h5>
+				<h5 class="pt-3 text-center">Blog</h5>
 			</div>
-			<div class="d-flex mt-2">
+			<div class="d-flex justify-content-between mt-2">
 				{% for blog in blog %}
 
-					<div class="card  ms-1" style="width: 18rem;">
+					<div class="card  ms-1" style="width: 20rem;">
 						<img src="asset/upload/product/{{blog.imageBog}}" class="card-img-top" height="200px" alt="...">
 						<div class="card-body">
 							<h5 class="card-title">{{blog.titreBlog}}</h5>

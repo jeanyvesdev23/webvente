@@ -95,10 +95,7 @@ class Produit
      */
     private $commenter;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Wishlist::class, inversedBy="produits",cascade={"persist"})
-     */
-    private $wishlist;
+
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -110,9 +107,20 @@ class Produit
      */
     private $isFutur;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="wishlists")
+     */
+    private $wishList;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $stock;
+
     public function __construct()
     {
         $this->commenter = new ArrayCollection();
+        $this->wishList = new ArrayCollection();
     }
 
 
@@ -147,6 +155,31 @@ class Produit
 
         return $this;
     }
+    public function getAutrePrix(): ?float
+    {
+        return $this->autrePrix;
+    }
+
+    public function setAutrePrix(?float $autrePrix): self
+    {
+        $this->autrePrix = $autrePrix;
+
+        return $this;
+    }
+
+
+    public function getDescriptionPro(): ?string
+    {
+        return $this->descriptionPro;
+    }
+
+    public function setDescriptionPro(?string $descriptionPro): self
+    {
+        $this->descriptionPro = $descriptionPro;
+
+        return $this;
+    }
+
 
     public function getStatus(): ?bool
     {
@@ -171,6 +204,30 @@ class Produit
 
         return $this;
     }
+    public function getIsOffre(): ?bool
+    {
+        return $this->isOffre;
+    }
+
+    public function setIsOffre(?bool $isOffre): self
+    {
+        $this->isOffre = $isOffre;
+
+        return $this;
+    }
+
+    public function getIsFutur(): ?bool
+    {
+        return $this->isFutur;
+    }
+
+    public function setIsFutur(?bool $isFutur): self
+    {
+        $this->isFutur = $isFutur;
+
+        return $this;
+    }
+
 
     public function getMeilleur(): ?bool
     {
@@ -220,18 +277,6 @@ class Produit
         return $this;
     }
 
-    public function getDescriptionPro(): ?string
-    {
-        return $this->descriptionPro;
-    }
-
-    public function setDescriptionPro(?string $descriptionPro): self
-    {
-        $this->descriptionPro = $descriptionPro;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Commande>
      */
@@ -258,17 +303,7 @@ class Produit
         return $this;
     }
 
-    public function getAutrePrix(): ?float
-    {
-        return $this->autrePrix;
-    }
 
-    public function setAutrePrix(?float $autrePrix): self
-    {
-        $this->autrePrix = $autrePrix;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Commentaire>
@@ -300,38 +335,33 @@ class Produit
         return $this;
     }
 
-    public function getWishlist(): ?Wishlist
-    {
-        return $this->wishlist;
-    }
 
-    public function setWishlist(?Wishlist $wishlist): self
+
+
+    public function addWishList(User $wishList): self
     {
-        $this->wishlist = $wishlist;
+        if (!$this->wishList->contains($wishList)) {
+            $this->wishList[] = $wishList;
+        }
 
         return $this;
     }
 
-    public function getIsOffre(): ?bool
+    public function removeWishList(User $wishList): self
     {
-        return $this->isOffre;
-    }
-
-    public function setIsOffre(?bool $isOffre): self
-    {
-        $this->isOffre = $isOffre;
+        $this->wishList->removeElement($wishList);
 
         return $this;
     }
 
-    public function getIsFutur(): ?bool
+    public function getStock(): ?int
     {
-        return $this->isFutur;
+        return $this->stock;
     }
 
-    public function setIsFutur(?bool $isFutur): self
+    public function setStock(int $stock): self
     {
-        $this->isFutur = $isFutur;
+        $this->stock = $stock;
 
         return $this;
     }

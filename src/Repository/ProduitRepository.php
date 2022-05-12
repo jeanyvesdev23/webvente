@@ -67,11 +67,35 @@ class ProduitRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-
-
-    public function searchwithCate($search)
+    public function searchPro($value)
     {
-        $query = $this->createQueryBuilder('p');
+
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.nomPro LIKE :val')
+            ->setParameter('val', '%' . $value . '%');
+
+        //dd($query->getQuery()->getResult());
+        return $query->getQuery()->getResult();
+    }
+    public function pagination($page, $limit)
+    {
+
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        //dd($query->getQuery()->getResult());
+        return $query->getQuery()->getResult();
+    }
+
+
+
+    public function searchwithCate($search, $offest, $limit)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt')
+            ->setFirstResult($offest)->setMaxResults($limit);
         if ($search->getMinPrix()) {
             $query = $query->andWhere("p.prixPro > " . $search->getMinPrix());
         }
@@ -83,6 +107,25 @@ class ProduitRepository extends ServiceEntityRepository
                 ->andWhere('c.nomCate IN (:valu) ')
                 ->setParameter('valu', $search->getCategorie());
         }
+        //dd($query->getQuery()->getResult());
+        return $query->getQuery()->getResult();
+    }
+    public function searchwithCatecount($search)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('COUNT(p)');
+        if ($search->getMinPrix()) {
+            $query = $query->andWhere("p.prixPro > " . $search->getMinPrix());
+        }
+        if ($search->getMaxPrix()) {
+            $query = $query->andWhere("p.prixPro < " . $search->getMaxPrix());
+        }
+        if ($search->getCategorie()) {
+            $query = $query->join('p.categorie', 'c')
+                ->andWhere('c.nomCate IN (:valu) ')
+                ->setParameter('valu', $search->getCategorie());
+        }
+        //dd($query->getQuery()->getResult());
 
         return $query->getQuery()->getResult();
     }

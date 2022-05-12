@@ -44,7 +44,8 @@
 			{% endif %}
 		</ul>
 		<nav class="navbar navbar-light bg-primary display-inline-block container">
-			<img src="/asset/upload/product/images.jpg" alt="" width="130px" class="hidden ms-5" heigth="3rem" srcset="">
+			<h3 class="ms-5 fw-bold text-white">Web<span class="text-warning">Vente</span>
+			</h3>
 			<form action="{{path("app_produit_search")}}" methode="get">
 				<div class="input-group">
 					<select name="categorie" id="categorie" class="form-selecte form-control adi">
@@ -55,11 +56,14 @@
 						<option value="4">Vétement</option>
 						<option value="5">Télévision</option>
 					</select>
-					<input type="text" class="form-control" name="nomPro" placeholder="Search here" aria-label="Username" aria-describedby="basic-addon1" style="width:400px">
-					<button type="submit" class="btn btn-sm btn-warning adi">
+					<input type="text" class="form-control " name="nomPro" id="search-product" autocomplete="off" placeholder="Search here" aria-label="Username" aria-describedby="basic-addon1" style="width:400px">
+					<button type="submit" id="submit" class=" btn btn-sm btn-warning adi">
 						<i class="bi-search"></i>
 					</button>
 				</div>
+
+				<div id="result-search"></div>
+
 			</form>
 			<button type="submit" class="btn text-white bg-blue pe-4">
 

@@ -45,32 +45,31 @@ class CategorieRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Categorie[] Returns an array of Categorie objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function searchCategorie($value, $offest, $limit)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('c.createdAt', 'desc')
+            ->setFirstResult($offest)
+            ->setMaxResults($limit)
+            ->andWhere('c.nomCate LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+    /**
+     * @return categorie[] Returns an array of Commentaire objects
+     */
 
-    /*
-    public function findOneBySomeField($value): ?Categorie
+    public function countCategorie($value, $offest, $limit)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('COUNT(c)')
+            ->orderBy("c.createdAt", "desc")
+            ->setFirstResult($offest)
+            ->setMaxResults($limit)
+            ->andWhere('c.nomCate LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }

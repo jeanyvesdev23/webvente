@@ -100,7 +100,7 @@
     }
 }
 .entete{
-    margin-left: 255px;
+    margin-left: 250px;
     header{
         display: flex;
         justify-content: space-between;
@@ -110,7 +110,7 @@
         background-color: whitesmoke;
         position: fixed;
         //z-index: 100;
-        height: 90px;
+        height: 60px;
         top:0%;
         width: calc(100% - 250px);
         .user-connecte{
@@ -277,7 +277,7 @@
                     
                     .catego-liste{
                         display: block;
-                        padding-left: 2rem;
+                        padding-left: 0.5rem;
                         .liste{
                             display: flex;
                             padding-bottom: 1rem;

@@ -19,7 +19,7 @@
 							{{form_row(form.maxPrix)}}
 						</div>
 					</div>
-					<button class="btn btn-warning w-100" formnovalidate>Chercher</button>
+					<button id="cherch" class="btn btn-warning w-100" formnovalidate>Chercher</button>
 					{{form_end(form)}}
 
 				</div>
@@ -59,10 +59,13 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{produit.prixPro}}
-												Ar</span>
 											{% if produit.autrePrix != null %}
+												<span class="product-price text-danger ">{{produit.prixPro}}
+													Ar</span>
 												<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+													Ar</span>
+											{% else %}
+												<span class="product-price  ">{{produit.prixPro}}
 													Ar</span>
 											{% endif %}
 										</div>
@@ -80,6 +83,27 @@
 						{% endfor %}
 
 					</div>
+					<nav aria-label="Page navigation example" class="mt-5 text-center">
+						<ul class="pagination text-center">
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
+
+								<li class="page-item {{(page == item)? " active":" "}}">
+									<a class="page-link" href="?page={{item}}">{{item}}</a>
+								</li>
+							{% endfor %}
+
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
 
 				<div id="list-news" class="none">
@@ -200,9 +224,9 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{offre.prixPro}}
-												Ar</span>
 											{% if offre.autrePrix != null %}
+												<span class="product-price text-danger">{{offre.prixPro}}
+													Ar</span>
 												<span class="opacity-50 text-decoration-line-through">{{offre.autrePrix}}
 													Ar</span>
 											{% endif %}
@@ -226,5 +250,9 @@
 			</div>
 
 		</div>
+
 	</div>
+	{% block javascript %}
+		<script src="asset/js/topproduct.js"></script>
+	{% endblock %}
 {% endblock %}

@@ -6,12 +6,10 @@ use Countable;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Entity\Commande;
-use App\Entity\Wishlist;
 use App\Form\AddresType;
-use App\Services\Cartservices;
 use App\Repository\PanierRepository;
 use App\Repository\CommandeRepository;
-use App\Repository\WishlistRepository;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,11 +67,12 @@ class CompteController extends AbstractController implements Countable
     /**
      * @Route("/compte/favorite/produit",name="app_favorite_produit")
      */
-    public function favoriteProduit(Cartservices $favorite, WishlistRepository $wishlistRepository)
+    public function favoriteProduit(ProduitRepository $produits)
     {
 
+
         return $this->render("compte/favoriteproduit.html.twig", [
-            "fav_produit" => $favorite->getfavorite()
+            "fav_produit" => $this->getUser()->getWishLists()->getValues()
         ]);
     }
     /**

@@ -9,18 +9,26 @@
 				<div class="d-flex justify-content-between align-items-center p-3 bbu">
 					<h5>Commandes</h5>
 					<div class="form d-flex">
-						<form action="" class="form d-flex">
-							<select name="statusL" id="statusL " class="form-select form-control-sm">
-								<option value="0">Filtrer par etat de commande</option>
+						<form action="" method="post" class="form  d-flex">
+							<select name="statusL" id="statusL " class="form-select ms-3 form-control-sm">
+								<option>Etat de commande</option>
+								<option value="0">News</option>
+								<option value="1">Passeé</option>
+								<option value="2">Confirmée</option>
+								<option value="4">En livraison</option>
+								<option value="3">Livrée</option>
 							</select>
-							<select name="statusL" id="statusL" class="form-select form-group">
-								<option value="0">Filtrer par etat de paiement</option>
+							<select name="statusP" id="statusP" class="form-select ms-3 form-group">
+								<option>Etat de paiement</option>
+								<option value="1">Non payé</option>
+								<option value="2">Payé</option>
 							</select>
+							<input type="number" name="code" id="code" class='ms-3 form-control' placeholder="Entrer le Code">
 
 						</form>
 					</div>
 				</div>
-				<div class="table pe-4 ps-4">
+				<div class=" pe-4 ps-4">
 					<table class="table table-striped text-center">
 						<thead>
 							<tr>
@@ -44,7 +52,7 @@
 									<td>{{commande.subtotal}}
 									</td>
 									<td>
-										<span class="badge {{commande.statusCommandes.style |default(" bg-dark")}}">{{commande.statusCommandes|default("news")}}</span>
+										<span class="badge {{commande.statusCommandes.style |default(" bg-info")}}">{{commande.statusCommandes|default("news")}}</span>
 									</td>
 									<td>
 										<span class="badge  {{commande.statusPaiement.style |default(" bg-danger")}}">{{commande.statusPaiement|default("Non payé")}}</span>
@@ -62,6 +70,27 @@
 							{% endfor %}
 						</tbody>
 					</table>
+					<nav aria-label="Page navigation example" class="mt-3  text-center">
+						<ul class="pagination text-center pb-3">
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
+
+								<li class="page-item {{(page == item)? " active":" "}}">
+									<a class="page-link " href="?page={{item}}">{{item}}</a>
+								</li>
+							{% endfor %}
+
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</main>

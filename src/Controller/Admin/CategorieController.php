@@ -19,10 +19,36 @@ use symfony\Component\HttpFoundation\File\Exception\FileException;
 class CategorieController extends AbstractController
 {
     /**
-     * @Route("/", name="app_categorie_index", methods={"GET"})
+     * @Route("/", name="app_categorie_index", methods={"GET","POST"})
      */
     public function index(CategorieRepository $categorieRepository, Request $request, SluggerInterface $sluggerInterface): Response
     {
+        $limit = 6;
+        $page = $request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
+        $categories = $categorieRepository->findBy([], [], $limit, $offest);
+        $counts = $categorieRepository->count([]);
+        $search = $request->request->get("searcg_categorie");
+
+        if ($search == "") {
+            $categories;
+        } else {
+
+            $result = $categorieRepository->searchCategorie($search, $offest, $limit);
+
+            if ($result == null) {
+                $categories;
+            } else {
+                $categories = $result;
+                $counts = $categorieRepository->countCategorie($search, $offest, $limit);
+                foreach ($counts as $value) {
+                    $count = $value;
+                    foreach ($count as $value) {
+                        $counts = (int)$value;
+                    }
+                }
+            }
+        }
         $categorie = new Categorie();
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
@@ -45,8 +71,9 @@ class CategorieController extends AbstractController
             return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('categorie/index.html.twig', [
-            'categories' => $categorieRepository->findBy([], [], 6),
-            "form" => $form->createView()
+            'categories' => $categories,
+            'counts' => $counts,
+            "form" => $form->createView(), "page" => $page, "limit" => $limit, "offest" => $offest
         ]);
     }
 

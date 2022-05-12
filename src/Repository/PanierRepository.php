@@ -45,22 +45,35 @@ class PanierRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Panier[] Returns an array of Panier objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Panier[] Returns an array of Panier objects
+     */
+
+    public function StockenCours($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->select('SUM(p.qteProduct)')
+            ->join('p.commande ', 'c')
+            ->andWhere('c.statusCommandes = 3')
+            ->andWhere('c.id=p.commande')
+            ->andWhere('p.nameProduct = :val')
             ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+    public function totalVendu($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('SUM(p.total)')
+            ->join('p.commande ', 'c')
+            ->andWhere('c.statusCommandes = 3')
+            ->andWhere('c.id=p.commande')
+            ->andWhere('p.nameProduct = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Panier
