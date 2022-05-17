@@ -130,6 +130,7 @@
 }
 .main-content{
     margin-left: 255px; 
+  
     .var{
         background-color: #eee;
         width: 7rem;
@@ -172,12 +173,19 @@
     .brc{
         border-radius: 50%;
     }
+    .bsw{
+        border: 1px solid #fff;
+    }
     
     
     main{
-        margin-top: 100px;
+        margin-top: 80px;
         padding-left: 2rem;
         padding-right: 2rem;
+        .lab{
+            font-size: 14px;
+            font-weight: 500;
+        }
         .cards{
             display: grid;
             grid-template-columns: repeat(4,1fr);

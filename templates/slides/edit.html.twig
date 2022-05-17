@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Slides{% endblock %}
+
+{% block body %}
+    <h1>Edit Slides</h1>
+
+    {{ include('slides/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_slides_index') }}">back to list</a>
+
+    {{ include('slides/_delete_form.html.twig') }}
+{% endblock %}

@@ -5,37 +5,49 @@
 
 {% block body %}
 	<div class="main-content">
+		<main>
+			<h1 class="fs-4 ms-5" style="margin-top:150px">Listes des utilisateurs</h1>
 
-		<h1 class="fs-4 ms-5" style="margin-top:150px">Listes des utilisateurs</h1>
+			<table class="table table-striped m-5 pe-5">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Email</th>
+						<th>Roles</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in user %}
 
-		<table class="table table-striped m-5 pe-5">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Email</th>
-					<th>Roles</th>
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
+						<tr>
+							<td>
+								{{user.id}}
+							</td>
+							<td>
+								{{user.email}}
+							</td>
+							<td>
+								{% for role in user.roles %}
 
-				<tr>
-					<td>
-						<p>1</p>
-					</td>
-					<td>
-						<h3 class="fs-4 ">Theoblack@gmail.com</h3>
-					</td>
-					<td>
-						<h3 class="fs-4 ">Administrateur</h3>
-					</td>
-					<td>
-						<button class="btn btn-dark">Modifier</button>
-					</td>
-				</tr>
+									{{role}}
+								{% endfor %}
+							</td>
+							<td>
 
-			</tbody>
-		</table>
+
+								<a href="{{path("app_user_edit",{id:user.id})}}">
+									<button class="btn btn-dark">Modifier</button>
+								</a>
+
+
+							</td>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</main>
 	</div>
 
 

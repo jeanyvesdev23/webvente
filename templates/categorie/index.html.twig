@@ -7,10 +7,10 @@
 	<div class="main-content">
 		<main>
 
-			<div class="row pt-5">
+			<div class="row ">
 
 				<div class="col-7">
-					<div class="">
+					<div class="bus">
 						<div class="d-flex p-3 justify-content-between bo_ba align-items-center">
 							<h6>Tous les categories</h6>
 							<form method="post" class="w-50">
@@ -33,9 +33,9 @@
 									{% for categorie in categories %}
 										<tr>
 											<td>{{ categorie.id }}</td>
-											<td>{{ categorie.nomCate }}</td>
+											<td class="fw-bold">{{ categorie.nomCate }}</td>
 											<td>
-												<img src="/asset/upload/product/{{categorie.imageCate}}" width:"60px" height="60px" alt="" srcset="">
+												<img src="/asset/upload/product/{{categorie.imageCate}}" width="80px" height="60px" alt="" srcset="">
 											</td>
 
 											<td>
@@ -61,7 +61,7 @@
 									{% endfor %}
 								</tbody>
 							</table>
-							<nav aria-label="Page navigation example" class="mt-5 text-center">
+							<nav aria-label="Page navigation example" class="m-2 pb-2 text-center">
 								<ul class="pagination text-center">
 									<li class="page-item">
 										<a class="page-link" href="#" aria-label="Previous">
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 				<div class="col-5 ">
-					<div class="">
+					<div class="bus">
 						<div class="bbw p-3">
 							<h6>Ajoute une nouvelle categorie</h6>
 						</div>

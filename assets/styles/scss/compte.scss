@@ -22,6 +22,7 @@
     background-color: #eee;
     border: 1px solid #999;
 }
+
 .info-user{
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -31,7 +32,7 @@
         
         // border: 2px solid rgb(230, 230, 216);
         
-        .block{           
+        .block0{           
             width: 90%;
             height: 60px;           
             background-color: rgb(238, 104, 220);
@@ -59,15 +60,77 @@
     }
    
 }
+.detail{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0px 5px 4px #958f8f;
+    .pro{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+       
+    }
+}
+.par{
+    padding: 0 3rem;
+    margin-top: 1.5rem;
+    .ad{
+        display: flex;
+        justify-content: space-between;
+    }
+    .pro{
+        border: 1px solid #999;
+        border-radius: 5px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0px 5px 4px #958f8f;
+        .button{
+            display: inline-grid;
+        }
+    }
+}
+.fdjn{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    align-items: center;
+    opacity: 0.5;
+    span{
+        z-index: 1;
+        width: 25px;
+        height: 25px;
+        background:#a4c6f7;
+        border-radius: 50%;
+        font-size: 1rem;
+        color: #fff;
+        text-align: center;
+       
+    }
+    .w_25{
+        margin: -0.4rem;
+        width: 24%;
+        .line{
+            padding: 0.1rem;
+            background-color: #a4c6f7;
+            width: 100%;
+        }
+    }
+}
 .fdja{
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
     align-items: center;
+    opacity: 0.5;
     span{
         z-index: 1;
         i{
-            color: #12d14b;
+            color:#a4c6f7;
         }
     }
     .w_25{
@@ -75,7 +138,7 @@
         width: 25%;
         .line{
             padding: 0.3rem;
-            background-color: #12d14b;
+            background-color: #a4c6f7;
             width: 100%;
         }
     }

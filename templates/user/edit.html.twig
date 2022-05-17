@@ -1,13 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Edit User
+{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+	<div class="main-content">
+		<main>
+			<h4 class="text-center">Mofifier roles</h4>
+			<div class="row">
+				<div class="col-7 mx-auto">
+					<h6>Cocher le roles :</h6>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+					{{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+				</div>
+			</div>
+		</main>
+	</div>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
 
-    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

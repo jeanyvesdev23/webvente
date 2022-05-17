@@ -18,19 +18,19 @@
 							<h6 class='ps-2'>Information sur le compte</h6>
 							<ul class="ul">
 								<li class="p-1">Nom et prenom :
-									<span>{{client.fullName}}</span>
+									<span class="fw-bold text-secondary">{{client.fullName}}</span>
 
 								</li>
 								<li class="p-1">Addresse email :
-									<span>{{client.email}}</span>
+									<span class="fw-bold text-secondary">{{client.email}}</span>
 
 								</li>
 								<li class="p-1">Télephone :
-									<span>{{client.numberPhone}}</span>
+									<span class="fw-bold text-secondary">{{client.numberPhone}}</span>
 								</li>
 
-								<li class="p-1">Date d'inscrispantion
-									<span>{{client.createdAt|date("d-m-Y h:i")}}</span>
+								<li class="p-1">Date d'inscription :
+									<span class="fw-bold text-secondary">{{client.createdAt|date("d-m-Y h:i")}}</span>
 
 								</li>
 							</ul>
@@ -40,22 +40,27 @@
 							</h6>
 							<ul class="ul">
 								<li class="p-1">Nombre de commande:
-									<span>{{client.commander|length}}</span>
+									<span class="fw-bold text-secondary">{{client.commander|length}}</span>
 
 								</li>
 								<li class="p-1">Total à payé :
-
-									{{total}}
-									Ar
-
-
-								</li>
-								<li class="p-1">Nombre de produit dans le panier
+									<span class="fw-bold text-secondary">
+										{{total}}
+										Ar
+									</span>
 
 
 								</li>
-								<li class="p-1">Nombre de produit preferé
+								<li class="p-1">Produits recus :
+									<span class="fw-bold text-secondary">
+										{{quantity}}
+										Ar
+									</span>
 
+
+								</li>
+								<li class="p-1">Produits preferé :
+									<span class="fw-bold text-secondary"></span>
 
 								</li>
 							</ul>
@@ -69,7 +74,7 @@
 							<h5>Commandes de ce client</h5>
 
 						</div>
-						<div class="table pe-4 pb-4 ps-4">
+						<div class=" pe-4 pb-4 ps-4">
 							<table class="table table-striped text-center">
 								<thead>
 									<tr>
@@ -83,12 +88,13 @@
 									</tr>
 								</thead>
 								<tbody>
-									{% for commande in client.commander %}
+									{% for commande in commandes %}
 										<tr>
 											<td>{{commande.id}}</td>
 											<td>{{commande.codeCommande|date("Hi")}}</td>
 											<td>{{commande.quantite}}</td>
 											<td>{{commande.subtotal}}
+												Ar
 											</td>
 											<td>
 												<span class="badge {{commande.statusCommandes.style |default(" bg-dark")}}">{{commande.statusCommandes|default("news")}}</span>
@@ -109,6 +115,27 @@
 									{% endfor %}
 								</tbody>
 							</table>
+							<nav aria-label="Page navigation example" class="mt-3  text-center">
+								<ul class="pagination text-center pb-3">
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</li>
+									{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
+
+										<li class="page-item {{(page == item)? " active":" "}}">
+											<a class="page-link " href="?page={{item}}">{{item}}</a>
+										</li>
+									{% endfor %}
+
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
 						</div>
 					</div>
 				</div>

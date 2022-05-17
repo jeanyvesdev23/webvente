@@ -7,7 +7,7 @@
 	<div class="main-content">
 		<main>
 
-			<div class="row pt-5">
+			<div class="row ">
 
 				<div class="col-7">
 					<div class="bus">
@@ -33,9 +33,9 @@
 									{% for marque in marques %}
 										<tr>
 											<td>{{ marque.id }}</td>
-											<td>{{ marque.nomMarque }}</td>
+											<td class="fw-bold">{{ marque.nomMarque }}</td>
 											<td>
-												<img src="/asset/upload/product/{{marque.imageMarque}}" width:"60px" height="60px" alt="" srcset="">
+												<img src="/asset/upload/product/{{marque.imageMarque}}" width="90px" height="60px" alt="" srcset="">
 											</td>
 
 											<td>
@@ -56,7 +56,7 @@
 									{% endfor %}
 								</tbody>
 							</table>
-							<nav aria-label="Page navigation example" class="mt-5 text-center">
+							<nav aria-label="Page navigation example" class="m-2 pb-2 text-center">
 								<ul class="pagination text-center">
 									<li class="page-item">
 										<a class="page-link" href="#" aria-label="Previous">

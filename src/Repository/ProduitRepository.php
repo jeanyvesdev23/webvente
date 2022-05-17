@@ -67,16 +67,36 @@ class ProduitRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function searchPro($value)
+    public function searchPro($nomPro, $trierPro, $limit, $offest)
     {
 
-        $query = $this->createQueryBuilder('p')
-            ->andWhere('p.nomPro LIKE :val')
-            ->setParameter('val', '%' . $value . '%');
+        $query = $this->createQueryBuilder('p')->setFirstResult($offest)->setMaxResults($limit);
+        if ($nomPro != "") {
+            $query = $query->andWhere('p.nomPro LIKE :val')
+                ->setParameter('val', '%' . $nomPro . '%');
+        }
+        if ($trierPro != "") {
+            $query = $query->groupBy($trierPro);
+        }
 
         //dd($query->getQuery()->getResult());
         return $query->getQuery()->getResult();
     }
+    // public function countsPro($nomPro, $trierPro)
+    // {
+
+    //     $query = $this->createQueryBuilder('p')->select('COUNT(p)');
+    //     if ($nomPro != "") {
+    //         $query = $query->andWhere('p.nomPro LIKE :val')
+    //             ->setParameter('val', '%' . $nomPro . '%');
+    //     }
+    //     if ($trierPro != "") {
+    //         $query = $query->groupBy($trierPro);
+    //     }
+
+    //     dd($query->getQuery()->getResult());
+    //     return $query->getQuery()->getResult();
+    // }
     public function pagination($page, $limit)
     {
 
@@ -94,7 +114,7 @@ class ProduitRepository extends ServiceEntityRepository
     public function searchwithCate($search, $offest, $limit)
     {
         $query = $this->createQueryBuilder('p')
-            ->orderBy('p.createdAt')
+            ->orderBy('p.createdAt', 'desc')
             ->setFirstResult($offest)->setMaxResults($limit);
         if ($search->getMinPrix()) {
             $query = $query->andWhere("p.prixPro > " . $search->getMinPrix());

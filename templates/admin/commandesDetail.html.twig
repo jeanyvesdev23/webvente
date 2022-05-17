@@ -4,37 +4,48 @@
 
 	<div class="main-content">
 		<main>
-			<div class="bus">
+			<div class="bus bsw">
 
-				<div class="detail-commande bbu p-3">
-					<h5>Detail de la commande</h5>
+				<div class="detail-commande bbw p-3">
+					<h5>Detail de la commande #{{commandes.codeCommande|date("Hi")}}</h5>
 				</div>
-				<div class="info-user_commander p-3 bbu d-flex justify-content-between ">
-					<div>
+				<div class="info-user_commander p-2 bbw d-flex justify-content-between ">
+					<div class="ms-4">
 						<h5>Information concernant au client</h5>
 						<p>Nom :
-							{{app.user.fullName}}<br>
+							<span class="fw-bold">
+								{{commandes.users.fullName}}
+							</span>
+							<br>
 							E-mail :
-							{{app.user.email}}<br>
+							<span class="fw-bold">
+								{{commandes.users.email}}
+							</span>
+							<br>
 							Télephone :
-							{{app.user.numberPhone}}</p>
+							<span class="fw-bold">
+								{{commandes.users.numberPhone}}
+							</span>
+						</p>
 					</div>
 					<div class=" d-flex justify-content-center">
 						<div>
 							{{form_start(form)}}
+							<label class="lab">Statut de commandes</label>
 							{{form_row(form.statusCommandes)}}
+							<label class="lab">Statut de paiement</label>
 							{{form_row(form.statusPaiement)}}
 
 						</div>
-						<div>
-							<button class="btn btn-warning h-100 ms-3">Valider</button>
-						</div>
+
+						<button class="btn btn-warning h-60 mb-0  m-3">Valider</button>
+
 						{{form_end(form)}}
 					</div>
 				</div>
-				<div class="address-liv d-flex p-3 bbu justify-content-between ">
+				<div class="address-liv d-flex mt-4 pt-0 p-2 bbw justify-content-between ">
 					<div class="addres  d-flex  ">
-						<div>
+						<div class="ms-4">
 							<h5>Addresse de livraison</h5>
 							{% for address in app.user.addres %}
 								<p>
@@ -52,17 +63,48 @@
 						</div>
 					</div>
 					<div class="info-commande">
-						<div class="text-end">
+						<div class="text-end me-3">
 
-							<p>commande #{{commandes.codeCommande|date("Hi")}}</p>
+							<p>commande
+								<span class="fw-bold text-info">
+									#{{commandes.codeCommande|date("Hi")}}
+								</span>
+							</p>
 							<p>Creé le
-								{{commandes.createdAt|date("d-m-Y")}}</p>
-							<p>Type de livraison : standart</p>
-							<p>Mode de paiement : payé apres livraison</p>
+								<span class="fw-bold">
+									{{commandes.createdAt|date("d-m-Y")}}
+								</span>
+							</p>
+							<p>Type de livraison :
+								{% if commandes.statusCommandes %}
+									<span class=" badge {{commandes.statusCommandes.style}}">
+										{{commandes.statusCommandes.typeLivraison}}
+									</span>
+								{% else %}
+									<span class=" badge bg-secondary">
+										Standart
+									</span>
+
+								{% endif %}
+
+							</p>
+							<p>Mode de paiement :
+								{% if commandes.statusPaiement %}
+									<span class=" badge {{commandes.statusPaiement.style}}">
+										{{commandes.statusPaiement.typePayer}}
+									</span>
+
+								{% else %}
+									<span class=" badge bg-secondary">
+										Payer apres livraison
+									</span>
+
+								{% endif %}
+							</p>
 						</div>
 					</div>
 				</div>
-				<div class="table p-3">
+				<div class="m-2">
 					<table class="table table-bordered text-center p-3">
 						<thead>
 							<tr>
@@ -74,15 +116,16 @@
 							</tr>
 						</thead>
 						<tbody>
+
 							{% for panier in panier %}
 								<tr>
 									<td>{{panier.id}}</td>
-									<td class="d-flex justify-content-start ">
+									<td class="d-flex">
 
-										<img src="../../asset/upload/product/{{panier.imageProduct}}" width="60px" height="60px" alt="" srcset="">
+										<img src="../../asset/upload/product/{{panier.imageProduct}}" width="80px" heigth="80px" alt="" srcset="">
 										<div class="ms-4 text-start">
 
-											<span class="fw-bold">
+											<span class="fw-bold text-dark">
 												{{panier.nameProduct}}
 											</span>
 											<br>{{panier.descriptionProduct}}
@@ -97,14 +140,11 @@
 										Ar</td>
 								</tr>
 							{% endfor %}
-							<tr class="fw-bold">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>Total
+							<tr class="fw-bold ">
+
+								<td colspan="4" class="text-dark text-end pe-4">Total
 								</td>
-								<td>
-									{{commandes.subTotal}}
+								<td class="text-dark">{{commandes.subTotal}}
 									Ar</td>
 							</tr>
 						</tbody>

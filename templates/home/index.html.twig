@@ -3,6 +3,7 @@
 {% block title %}Home page !
 {% endblock %}
 
+
 {% block body %}
 	<div class="container mt">
 		<div class="m-flash ">
@@ -41,15 +42,29 @@
 				</div>
 			</div>
 
-			<div class="col-9 d-flex vstack  ">
+			<div class="col-9 d-flex  vstack  ">
 
-				<div class="w-100 p-5  fw-bold offre ">
-					<h3 class="mb-0 fs-6">SPRING 2022</h3>
-					<h1 class="fw-bold">WOMAN
-						<span class="text-warning">FASHION</span>
-					</h1>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-					<button type="submit" class="btn btn-primary">SHOP NOW</button>
+				<div class="slides p-0  ">
+					{% for slide in slide %}
+
+						<div class="w-100 fw-bold h-100 image-slides">
+							<img id="img-sli" class="active" src="asset/upload/product/{{slide.imageSlides}}" width="100%" height="100%" class="image-top" alt="" srcset="">
+							<div class="p-5 po-abso">
+								<h3 class="mb-0 text-success fs-6">SPRING 2022</h3>
+								<h1 class="fw-bold">{{slide.titre}}
+								</h1>
+								<h5 class="text-black fs-2 fw-bold">{{slide.sousTitre}}</h5>
+								<button type="submit" class="btn btn-warning">SHOP NOW</button>
+							</div>
+						</div>
+
+					{% endfor %}
+
+					<div class="img-slides">
+						{% for slide in slides %}
+							<span class="img-slide " id="{{slide.id}}" data-src="asset/upload/product/{{slide.imageSlides}}"></span>
+						{% endfor %}
+					</div>
 				</div>
 				<div class="d-flex justify-content-between text-white p-2 align-items-center  bg-primary ">
 					<div class="text-center  ps-3">
@@ -90,7 +105,7 @@
 						{% for offre in offre %}
 							<div class="product-card  m-3 bg-white box">
 								<div class="product-image p-2 text-center">
-									<span class="discount-tag">-50%</span>
+									<span class="discount-tag text-secondary">-50%</span>
 									<a href="{{path("app_produit_show",{id:offre.id})}}">
 										<img src="./asset/upload/product/{{offre.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
 									</a>
@@ -339,13 +354,19 @@
 			</div>
 
 		</div>
-		<div class="section text-center mt-4">
-			<div class="center pt-4">
+		<div class="section  mt-4">
+
+			{% for slide in slider %}
+				<img id="{{slide.id}}" src="asset/upload/product/{{slide.imageSlides}}" class="image" width="100%" height="100%" alt="" srcset="">
+			{% endfor %}
+
+			<div class="text-offre  text-center pt-4">
 				<h3>Weekend offre</h3>
 				<h1>Biggest sale</h1>
 				<h6>for online order</h6>
-				<button class="btn">Buy Now</button>
+				<button class="btn btn-outline-warning btn-lg">Buy Now</button>
 			</div>
+
 		</div>
 		<div class="top-product mt-4">
 			<div class="d-flex top justify-content-between align-items-center">
@@ -402,4 +423,7 @@
 			</div>
 		</div>
 	</div>
+	{% block javascript %}
+		<script src="asset/js/home.js"></script>
+	{% endblock %}
 {% endblock %}

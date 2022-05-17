@@ -1,0 +1,106 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title "Slides" %}
+
+{% block body %}
+
+	<div class="main-content">
+		<main>
+
+			<div class="row ">
+
+				<div class="col-7">
+					<div class="bus">
+						<div class="d-flex p-3 bbw justify-content-between bbw align-items-center">
+							<h6>Tous les slides</h6>
+							<form action="" method="get" class="w-50">
+
+								<input type="text" name="search_slides" width="100px" class='form-control' placeholder="Tapez le nom et entrez">
+							</form>
+
+						</div>
+						<div class="p-3">
+							{% if slides %}
+								<table class=" table table-borderless text-center pe-3">
+									<thead class="bbw">
+										<tr>
+											<th>Id</th>
+											<th>Image</th>
+											<th>Titre</th>
+											<th>Sous Titre</th>
+											<th>actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for slide in slides %}
+											<tr>
+												<td>{{ slide.id }}</td>
+												<td>
+													<img src="/asset/upload/product/{{slide.imageSlides}}" width="60px" height="60px" alt="" srcset="">
+												</td>
+												<td>{{ slide.titre }}</td>
+												<td>{{ slide.sousTitre }}</td>
+
+												<td>
+													<div class="d-flex justify-content-center align-items-center m-0">
+
+														<a href="{{ path('app_marque_show', {'id': slide.id}) }}">
+
+															<button class="btn btn-sm brc btn-outline-warning">
+																<i class="bi-eye-fill"></i>
+															</button>
+
+														</a>
+														{{ include("slides/_delete_form.html.twig") }}
+													</div>
+												</td>
+											</tr>
+
+										{% endfor %}
+									</tbody>
+								</table>
+							{% else %}
+								<div>IL FAUT AJOUTER UN SLIDE</div>
+							{% endif %}
+
+							<nav aria-label="Page navigation example" class="mt-5 text-center">
+								<ul class="pagination text-center">
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</li>
+									{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
+
+										<li class="page-item {{(page == item)? " active":" "}}">
+											<a class="page-link" href="?page={{item}}">{{item}}</a>
+										</li>
+									{% endfor %}
+
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="col-5 ">
+					<div class="bus">
+						<div class="bbw p-3">
+							<h6>Ajoute une nouvelle image de slider</h6>
+						</div>
+						<div class="p-3">
+							{{ include('slides/_form.html.twig') }}
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</main>
+	</div>
+
+
+{% endblock %}

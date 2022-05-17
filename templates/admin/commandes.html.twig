@@ -9,21 +9,22 @@
 				<div class="d-flex justify-content-between align-items-center p-3 bbu">
 					<h5>Commandes</h5>
 					<div class="form d-flex">
-						<form action="" method="post" class="form  d-flex">
-							<select name="statusL" id="statusL " class="form-select ms-3 form-control-sm">
-								<option>Etat de commande</option>
+						<form action="" method="get" class="form  d-flex">
+							<select name="statusL" id="statusL " class="form-select ms-3 form-control-sm" onchange="this.form.submit()">
+								<option value="">Etat de commande</option>
 								<option value="0">News</option>
 								<option value="1">Passeé</option>
 								<option value="2">Confirmée</option>
 								<option value="4">En livraison</option>
 								<option value="3">Livrée</option>
 							</select>
-							<select name="statusP" id="statusP" class="form-select ms-3 form-group">
-								<option>Etat de paiement</option>
+							<select name="statusP" id="statusP" class="form-select ms-3 form-group" onchange="this.form.submit()">
+								<option value="">Etat de paiement</option>
+								<option value="0">No payé</option>
 								<option value="1">Non payé</option>
 								<option value="2">Payé</option>
 							</select>
-							<input type="number" name="code" id="code" class='ms-3 form-control' placeholder="Entrer le Code">
+							<input type="datetime" name="code" id="code" class='ms-3 form-control' min="0" placeholder="Entrer le Code">
 
 						</form>
 					</div>
@@ -34,8 +35,8 @@
 							<tr>
 								<th>#</th>
 								<th>code</th>
-								<th>Quantiteé</th>
 								<th>Client</th>
+								<th>Quantiteé</th>
 								<th>Montant en Ar</th>
 								<th>Etat de commande</th>
 								<th>Etat de paiement</th>
@@ -47,15 +48,17 @@
 								<tr>
 									<td>{{commande.id}}</td>
 									<td>{{commande.codeCommande|date("Hi")}}</td>
-									<td>{{commande.quantite}}</td>
 									<td>{{commande.users.prenomUser}}</td>
+									<td>{{commande.quantite}}</td>
 									<td>{{commande.subtotal}}
+										Ar
 									</td>
 									<td>
-										<span class="badge {{commande.statusCommandes.style |default(" bg-info")}}">{{commande.statusCommandes|default("news")}}</span>
+										<span class="badge {{commande.statusCommandes.style |default(" bg-secondary")}}">Commandes
+											{{commande.statusCommandes|default("news ")}}</span>
 									</td>
 									<td>
-										<span class="badge  {{commande.statusPaiement.style |default(" bg-danger")}}">{{commande.statusPaiement|default("Non payé")}}</span>
+										<span class="badge  {{commande.statusPaiement.style |default(" bg-secondary")}}">{{commande.statusPaiement|default("No payé")}}</span>
 									</td>
 									<td>
 										<div class="options">
@@ -80,7 +83,7 @@
 							{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
 
 								<li class="page-item {{(page == item)? " active":" "}}">
-									<a class="page-link " href="?page={{item}}">{{item}}</a>
+									<a class="page-link " href="?statusL={{livraison}}&statusP={{payer}}&code={{code}}&page={{item}}">{{item}}</a>
 								</li>
 							{% endfor %}
 

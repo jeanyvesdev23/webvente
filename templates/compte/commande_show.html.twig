@@ -9,7 +9,7 @@
 
 				<div class="commande-id m-5 bce p-3">
 					<div class="d-flex justify-content-between me-5 ms-5">
-						<h4>Commande #{{commande.codeCommande|date("Hi")}}</h4>
+						<h4 class="fs-5">Commande #{{commande.codeCommande|date("Hi")}}</h4>
 						<div class="info-commande text-end">
 
 							<p class="mb-0">creé le
@@ -41,53 +41,46 @@
 					</div>
 
 					{% if commande.statusCommandes %}
-						<div class=" fdja">
-							<span>
+						<div id="progress" value="{{commande.statusCommandes.id}}" class=" fdja">
+							<span id="span">
 								<i class="bi-check-circle-fill"></i>
 							</span>
-							<div class="w_25">
+							<div id="w25" class="w_25">
 								<div class="line"></div>
 							</div>
-							<span>
+							<span id="span1">
 								<i class="bi-check-circle-fill"></i>
 							</span>
-							<div class="w_25">
+							<div id="w251" class="w_25">
 								<div class="line"></div>
 							</div>
-							<span>
+							<span id="span2">
 								<i class="bi-check-circle-fill"></i>
 							</span>
-							<div class="w_25">
+							<div id="w252" class="w_25">
 								<div class="line"></div>
 							</div>
-							<span>
+							<span id="span3">
 								<i class="bi-check-circle-fill"></i>
 							</span>
 						</div>
 					{% endif %}
 
 
-					<div class="d-flex justify-content-between  mt-3 me-5 ms-5 text-center">
-						<div>
-							<h4 class="fs-5">COMMANDE EFFECTUEE</h4>
-						</div>
-						<div>
-							<h4 class="fs-5">EN COURS D'EXPEDITION</h4>
-						</div>
-						<div>
-							<h4 class="fs-5">EN COURS DE LIVRAISON</h4>
-						</div>
-						<div>
-							<h4 class="fs-5">COMMANDE LIVREE</h4>
-						</div>
-
+					<div class="d-flex justify-content-between pe-2 mt-2 text-center">
+						<h5 class="fs-6">COMMANDE EFFECTUEE</h5>
+						<h5 class="fs-6">EN COURS D'EXPEDITION</h5>
+						<h5 class="fs-6">EN COURS DE LIVRAISON</h5>
+						<h5 class="fs-6">COMMANDE LIVREE</h5>
 					</div>
-					<button class="btn btn-dark w-100">ANNULER LA COMMANDE</button>
+
+					<button id="button" class="btn btn-dark w-100">ANNULER LA COMMANDE</button>
+
 				</div>
 				<div class="liste-produi ">
 					{% for panier in panier %}
 
-						<div class="row align-items-center m-5">
+						<div class="row align-items-center m-3">
 
 							<div class="image-product col-5">
 								<img src="/asset/upload/product/{{panier.imageProduct}}" width="100%" height="300px" alt="" srcset="">
@@ -108,7 +101,7 @@
 									{{panier.priceProduct}}
 									Ar ,<span class="text-dark fw-bold ">{{panier.createdAt|date("d/m/Y ")}}</span>
 								</p>
-								<button class="btn btn-info">Commande effectué</button>
+								<button id="liste" class="btn btn-info">Commande effectué</button>
 							</div>
 						</div>
 					{% endfor %}
@@ -117,4 +110,7 @@
 
 		</div>
 	</div>
+	{% block javascript %}
+		<script src="../../asset/js/progress.js"></script>
+	{% endblock %}
 {% endblock %}

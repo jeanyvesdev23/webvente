@@ -21,7 +21,7 @@
 			<li>
 				<div class="icon-link">
 
-					<a href="">
+					<a href="{{path("app_produit_index")}}">
 						<i class="bi-columns-gap"></i>
 						<span>
 							Produit
@@ -83,8 +83,8 @@
 
 			<li>
 				<div class="icon-link">
-					<a href="">
-						<i class="bi-person-fill"></i>
+					<a href="{{path("app_blogs_index")}}">
+						<i class="bi-bootstrap"></i>
 						<span>
 							Blogs
 						</span>
@@ -103,7 +103,7 @@
 			</li>
 			<li>
 				<div class="icon-link">
-					<a href="">
+					<a href="{{path("app_client")}}">
 						<i class="bi-person-fill"></i>
 						<span>
 							Clients
@@ -125,29 +125,21 @@
 			<li>
 				<div class="icon-link">
 
-					<a href="">
+					<a href="{{path("app_slides_index")}}">
 						<i class="bi-award-fill"></i>
 						<span>
 							Commercialisation
 						</span>
 					</a>
-					<i class="bi-chevron-down bcd"></i>
-				</div>
-				<ul class="sub-menu">
-					<li>
-						<a href="">Des offres</a>
-					</li>
-					<li>
-						<a href="">Ajouter offre</a>
-					</li>
 
-				</ul>
+				</div>
+
 			</li>
 
 			<li>
 				<div class="icon-link">
 
-					<a href="">
+					<a href="{{path("app_user")}}">
 						<i class="bi-keyboard-fill"></i>
 						<span>
 							Gestion Des Users
@@ -157,13 +149,24 @@
 				</div>
 				<ul class="sub-menu">
 					<li>
-						<a href="">Liste des Users</a>
-					</li>
-					<li>
-						<a href="">Ajouter User</a>
+						<a href="{{path("app_user")}}">Liste des Users</a>
 					</li>
 
+
 				</ul>
+			</li>
+			<li>
+				<div class="icon-link">
+
+					<a href="{{path("app_logout")}}">
+						<i class="bi-box-arrow-left"></i>
+						<span>
+							Logout
+						</span>
+					</a>
+
+				</div>
+
 			</li>
 		</div>
 	</div>

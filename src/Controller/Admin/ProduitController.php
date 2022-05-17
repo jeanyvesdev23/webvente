@@ -32,13 +32,17 @@ class ProduitController extends AbstractController
         $limit = 10;
         $page = (int)$request->query->get("page", 1);
         $offest = ($page - 1) * $limit;
-        $searchPro = $request->request->get("searchPro");
-        if ($searchPro == "") {
-            # code...
+        $searchPro = $request->query->get("searchPro");
+        $trierPro = $request->query->get("trierPro");
+        $counts = $produitRepository->count([]);
+
+        if ($searchPro == "" && $trierPro == "") {;
             $produits = $produitRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
         } else {
 
-            $result = $produitRepository->searchPro($searchPro);
+            $result = $produitRepository->searchPro($searchPro, $trierPro, $limit, $offest);
+
+
             if ($result == null) {
                 $produits = $produitRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
             } else {
@@ -48,10 +52,11 @@ class ProduitController extends AbstractController
 
         return $this->render('produit/index.html.twig', [
             'produits' => $produits,
-            'counts' => $produitRepository->count([]),
+            'counts' => $counts,
             'page' => $page,
             'limit' => $limit,
-            'offest' => $offest
+            'searchPro' => $searchPro,
+            'trierPro' => $trierPro
         ]);
     }
     /**

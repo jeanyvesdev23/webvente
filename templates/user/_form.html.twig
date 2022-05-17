@@ -1,4 +1,14 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_widget(form) }}
+<div class="role ms-4 mb-3 d-block">
+	<h6>Roles</h6>
+	<div>
+
+		<input type="checkbox" name="roleA" value="ROLE_ADMIN" id="radio" required="required"><label for="radio" class="ms-3">Administrateur</label>
+	</div>
+	<div>
+		<input type="checkbox" name="roleU" value="ROLE_USER" id="radioU" required="required"><label for="radioU" class="ms-3">Utilisateur</label>
+	</div>
+</div>
+<button class="btn btn-warning w-100" formnovalidate>{{ button_label|default('Modifier') }}</button>
 {{ form_end(form) }}

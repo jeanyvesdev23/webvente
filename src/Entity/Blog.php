@@ -52,6 +52,11 @@ class Blog
      */
     private $commentaireBlogs;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPublier;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -139,6 +144,18 @@ class Blog
                 $commentaireBlog->setBlog(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsPublier(): ?bool
+    {
+        return $this->isPublier;
+    }
+
+    public function setIsPublier(?bool $isPublier): self
+    {
+        $this->isPublier = $isPublier;
 
         return $this;
     }

@@ -14,7 +14,11 @@ class CommentaireType extends AbstractType
         $builder
             ->add('numbreEtoile', null, [
                 "label" => false,
-                "attr" => ["placeholder" => "Nombre d'etoile max 5"]
+                "attr" => [
+                    "placeholder" => "Nombre d'etoile max 5",
+                    "min" => 0,
+                    "max" => 5
+                ]
             ])
             ->add('commentaire', null, [
                 "label" => false,

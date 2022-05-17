@@ -45,22 +45,63 @@ class CommandeRepository extends ServiceEntityRepository
         }
     }
 
+    public function getId()
+    {
+        return $this->createQueryBuilder('c')->select('c.id')->getQuery()->getResult();
+    }
+    public function getSubtotal($usersId)
+    {
+        return $this->createQueryBuilder('c')->select('SUM(c.subTotal)')->andWhere('c.statusPaiement = 2')->andWhere('c.users = :val')->setParameter('val', $usersId)->getQuery()->getResult();
+    }
+    public function getQuantity($usersId)
+    {
+        return $this->createQueryBuilder('c')->select('SUM(c.quantite)')->andWhere('c.statusCommandes = 3')->andWhere('c.users = :val')->setParameter('val', $usersId)->getQuery()->getResult();
+    }
+    public function getConfirme($usersId)
+    {
+        return $this->createQueryBuilder('c')->orderBy('c.createdAt', 'desc')->andWhere('c.statusCommandes > 1')->andWhere('c.users = :val')->setParameter('val', $usersId)->getQuery()->getResult();
+    }
 
-    // public function searchcommnade($statusL,$statusP,$code,$offest,$limit)
-    // {
-    //     return $this->createQueryBuilder('c')
-    //         ->orderBy('c.createdAt','desc')
-    //         ->setFirstResult($offest)
-    //         ->setMaxResults($limit)
-    //         ->join('c.statusCommandes','s' )
-    //         ->join('c.statusPayemment','p' )
-    //         ->setParameter('val', $value)
-    //         ->orderBy('c.id', 'ASC')
-    //         ->setMaxResults(10)
-    //         ->getQuery()
-    //         ->getResult()
-    //     ;
-    // }
+
+    public function searchcommnade($statusL, $statusP, $code, $offest, $limit)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'desc')
+            ->setFirstResult($offest)
+            ->setMaxResults($limit);
+        if ($statusL == "0") {
+            $query = $query->andWhere('c.statusCommandes is NULL');
+        } elseif ($statusL != "") {
+            $query = $query->andWhere('c.statusCommandes = :val')->setParameter('val', (int) $statusL);
+        }
+        if ($statusP == "0") {
+            $query = $query->andWhere('c.statusPaiement is NULL');
+        } elseif ($statusP != "") {
+            $query = $query->andWhere('c.statusPaiement = :val')->setParameter('val', (int) $statusP);
+        }
+        if ($code != "") {
+            $query = $query->andWhere('c.codeCommande LIKE :val')->setParameter('val', '%' . $code . '%');
+        }
+        return $query->getQuery()->getResult();
+    }
+    public function countscommnade($statusL, $statusP, $code)
+    {
+        $query = $this->createQueryBuilder('c')->select('COUNT(c)');
+        if ($statusL == "0") {
+            $query = $query->andWhere('c.statusCommandes is NULL');
+        } elseif ($statusL != "") {
+            $query = $query->andWhere('c.statusCommandes = :val')->setParameter('val', (int) $statusL);
+        }
+        if ($statusP == "0") {
+            $query = $query->andWhere('c.statusPaiement is NULL');
+        } elseif ($statusP != "") {
+            $query = $query->andWhere('c.statusPaiement = :val')->setParameter('val', (int) $statusP);
+        }
+        if ($code != "") {
+            $query = $query->andWhere('c.codeCommande LIKE :val')->setParameter('val', '%' . $code . '%');
+        }
+        return $query->getQuery()->getResult();
+    }
 
 
     /*

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Slides{% endblock %}
+
+{% block body %}
+    <h1>Create new Slides</h1>
+
+    {{ include('slides/_form.html.twig') }}
+
+    <a href="{{ path('app_slides_index') }}">back to list</a>
+{% endblock %}

@@ -20,6 +20,7 @@
 								<tr>
 									<th>#Order</th>
 									<th>Date</th>
+									<th>Order Qte</th>
 									<th>Order total</th>
 									<th>Order status</th>
 									<th>Actions</th>
@@ -30,6 +31,7 @@
 									<tr>
 										<td>{{commande.codeCommande |  date("Hi") }}</td>
 										<td>{{commande.createdAt | date("d/m/Y")}}</td>
+										<td class="text-center">{{commande.quantite}}</td>
 										<td>{{commande.subtotal}}
 											Ar</td>
 										<td>

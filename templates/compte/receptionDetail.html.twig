@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Boite de reception' %}
+
+{% block body %}
+	<div class="container mt">
+		<div class="compte-user row">
+			<div class="col-3">
+				{% include "./partial/_compteuser.html.twig" %}
+			</div>
+			<div class="p-3 br col-9">
+
+				<div id="progress" value="{{commande.statusCommandes.id}}" class=" fdjn">
+					<span id="span">
+						1
+					</span>
+					<div id="w25" class="w_25">
+						<div class="line"></div>
+					</div>
+					<span id="span1">
+						2
+					</span>
+					<div id="w251" class="w_25">
+						<div class="line"></div>
+					</div>
+					<span id="span2">
+						3
+					</span>
+					<div id="w252" class="w_25">
+						<div class="line"></div>
+					</div>
+					<span id="span3">
+						4
+					</span>
+				</div>
+				<div class="d-flex justify-content-around align-items-center">
+					<small>Confirmé</small>
+					<small>Expédié</small>
+					<small>En livraison</small>
+					<small>Livré</small>
+				</div>
+
+
+				<div class="mt-3 fav">
+					<h6 class='ps-4'>Détail de ma commande</h6>
+				</div>
+				<div class="par">
+					<h6>Commande #{{commande.codeCommande|date("Hi")}}</h6>
+					<p>Date de commande
+						{{commande.createdAt|date("d-m-Y H:I")}}</p>
+					<div class="ad">
+						<div>
+							<h6>Addresse de livraison</h6>
+							{% for addres in commande.users.addres %}
+								<p>Nom :
+									{{addres.fullName}}
+									<br>Email :
+									{{commande.users.email}}
+									<br>Télephone :
+									{{addres.numero}}
+									<br>Ville :
+									{{addres.postal}}-{{addres.ville}}<br>Addresse :
+									{{addres.parcelle}}</p>
+							{% endfor %}
+						</div>
+						<div>
+							<h6>Informations de paiement</h6>
+							<p>Etat de paiement :
+								<span class=" badge {{commande.statusPaiement.style}}">
+									{{commande.statusPaiement.isPayer}}
+								</span>
+							</p>
+							<p>Montant payé
+								{{commande.subTotal}}
+								Ar</p>
+							<p>Mode de paiement :
+								<span class=" badge {{commande.statusPaiement.style}}">
+									{{commande.statusPaiement.typePayer}}
+								</span>
+							</p>
+						</div>
+					</div>
+					<h6>ARTICLES DANS VOTRE COMMANDES</h6>
+					<div class="pro">
+
+						{% for panier in panier %}
+							<div class="d-flex justify-content-between mb-5">
+								<div class="d-flex">
+									<img src="../../asset/upload/product/{{panier.imageProduct}}" width="80px" height="100px" alt="" srcset="">
+									<p class="ms-4 pt-2 text-start">{{panier.nameProduct}}
+										<br><span>{{panier.priceProduct}}
+											Ar</span>
+									</p>
+								</div>
+								<div class="button">
+									<button class="btn btn-info">DEMANDE DE RETOUR</button>
+									<button class="btn mt-3 text-center btn-info">COMMANDER A
+										<br>
+										NOUVEAU
+									</button>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	{% block javascript %}
+		<script src="../../asset/js/progressNum.js"></script>
+	{% endblock %}
+{% endblock %}

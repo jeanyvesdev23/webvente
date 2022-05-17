@@ -14,6 +14,7 @@ use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\SearchProductRepository;
+use App\Repository\SlidesRepository;
 use Countable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,17 +31,20 @@ class HomeController extends AbstractController implements Countable
     /**
      * @Route("/", name="app_home")
      */
-    public function index(ProduitRepository $produitRepository, BlogRepository $blogRepository, CategorieRepository $categorieRepository): Response
+    public function index(ProduitRepository $produitRepository, SlidesRepository $slidesRepository, BlogRepository $blogRepository, CategorieRepository $categorieRepository): Response
     {
 
 
         return $this->render('home/index.html.twig', [
-            "produits" => $produitRepository->findBy([], ["createdAt" => "DESC"], 8),
-            "categories" => $categorieRepository->findAll(),
-            "futur" => $produitRepository->findBy(["isFutur" => true]),
-            'news' => $produitRepository->findBy(['nouveau' => true]),
-            'best' => $produitRepository->findBy(['meilleur' => true]),
-            'offre' => $produitRepository->findBy(['isOffre' => true]),
+            "produits" => $produitRepository->findBy(["status" => true], ["createdAt" => "DESC"], 8),
+            "categories" => $categorieRepository->findBy([], [], 8),
+            "futur" => $produitRepository->findBy(["isFutur" => true, "status" => true]),
+            'news' => $produitRepository->findBy(['nouveau' => true, "status" => true]),
+            'best' => $produitRepository->findBy(['meilleur' => true, "status" => true]),
+            'offre' => $produitRepository->findBy(['isOffre' => true, "status" => true]),
+            'slide' => $slidesRepository->findBy([], [], 1),
+            'slider' => $slidesRepository->findBy([], ["createdAt" => "DESC"], 1),
+            'slides' => $slidesRepository->findBy([], [], 4),
             "blog" => $blogRepository->findBy([], [], 3)
         ]);
     }
@@ -49,13 +53,15 @@ class HomeController extends AbstractController implements Countable
      */
     public function produit(Request $request, SearchProductRepository $searchProductRepository, ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
     {
-        $limit = 6;
+        $limit = 9;
         $page = (int)$request->query->get("page", 1);
+        $query = $request->query->get("search");
+
         $offest = ($page - 1) * $limit;
         $produits = $produitRepository->findBy(["status" => true], ["createdAt" => "DESC"], $limit, $offest);
         $counts = $produitRepository->count(["status" => true]);
         $search = new SearchProduct;
-        $form = $this->createForm(SearchType::class, $search)->handleRequest($request);
+        $form = $this->createForm(SearchType::class, $search, ['method' => "GET"])->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $produits = $produitRepository->searchwithCate($search, $offest, $limit);
@@ -69,13 +75,16 @@ class HomeController extends AbstractController implements Countable
         }
 
         return $this->render('home/produit.html.twig', [
+            'categorie' => $query["Categorie"],
+            'maxPrix' => $query["maxPrix"],
+            'minPrix' => $query["minPrix"],
+            'token' => $query["_token"],
             'produits' => $produits,
             'counts' => $counts,
-            'page' => $page, 'limit' => $limit, 'offest' => $offest,
+            'page' => $page, 'limit' => $limit,
             'news' => $produitRepository->findBy(['nouveau' => true]),
             'best' => $produitRepository->findBy(['meilleur' => true]),
             'offre' => $produitRepository->findBy(['isOffre' => true]),
-            'categories' => $categorieRepository->findAll(),
             "form" => $form->createView()
 
         ]);

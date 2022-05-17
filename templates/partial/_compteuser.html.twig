@@ -1,7 +1,7 @@
 <div class="user-dashboard">
 	<ul>
 		<li>
-			<a class="" href="{{path("app_compte")}}">
+			<a href="{{path("app_compte")}}">
 				<span>
 					<i class="bi-table"></i>
 				</span>Tableau de board</a>
@@ -11,7 +11,7 @@
 		{% if is_granted("ROLE_ADMIN") %}
 
 			<li>
-				<a class="" href="{{path("app_admin")}}" target="blank">
+				<a href="{{path("app_admin")}}" target="blank">
 					<span>
 						<i class="bi-terminal-fill"></i>
 					</span>Accedez au BackOffice</a>
@@ -19,37 +19,37 @@
 		{% endif %}
 
 		<li>
-			<a class="" href="{{path("app_compte_commandes")}}">
+			<a href="{{path("app_compte_commandes")}}">
 				<span>
 					<i class="bi-receipt"></i>
 				</span>Mes commandes</a>
 		</li>
 		<li>
-			<a class="" href="{{path("app_favorite_produit")}}">
+			<a href="{{path("app_favorite_produit")}}">
 				<span>
 					<i class="bi-heart-fill"></i>
 				</span>Favorite produit</a>
 		</li>
 		<li>
-			<a class="" href="{{path("app_compte_edit",{id:app.user.id})}}">
+			<a href="{{path("app_compte_edit",{id:app.user.id})}}">
 				<span>
 					<i class="bi-person-fill"></i>
 				</span>Edit compte</a>
 		</li>
 		<li>
-			<a href="">
+			<a href="{{path("app_compte_reception")}}">
 				<span>
 					<i class="bi-envelope-fill"></i>
 				</span>Boite reception</a>
 		</li>
 		<li>
-			<a href="">
+			<a href="{{path("app_compte_changepassword")}}">
 				<span>
 					<i class="bi-file-lock-fill"></i>
 				</span>Modifier mot de passe</a>
 		</li>
 		<li>
-			<a href="">
+			<a href="{{path("app_logout")}}">
 				<span>
 					<i class="bi-box-arrow-in-left"></i>
 				</span>Logout</a>

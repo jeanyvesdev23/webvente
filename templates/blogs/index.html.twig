@@ -1,18 +1,18 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block title "Categories" %}
+{% block title "Blogs" %}
 
 {% block body %}
 
 	<div class="main-content">
 		<main>
 
-			<div class="row pt-5">
+			<div class="row ">
 
 				<div class="col-7">
 					<div class="bus">
 						<div class="d-flex p-3 bbw justify-content-between bbw align-items-center">
-							<h6>Tous les blogs</h6>
+							<h6>Listes des blogs</h6>
 							<div class="w-50">
 
 								<input type="text" name="marque" width="100px" class='form-control' placeholder="Tapez le nom et entrez">
@@ -24,8 +24,9 @@
 								<thead class="bbw">
 									<tr>
 										<th>Id</th>
-										<th>Titre</th>
 										<th>Photo</th>
+										<th>Titre</th>
+										<th>Publier</th>
 										<th>actions</th>
 									</tr>
 								</thead>
@@ -33,9 +34,28 @@
 									{% for blog in blogs %}
 										<tr>
 											<td>{{ blog.id }}</td>
-											<td>{{ blog.titreBlog }}</td>
 											<td>
 												<img src="/asset/upload/product/{{blog.imageBog}}" width:"60px" height="60px" alt="" srcset="">
+											</td>
+											<td class="fw-bold text-secondary">{{ blog.titreBlog }}</td>
+											<td>
+												{% if blog.isPublier == true %}
+
+													<a href="{{path("app_blog_status",{id:blog.id})}}">
+
+														<span class="text-success fs-3">
+															<i class="bi-toggle-on"></i>
+														</span>
+													</a>
+												{% else %}
+													<a href="{{path("app_blog_status",{id:blog.id})}}">
+
+														<span class="text-success fs-3">
+															<i class="bi-toggle-off"></i>
+														</span>
+													</a>
+
+												{% endif %}
 											</td>
 
 											<td>

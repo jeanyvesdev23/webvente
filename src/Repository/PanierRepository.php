@@ -66,7 +66,7 @@ class PanierRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->select('SUM(p.total)')
             ->join('p.commande ', 'c')
-            ->andWhere('c.statusCommandes = 3')
+            ->andWhere('c.statusPaiement = 2')
             ->andWhere('c.id=p.commande')
             ->andWhere('p.nameProduct = :val')
             ->setParameter('val', $value)

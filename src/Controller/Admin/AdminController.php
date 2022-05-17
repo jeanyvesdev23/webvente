@@ -15,6 +15,7 @@ use App\Repository\PanierRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\SlidesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,7 @@ class AdminController extends AbstractController
     /**
      * @Route(" ", name="app_admin")
      */
-    public function index(ProduitRepository $produit, CategorieRepository $categorie, MarqueRepository $marque, CommandeRepository $commande, UserRepository $user): Response
+    public function index(ProduitRepository $produit, CategorieRepository $categorie, MarqueRepository $marque, CommandeRepository $commande, UserRepository $user, SlidesRepository $slides): Response
     {
 
         $vendus = $commande->findBy(["statusPaiement" => 2]);
@@ -44,6 +45,8 @@ class AdminController extends AbstractController
 
         return $this->render('admin/index.html.twig', [
             "produits" => $produit->count([]),
+            "offre" => $produit->count(["isOffre" => true]),
+            "slides" => $slides->count([]),
             "commandes" => $commande->count([]),
             "passer" => $commande->count(["statusCommandes" => 1]),
             "confirmer" => $commande->count(["statusCommandes" => 2]),
@@ -51,14 +54,14 @@ class AdminController extends AbstractController
             "livrer" => $commande->count(["statusCommandes" => 3]),
             "vendus" => $totaux,
             "users" => $user->count([]),
-            "categorie" => $categorie->findBy([], [], 4),
+            "categorie" => $categorie->findBy([], [], 5),
             "categories" => $categorie->count([]),
             "marque" => $marque->findBy([], [], 5),
             "marques" => $marque->count([])
         ]);
     }
     /**
-     * @Route("/commandes",name="app_commandes"methodes={"GET","POST"})
+     * @Route("/commandes",name="app_commandes",methods={"GET","POST"})
      */
     public function commandes(Request $request, CommandeRepository $commandeRepository)
     {
@@ -67,16 +70,34 @@ class AdminController extends AbstractController
         $offest = ($page - 1) * $limit;
         $commandes = $commandeRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
         $counts = $commandeRepository->count([]);
-        $searchEl = $request->request->get("statusL");
-        $searchEp = $request->request->get("statusP");
-        $searchC = $request->request->get("code");
-        if ($searchEl == "" || $searchEp == "" || $searchC == "") {
+        $searchEl = $request->query->get("statusL");
+        $searchEp = $request->query->get("statusP");
+        $searchC = $request->query->get("code");
+        if ($searchEl == "" && $searchEp == "" && $searchC == "") {
             $commandes;
+        } else {
+            $result = $commandeRepository->searchcommnade($searchEl, $searchEp, $searchC, $offest, $limit);
+            $counts = $commandeRepository->countscommnade($searchEl, $searchEp, $searchC);
+
+            if ($result == null) {
+                $commandes = $commandeRepository->findBy([], ["createdAt" => "DESC"], $limit, $offest);
+            } else {
+                $commandes = $result;
+                foreach ($counts as  $value) {
+                    $count = $value;
+                    foreach ($count as $value) {
+                        $counts = (int)$value;
+                    }
+                }
+            }
         }
 
         return $this->render('admin/commandes.html.twig', [
             "commandes" => $commandes,
-            "counts" => $counts, "page" => $page, "limit" => $limit
+            "counts" => $counts, "page" => $page, "limit" => $limit,
+            'livraison' => $searchEl,
+            "payer" => $searchEp,
+            "code" => $searchC
         ]);
     }
     /**
@@ -141,23 +162,36 @@ class AdminController extends AbstractController
     /**
      * @Route("/client/detail/{id}",name="app_client_detail")
      */
-    public function clientDetail(User $user, CommandeRepository $commande)
+    public function clientDetail(User $user, CommandeRepository $commande, Request $request)
     {
-        $vendus = $commande->findBy(["statusPaiement" => 2, "users" => $user->getId()]);
-        $totaux = 0;
-        if ($vendus) {
-
-            for ($i = 0; $i < $commande->count(["statusPaiement" => 2, "users" => $user->getId()]); $i++) {
-                $total[] = $vendus[$i]->getSubTotal();
-            }
-            foreach ($total as $key => $value) {
-                $totaux += $value;
+        $limit = 14;
+        $page = $request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
+        $commandes = $commande->findBy(["users" => $user->getId()], ["createdAt" => "DESC"], $limit, $offest);
+        $subTotal = $commande->getSubtotal($user->getId());
+        foreach ($subTotal as  $value) {
+            $subTotal = $value;
+            foreach ($subTotal as $value) {
+                $subTotal = $value;
             }
         }
+        (int) $subTotal;
+        $quantity = $commande->getQuantity($user->getId());
+        foreach ($quantity as  $value) {
+            $quantity = $value;
+            foreach ($quantity as $value) {
+                $quantity = $value;
+            }
+        }
+        (int) $quantity;
 
         return $this->render("admin/clientDetail.html.twig", [
+            "commandes" => $commandes,
+            "counts" => $commande->count(["users" => $user->getId()]),
+            "page" => $page, "limit" => $limit,
             "client" => $user,
-            "total" => $totaux
+            "total" => $subTotal,
+            "quantity" => $quantity
 
         ]);
     }

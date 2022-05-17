@@ -140,11 +140,12 @@ header{
     }
     /*----home page*/
     .offre{
-        background-image:url(../../images/special.png);
-        background-repeat: no-repeat;
-        background-size:cover ;
-        background-position:center;
+        position: relative;
         height:310px
+    }
+    .po-abso{
+        position: absolute;
+        top:0;
     }
    .ba-bo{
         background-color: #eee;
@@ -188,10 +189,55 @@ header{
             }
         }    
     }
+    //slide container
+    .slides{
+      
+        overflow: hidden;
+        position: relative;
+        max-width: 100%;
+        height: 310px;
+        
+    }
+    .image-slides{
+        position: relative;        
+        float: left;
+        width: 100%;
+        margin-right: -100%;
+        backface-visibility: hidden;
+        transition: transform 0.6s ease-in-out;
+    }
+    .po-abso{
+        position: absolute;
+        top:0%;
+    }
+    .img-slides{
+        padding: .3rem;
+        background: #ffc107;
+        position: relative;
+        border-radius: 5rem;
+        top: 15rem;
+        left: 18rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        .img-slide{
+            height: 1.3rem;
+            display: inline-block;
+            width: 1.3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            background: #fff;
+            margin: 0 .5rem;
+        }
+        .img-slide:hover,.img-slide.active{
+            background-color:#0d6efd;
+        }
+    }
     //listes des produits col-9 
 
     .product-container{
-        padding: 0 10vw;
+       
         display:flex;
         overflow-x: auto;
         scroll-behavior:smooth;   
@@ -212,7 +258,7 @@ header{
                     position: absolute;
                     border-radius: 50%;
                     color: rgb(246, 246, 248);
-                    background-color: rgb(192, 150, 14);
+                    background-color: #ffc107;
                     padding-top: 10px;
                     top:10px;
                     right: 15px;
@@ -222,7 +268,12 @@ header{
                     font-size: 20px;
                 }  
                 .product-dump{
-                    width: 100%;                  
+                    width: 100%;  
+                    object-fit: cover;
+                    transition: transform 0.3s ease-out;
+                    &:hover{
+                        transform: scale(1.0225);
+                    }                
                 }  
             }            
         }
@@ -289,36 +340,44 @@ header{
         }
     
   .section{
-      background-image: url("../../images/offre.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
+      position: relative;
+      object-fit: cover;
       width: 100%;
       height: 280px;
-      h3{       
-        font-size: 34px;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        font-style: italic;
-        font-weight: 500;
-        margin: 0;
-        color: darkorange;
+      .image{
+          transition: transform 0.2s ease-out;
+          cursor: pointer;
+          &:hover{
+              transform: scale(1.025);
+          }
+
       }
-      h1{
-        font-size: 79px;
-        margin: 0;
-        padding: 0;
-        font-weight: 700;
-        color: darkgreen;
-      }
-      h6{
-        font-size: 2rem;
-        color: yellow;
-        font-weight: 400;
-      }
-      button{
-        border: 0;      
-        background-color: cadetblue;
-        border-radius: 0;
+      .text-offre{
+          position: absolute;
+          top:0;
+          left: 18rem;
+
+          h3{       
+            font-size: 34px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-style: italic;
+            font-weight: 500;
+            margin: 0;
+            color: darkorange;
+          }
+          h1{
+            font-size: 79px;
+            margin: 0;
+            padding: 0;
+            font-weight: 700;
+            color: darkgreen;
+          }
+          h6{
+            font-size: 2rem;
+            color: yellow;
+            font-weight: 400;
+          }
+         
       }
 
   }

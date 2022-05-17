@@ -2,24 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\StatusCommande;
+use App\Entity\Slides;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class StatusCommandeType extends AbstractType
+
+class SlidesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('statusLivraison')
-            ->add('statusPaiement');
+            ->add('titre')
+            ->add('sousTitre')
+            ->add('imageSlides', FileType::class, [
+                "label" => "Image (png ou jpg) file",
+                "mapped" => false,
+                "required" => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => StatusCommande::class,
+            'data_class' => Slides::class,
         ]);
     }
 }
