@@ -5,15 +5,15 @@
 {% block body %}
 	<div class="container mt">
 
-		<div class="centre">
+		<div class="centre product-cart">
 			<div class="image-show p-3">
 				<img src="/asset/upload/product/{{produit.imagePro}}" width="100%" alt="" srcset="">
 			</div>
 			<div class="show-info">
-				<h3 class="pt-3">{{produit.nomPro}}</h3>
+				<h3 class="product-title pt-3">{{produit.nomPro}}</h3>
 				<p class="badge bg-danger">{{produit.categorie.nomCate}}</p>
 				{% if produit.autrePrix %}
-					<h4 class="text-danger">{{produit.prixPro}}
+					<h4 class="text-danger product-price" value="{{produit.prixPro}}">{{produit.prixPro}}
 						Ar
 
 						<span class="text-dark opacity-50 text-decoration-line-through">
@@ -28,7 +28,7 @@
 						</a>
 					</h4>
 				{% else %}
-					<h4 class="text-dark">{{produit.prixPro}}
+					<h4 class="text-dark product-price" value="{{produit.prixPro}}">{{produit.prixPro}}
 						Ar
 
 						<a class="text-dark favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
@@ -77,7 +77,7 @@
 				<div class="text-end pe-3 pb-3">
 					<a href="{{path("add_cart",{id:produit.id})}}">
 
-						<button class="btn btn-primary ">
+						<button class="addToCart" data-product-id="{{produit.id}}" class="btn btn-primary ">
 							<span>
 								<i class="bi-cart"></i>
 							</span>Ajouter au panier</button>

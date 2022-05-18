@@ -99,7 +99,7 @@
     justify-content: center;
     font-size: 1.5rem;
     align-items: center;
-    opacity: 0.5;
+    
     span{
         z-index: 1;
         width: 25px;
@@ -121,12 +121,34 @@
         }
     }
 }
+.fdj{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    align-items: center;
+ 
+    span{
+        z-index: 1;
+        i{
+            color:#198754;
+        }
+    }
+    .w_25{
+        margin: -0.4rem;
+        width: 20%;
+        .line{
+            padding: 0.3rem;
+            background-color: #198754;
+            width: 100%;
+        }
+    }
+}
 .fdja{
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
     align-items: center;
-    opacity: 0.5;
+    
     span{
         z-index: 1;
         i{

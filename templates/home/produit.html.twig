@@ -38,7 +38,7 @@
 					<div class="liste-produit">
 						{% for produit in produits %}
 
-							<div class="product-card  m-1 bg-white box">
+							<div class="product-card  product-cart m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:produit.id})}}">
 										<img src="./asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
@@ -60,12 +60,12 @@
 										<div class="fw-bold fs-6 ps-2">
 
 											{% if produit.autrePrix != null %}
-												<span class="product-price text-danger ">{{produit.prixPro}}
+												<span class="product-price text-danger " value="{{produit.prixPro}}">{{produit.prixPro}}
 													Ar</span>
 												<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
 													Ar</span>
 											{% else %}
-												<span class="product-price  ">{{produit.prixPro}}
+												<span class="product-price  " value="{{produit.prixPro}}">{{produit.prixPro}}
 													Ar</span>
 											{% endif %}
 										</div>
@@ -73,7 +73,7 @@
 											<span>
 												<a href="{{path("add_cart",{id:produit.id})}}">
 
-													<i class="bi-cart-plus-fill"></i>
+													<i data-product-id="{{produit.id}}" class="addToCart bi-cart-plus-fill"></i>
 												</a>
 											</span>
 										</div>
@@ -90,7 +90,7 @@
 					<div class="liste-produit">
 						{% for news in news %}
 
-							<div class="product-card  m-1 bg-white box">
+							<div class="product-card product-cart  m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:news.id})}}">
 										<img src="./asset/upload/product/{{news.imagePro}}" class="product-dump" alt="">
@@ -111,7 +111,7 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{news.prixPro}}
+											<span class="product-price " value="{{news.prixPro}}">{{news.prixPro}}
 												Ar</span>
 											{% if news.autrePrix != null %}
 												<span class="opacity-50 text-decoration-line-through">{{news.autrePrix}}
@@ -122,7 +122,7 @@
 											<span>
 												<a href="{{path("add_cart",{id:news.id})}}">
 
-													<i class="bi-cart-plus-fill"></i>
+													<i data-product-id="{{news.id}}" class="addToCart bi-cart-plus-fill"></i>
 												</a>
 											</span>
 										</div>
@@ -137,7 +137,7 @@
 					<div class="liste-produit">
 						{% for best in best %}
 
-							<div class="product-card  m-1 bg-white box">
+							<div class="product-card product-cart m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:best.id})}}">
 										<img src="./asset/upload/product/{{best.imagePro}}" class="product-dump" alt="">
@@ -158,7 +158,7 @@
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="fw-bold fs-6 ps-2">
 
-											<span class="product-price ">{{best.prixPro}}
+											<span class="product-price " value="{{best.prixPro}}">{{best.prixPro}}
 												Ar</span>
 											{% if best.autrePrix != null %}
 												<span class="opacity-50 text-decoration-line-through">{{best.autrePrix}}
@@ -169,7 +169,7 @@
 											<span>
 												<a href="{{path("add_cart",{id:best.id})}}">
 
-													<i class="bi-cart-plus-fill"></i>
+													<i data-product-id="{{best.id}}" class="addToCart bi-cart-plus-fill"></i>
 												</a>
 											</span>
 										</div>
@@ -183,7 +183,7 @@
 					<div class="liste-produit">
 						{% for offre in offre %}
 
-							<div class="product-card  m-1 bg-white box">
+							<div class="product-card product-cart m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:offre.id})}}">
 										<img src="./asset/upload/product/{{offre.imagePro}}" class="product-dump" alt="">
@@ -205,7 +205,7 @@
 										<div class="fw-bold fs-6 ps-2">
 
 											{% if offre.autrePrix != null %}
-												<span class="product-price text-danger">{{offre.prixPro}}
+												<span class="product-price text-danger" value="{{offre.prixPro}}">{{offre.prixPro}}
 													Ar</span>
 												<span class="opacity-50 text-decoration-line-through">{{offre.autrePrix}}
 													Ar</span>
@@ -215,7 +215,7 @@
 											<span>
 												<a href="{{path("add_cart",{id:offre.id})}}">
 
-													<i class="bi-cart-plus-fill"></i>
+													<i data-product-id="{{offre.id}}" class="addToCart bi-cart-plus-fill"></i>
 												</a>
 											</span>
 										</div>

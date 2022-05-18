@@ -16,7 +16,7 @@
 
 					{% for produit in produits %}
 
-						<div class="product-card  m-1 bg-white box">
+						<div class="product-card product-cart m-1 bg-white box">
 							<div class="product-image p-2 text-center">
 								<a href="{{path("app_produit_show",{id:produit.id})}}">
 									<img src="../asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
@@ -37,13 +37,13 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="fw-bold fs-6 ps-2">
 										{% if produit.autrePrix %}
-											<span class="product-price text-danger ">{{produit.prixPro}}
+											<span class="product-price text-danger " value="{{produit.prixPro}}">{{produit.prixPro}}
 												Ar</span>
 											<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
 												Ar</span>
 										{% else %}
 
-											<span class="product-price ">{{produit.prixPro}}
+											<span class="product-price " value="{{produit.prixPro}}">{{produit.prixPro}}
 												Ar</span>
 										{% endif %}
 
@@ -51,8 +51,7 @@
 									<div class="cart-panier pe-3 ">
 										<span>
 											<a href="{{path("add_cart",{id:produit.id})}}">
-
-												<i class="bi-cart-plus-fill"></i>
+												<i data-product-id="{{produit.id}}" class="addToCart bi-cart-plus-fill"></i>
 											</a>
 										</span>
 									</div>

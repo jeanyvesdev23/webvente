@@ -26,7 +26,7 @@
 						<tbody>
 							{% for cart in carts %}
 
-								<tr>
+								<tr class=" product-cart">
 									<td>
 										<div class="taille-image">
 											<img src="./asset/upload/product/{{cart.produit.imagePro}}" height="60px" alt="" width="60px">
@@ -34,7 +34,7 @@
 									</td>
 									<td>
 										<div class="nom-pro">
-											<span class='fw-bold'>
+											<span class='fw-bold product-title'>
 												{{cart.produit.nomPro}}
 											</span>
 											<br>
@@ -44,7 +44,7 @@
 										</div>
 									</td>
 									<td>
-										<div class="tprix-pro">
+										<div class="tprix-pro product-price" value="{{cart.produit.prixPro}}">
 											{{cart.produit.prixPro}}
 											Ar
 										</div>
@@ -53,13 +53,13 @@
 										<div class="quantite-pro">
 											<a href="{{path("deletefrom_cart",{id:cart.produit.id})}}">
 												<span class="text-danger">
-													<i class="bi-caret-left-fill"></i>
+													<i data-product-id="{{cart.produit.id}}" class="bi-caret-left-fill"></i>
 												</span>
 											</a>
 											{{cart.quantite}}
 											<a href="{{path("add_cart",{id:cart.produit.id})}}">
 												<span class="text-danger">
-													<i class="bi-caret-right-fill"></i>
+													<i data-product-id="{{cart.produit.id}}" class="addToCart bi-caret-right-fill"></i>
 												</span>
 											</a>
 										</div>
@@ -73,7 +73,7 @@
 									</td>
 									<td>
 										<a href="{{path("delete_cart",{id:cart.produit.id})}}">
-											<span class="badge rounded-pill bg-danger">delete</span>
+											<span data-product-id="{{cart.produit.id}}" class="delete badge rounded-pill bg-danger">delete</span>
 										</a>
 									</td>
 
