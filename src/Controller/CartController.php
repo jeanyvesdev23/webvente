@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Entity\WishList;
+use App\Repository\WishListRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +25,8 @@ class CartController extends AbstractController
     {
         $carts = $this->cartservices->getFullCart();
         if (!isset($carts["produit"])) {
+            $this->addFlash('info', "Désolé votre panier vide");
+
             return $this->redirectToRoute("app_home");
         }
 
@@ -62,13 +66,22 @@ class CartController extends AbstractController
     /**
      * @Route("/addFavorite/{id<[0-9]+>}",name="add_favorite")
      */
-    public function addfavorite(Produit $id, EntityManagerInterface $em)
+    public function addfavorite(Produit $id, EntityManagerInterface $em, WishListRepository $wishList): Response
     {
-        $id->addWishList($this->getUser());
+        $user = $this->getUser();
+        if ($id->isWishlist($user)) {
+            $wish = $wishList->findOneBy(["product" => $id, "user" => $user]);
+            $em->remove($wish);
+            $em->flush();
+            return $this->json(['code' => 200, "message" => "wish remove"], 200);
+        }
+        $wishList = new WishList;
+        $wishList->setProduct($id)->setUser($user);
+        $em->persist($wishList);
         $em->flush();
 
-        return $this->redirectToRoute("app_produit_show", [
-            "id" => $id->getId()
-        ]);
+        return $this->json([
+            "code" => 200, "message" => "wish ajouter"
+        ], 200);
     }
 }

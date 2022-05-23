@@ -11,6 +11,7 @@ use App\Form\ChangePasswordType;
 use App\Repository\PanierRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\WishListRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,8 @@ class CompteController extends AbstractController implements Countable
     {
         $users = $this->getUser();
         if (!$users) {
+            dd("eee");
+            $this->addFlash("info", "Il faut être connecté pour acceder a cette page");
             return $this->redirectToRoute("app_login");
         }
         $subTotal = $commandeRepository->getSubtotal($users->getId());
@@ -89,12 +92,11 @@ class CompteController extends AbstractController implements Countable
     /**
      * @Route("/compte/favorite/produit",name="app_favorite_produit")
      */
-    public function favoriteProduit(ProduitRepository $produits)
+    public function favoriteProduit(WishListRepository $wishlist)
     {
-
-
+        //dd($wishlist->getWishLists($this->getUser()));
         return $this->render("compte/favoriteproduit.html.twig", [
-            "fav_produit" => $this->getUser()->getWishLists()->getValues()
+            "fav_produit" => $wishlist->getWishLists($this->getUser())
         ]);
     }
     /**

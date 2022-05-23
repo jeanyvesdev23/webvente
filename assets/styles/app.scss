@@ -5,13 +5,14 @@
 @import  "scss/panel";
 @import  "scss/dashboard";
 @import  "scss/compte";
-
 body{
     background-color: #ddd;
-   
+    a{
+        text-decoration: none;
+    }
+    
     p{
-        font-size: 1rem;
-       
+        font-size: 1rem;       
         font-style: normal;
         font-weight: 300;
     }

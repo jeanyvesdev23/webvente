@@ -31,6 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
 
@@ -77,12 +78,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true,options={"default":"children.jpg"})
+     
      */
     private $imageUser;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank
+     * @Assert\NumberPhone
      */
     private $numberPhone;
 
@@ -101,10 +104,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $commentaireBlogs;
 
+
+
     /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, mappedBy="wishList")
+     * @ORM\OneToMany(targetEntity=WishList::class, mappedBy="user")
      */
-    private $wishlists;
+    private $wishLists;
 
 
 
@@ -115,7 +120,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commentaires = new ArrayCollection();
         $this->blogs = new ArrayCollection();
         $this->commentaireBlogs = new ArrayCollection();
-        $this->wishlists = new ArrayCollection();
+        $this->wishLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -315,7 +320,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getImageUser(): ?string
     {
-        return $this->imageUser;
+        return $this->imageUser ? $this->imageUser : "children.jpg";
     }
 
     public function setImageUser(?string $imageUser): self
@@ -428,29 +433,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Produit>
+     * @return Collection<int, wishlist>
      */
     public function getWishlists(): Collection
     {
-        return $this->wishlists;
-    }
-
-    public function addWishlist(Produit $wishlist): self
-    {
-        if (!$this->wishlists->contains($wishlist)) {
-            $this->wishlists[] = $wishlist;
-            $wishlist->addWishList($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWishlist(Produit $wishlist): self
-    {
-        if ($this->wishlists->removeElement($wishlist)) {
-            $wishlist->removeWishList($this);
-        }
-
-        return $this;
+        return $this->wishLists;
     }
 }

@@ -50,9 +50,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $role = $request->request->get("roleA");
-            $role = $request->request->get("roleU");
-            $user->setRoles([$role]);
+            $roleA = $request->request->get("roleA");
+            $roleU = $request->request->get("roleU");
+            $user->setRoles([$roleA, $roleU]);
             $em->flush();
             return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
         }

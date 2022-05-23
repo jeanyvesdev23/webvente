@@ -22,15 +22,22 @@
     background-color: #eee;
     border: 1px solid #999;
 }
+.commande-id{
+    margin: 3rem;
+    padding: 1rem;
+    .djcbm{
+        margin: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+}
 
 .info-user{
     display: grid;
     grid-template-columns: repeat(2,1fr);
     grid-gap:2rem;
     .pursed{
-        // background-color: aliceblue;
-        
-        // border: 2px solid rgb(230, 230, 216);
+       padding: 1.5rem;
         
         .block0{           
             width: 90%;

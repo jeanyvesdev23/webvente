@@ -3,9 +3,9 @@
 {% block title 'All produit' %}
 
 {% block body %}
-	<div class="container mt">
-		<div class="row">
-			<div class="col-3">
+	<div class="container rm mt">
+		<div class="row rox">
+			<div class="col-3 rm">
 				<div class="list-group mt-5">
 					{{form_start(form)}}
 					<h6>Categories</h6>
@@ -24,21 +24,22 @@
 
 				</div>
 			</div>
-			<div class="col-9 top-product">
-				<div class="align-items-center top d-flex justify-content-between">
+			<div class="col-9 top-product rm">
+				<div class=" rpm top ">
 					<h6 id="All" class="active">Tous les produits</h6>
 					<div class="d-flex justify-content-between align-items-center">
 
-						<h6 id="news">Nouveau produit</h6>
+						<h6 id="news">Nouveau</h6>
 						<h6 id="best">Poupulaire</h6>
 						<h6 id="offre">Offre</h6>
 					</div>
 				</div>
+
 				<div id="list-produit">
-					<div class="liste-produit">
+					<div class="liste-produit rm">
 						{% for produit in produits %}
 
-							<div class="product-card  product-cart m-1 bg-white box">
+							<div class="product-card rm product-cart m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:produit.id})}}">
 										<img src="./asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
@@ -46,9 +47,9 @@
 								</div>
 								<div class="cart-flex ">
 									<div class="product-info p-2">
-										<h4 class="product-title fs-5">{{produit.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{produit.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+										<h4 class="product-title rm">{{produit.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{produit.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -57,7 +58,7 @@
 										</span>
 									</div>
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+										<div class="fw-bold rm ps-2">
 
 											{% if produit.autrePrix != null %}
 												<span class="product-price text-danger " value="{{produit.prixPro}}">{{produit.prixPro}}
@@ -69,7 +70,7 @@
 													Ar</span>
 											{% endif %}
 										</div>
-										<div class="cart-panier pe-3 ">
+										<div class="cart-panier rm ">
 											<span>
 												<a href="{{path("add_cart",{id:produit.id})}}">
 
@@ -87,10 +88,10 @@
 				</div>
 
 				<div id="list-news" class="none">
-					<div class="liste-produit">
+					<div class="liste-produit rm">
 						{% for news in news %}
 
-							<div class="product-card product-cart  m-1 bg-white box">
+							<div class="product-card rm product-cart  m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:news.id})}}">
 										<img src="./asset/upload/product/{{news.imagePro}}" class="product-dump" alt="">
@@ -98,9 +99,9 @@
 								</div>
 								<div class="cart-flex ">
 									<div class="product-info p-2">
-										<h4 class="product-title fs-5">{{news.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{news.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+										<h4 class="product-title rm">{{news.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{news.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -108,8 +109,8 @@
 											<i class="bi bi-star"></i>
 										</span>
 									</div>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+									<div class="d-flex  justify-content-between align-items-center">
+										<div class="fw-bold rm ps-2">
 
 											<span class="product-price " value="{{news.prixPro}}">{{news.prixPro}}
 												Ar</span>
@@ -118,7 +119,7 @@
 													Ar</span>
 											{% endif %}
 										</div>
-										<div class="cart-panier pe-3 ">
+										<div class="cart-panier rm ">
 											<span>
 												<a href="{{path("add_cart",{id:news.id})}}">
 
@@ -134,10 +135,10 @@
 				</div>
 
 				<div id="list-best" class="none">
-					<div class="liste-produit">
+					<div class="liste-produit rm">
 						{% for best in best %}
 
-							<div class="product-card product-cart m-1 bg-white box">
+							<div class="product-card rm product-cart m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:best.id})}}">
 										<img src="./asset/upload/product/{{best.imagePro}}" class="product-dump" alt="">
@@ -145,9 +146,9 @@
 								</div>
 								<div class="cart-flex ">
 									<div class="product-info p-2">
-										<h4 class="product-title fs-5">{{best.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{best.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+										<h4 class="product-title rm">{{best.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{best.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -156,7 +157,7 @@
 										</span>
 									</div>
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+										<div class="fw-bold rm ps-2">
 
 											<span class="product-price " value="{{best.prixPro}}">{{best.prixPro}}
 												Ar</span>
@@ -165,7 +166,7 @@
 													Ar</span>
 											{% endif %}
 										</div>
-										<div class="cart-panier pe-3 ">
+										<div class="cart-panier rm ">
 											<span>
 												<a href="{{path("add_cart",{id:best.id})}}">
 
@@ -180,10 +181,10 @@
 					</div>
 				</div>
 				<div id="list-offre" class="none">
-					<div class="liste-produit">
+					<div class="liste-produit rm">
 						{% for offre in offre %}
 
-							<div class="product-card product-cart m-1 bg-white box">
+							<div class="product-card rm product-cart m-1 bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:offre.id})}}">
 										<img src="./asset/upload/product/{{offre.imagePro}}" class="product-dump" alt="">
@@ -191,9 +192,9 @@
 								</div>
 								<div class="cart-flex ">
 									<div class="product-info p-2">
-										<h4 class="product-title fs-5">{{offre.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{offre.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+										<h4 class="product-title rm">{{offre.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{offre.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -202,7 +203,7 @@
 										</span>
 									</div>
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+										<div class="fw-bold rm ps-2">
 
 											{% if offre.autrePrix != null %}
 												<span class="product-price text-danger" value="{{offre.prixPro}}">{{offre.prixPro}}
@@ -211,7 +212,7 @@
 													Ar</span>
 											{% endif %}
 										</div>
-										<div class="cart-panier pe-3 ">
+										<div class="cart-panier rm ">
 											<span>
 												<a href="{{path("add_cart",{id:offre.id})}}">
 

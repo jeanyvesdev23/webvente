@@ -1,8 +1,98 @@
 {% block body %}
 	<header class="bg-primary fixed-top">
+		<nav class="rs-phone mx-5">
+			<ul class="rs-nav ">
+				<li class="fs-5">
+					<i id='bar' class="bi-justify"></i>
+				</li>
+				<li class="fs">
+					<h3 class=" fw-bold text-white">Web<span class="text-warning">Vente</span>
+					</li>
+				</li>
+				<li class=" fs-5">
+					<i class="bi-search"></i>
+					<i class=" ms-2 bi-bag-plus"></i>
+				</li>
+			</ul>
+			<nav>
+				<ul id="rs-list" class="rs-list">
+					<li class="nav-item fs">
+						<a class="nav-link text-white " href="{{path("app_compte")}}">
+							<i class="bi-person"></i>
+							My account</a>
+					</li>
+					<li class="nav-item fs">
+						<a class="nav-link  text-white" href="{{path("app_cart")}}">
+							<i class="bi-cart-fill"></i>
+							My cart</a>
+					</li>
+					<li class="nav-item fs">
+						<a class="nav-link  text-white" href="{{path("app_favorite_produit")}}">
+							<i class="bi-heart-fill"></i>
+							My wishlist</a>
+					</li>
+					<li class="nav-item fs">
+						<a class="nav-link  text-white" href="{{path("app_checkout")}}">
+							<i class="bi-check"></i>
+							Checkout</a>
+					</li>
+					<li class="nav-item fs">
+						<a class="nav-link text-white " href="{{path("app_home")}}">
+							<i class="bi-house"></i>
+							Home</a>
+					</li>
+					<li class="nav-item fs">
+						<a class="nav-link  text-white" href="{{path("app_produit")}}">
+							<i class="bi-bag"></i>
+							Shop</a>
+					</li>
+
+					<li class="nav-item fs">
+						<a class="nav-link  text-white" href="{{path("app_blog")}}">
+							<i class="bi-bootstrap"></i>
+							Blog</a>
+					</li>
+					<li class="nav-item fs">
+						<a class="nav-link  text-white" href="{{path("app_favorite_produit")}}">
+							<i class="bi-cast"></i>
+							About us</a>
+					</li>
+					<li class="nav-item fs">
+						<a class="nav-link  text-white" href="{{path("app_contact")}}">
+							<i class="bi-telephone"></i>
+							Contact</a>
+					</li>
+					{% if app.user %}
+						<li class="logout  nav-item fs">
+							<a class="logout nav-link  text-white " href="{{path("app_logout")}}">
+								<i class="bi-lock"></i>
+								Logout</a>
+						</li>
+					{% else %}
+						<li class="nav-item fs">
+							<a class="nav-link  text-white " href="{{path("app_register")}}">
+								<i class="bi-person-badge"></i>
+								Register</a>
+						</li>
+						<li class="nav-item fs">
+							<a class="nav-link  text-white " href="{{path("app_login")}}">
+								<i class="bi-lock"></i>
+								Login</a>
+						</li>
+
+					{% endif %}
+					<li class="nav-item fs">
+						<a class="nav-link  text-white " href="#">
+							<i id='clos' class="bi-x"></i>
+						</a>
+					</li>
+
+				</ul>
+			</nav>
 
 
-		<ul class="nav justify-content-end container ">
+		</nav>
+		<ul class="nav justify-content-end container rs-nav ">
 			<li class="nav-item fs">
 				<a class="nav-link text-white " href="{{path("app_compte")}}">
 					<i class="bi-person"></i>
@@ -25,7 +115,7 @@
 			</li>
 			{% if app.user %}
 				<li class="nav-item fs">
-					<a class="nav-link  text-white " href="{{path("app_logout")}}">
+					<a class="logout nav-link  text-white " href="{{path("app_logout")}}">
 						<i class="bi-lock"></i>
 						Logout</a>
 				</li>
@@ -43,7 +133,7 @@
 
 			{% endif %}
 		</ul>
-		<nav class="navbar navbar-light bg-primary display-inline-block container">
+		<nav class="navbar navbar-light bg-primary display-inline-block container rs-navbar">
 			<h3 class="ms-5 fw-bold text-white">Web<span class="text-warning">Vente</span>
 			</h3>
 			<form action="{{path("app_produit_search")}}" methode="get">
@@ -82,7 +172,7 @@
 
 			</button>
 		</nav>
-		<nav class="navbar-expand navbar-light ms-0 me-0 bgr-blue">
+		<nav class="navbar-expand navbar-light mx-0 bgr-blue rs-navbar-exp">
 			<div class="container-fluid">
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,12 +198,17 @@
 					</ul>
 					<span class="navbar-text ">
 						<a href="" class="text-decoration-none text-warning">TODAY OFFER</a>
+						{% if app.user %}
+
+							<span class="text-white">
+								<img src="../../asset/upload/product/{{app.user.imageUser}}" class="brce ms-2 me-2" width="30px" height="30px" alt="" srcset="">
+								{{app.user.fullName}}
+							</span>
+						{% endif %}
 					</span>
 				</div>
 			</div>
 		</nav>
 
 	</header>
-
-
 {% endblock %}

@@ -23,12 +23,12 @@
 						</span>
 						<div class="d-flex mt-3">
 							<div class="var p-1 text-start">
-								<span class="fs-5 fw-bold">{{commentaire}}</span><br>
+								<span class="fs-5 fw-bold">{{blog.commentaireBlogs|length}}</span><br>
 								<small>Commantaires</small>
 							</div>
 							<div class="var p-1 text-start">
 
-								<span class="fs-5 fw-bold">2</span><br>
+								<span class="fs-5 fw-bold">{{blog.wishlists|length}}</span><br>
 								<small>Nombre de Like</small>
 							</div>
 							<div class="var p-1 text-start">
@@ -58,13 +58,13 @@
 							<div class="dja">
 								<p>Commentaires</p>
 								<p>
-									<span class="badge bg-success">{{commentaire}}</span>
+									<span class="badge bg-success">{{blog.commentaireBlogs|length}}</span>
 								</p>
 							</div>
 							<div class="dja">
 								<p>Total de like</p>
 								<p>
-									<span class="badge bg-success">2</span>
+									<span class="badge bg-success">{{blog.wishlists|length}}</span>
 								</p>
 							</div>
 							<div class="dja">

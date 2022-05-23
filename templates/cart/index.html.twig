@@ -3,21 +3,21 @@
 {% block title "Votre panier" %}
 
 {% block body %}
-	<div class="container" style="margin-top:200px">
+	<div class="container rm mt">
 
-		<div class="votre-panier me-5 ms-5 ba-ba">
+		<div class="votre-panier rm ba-ba">
 			<div class="titre p-3 fav">
 				<h5>Votre panier</h5>
 			</div>
 			{% if carts|length > 0 %}
 
 				<div class="contenu p-4">
-					<table class="table table-striped text-center fs-6">
+					<table class="table rm table-striped text-center fs-6">
 						<thead>
 							<tr>
 								<th></th>
-								<th>Produit</th>
-								<th>Prix</th>
+								<th class="rm">Produit</th>
+								<th class="rm">Prix</th>
 								<th>Quantiter</th>
 								<th>Total</th>
 								<th></th>
@@ -32,7 +32,7 @@
 											<img src="./asset/upload/product/{{cart.produit.imagePro}}" height="60px" alt="" width="60px">
 										</div>
 									</td>
-									<td>
+									<td class="rm">
 										<div class="nom-pro">
 											<span class='fw-bold product-title'>
 												{{cart.produit.nomPro}}
@@ -43,7 +43,7 @@
 											</small>
 										</div>
 									</td>
-									<td>
+									<td class="rm">
 										<div class="tprix-pro product-price" value="{{cart.produit.prixPro}}">
 											{{cart.produit.prixPro}}
 											Ar
@@ -82,19 +82,19 @@
 						</tbody>
 					</table>
 
-					<div class="t-footer d-flex justify-content-between">
+					<div class="t-footer rm d-flex justify-content-between">
 						<a href="{{path("app_produit")}}">
-							<button class="btn btn-sm btn-primary">
+							<button class="btn rm btn-sm btn-primary">
 								<span>
 									<i class="bi-chevron-left"></i>
 								</span>CONTINUER MES ACHATS</button>
 						</a>
 						<div class="total">
-							<span class="pe-5 fw-bold">TOTAL :
+							<span class="pe_5 rm fw-bold">TOTAL :
 								{{data.total}}
 								Ar</span>
 							<a href="{{path("app_checkout")}}">
-								<button class="btn btn-sm btn-primary">PROCEED TO CHECKOUT
+								<button class="btn rm btn-sm btn-primary">PROCEED TO CHECKOUT
 									<span>
 										<i class="bi-chevron-right"></i>
 									</span>

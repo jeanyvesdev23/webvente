@@ -15,6 +15,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
@@ -30,9 +31,10 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginformAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginformAuthenticator $authenticator, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
     {
         if ($this->getUser()) {
+            $this->addFlash('danger', "Désolé vous êtes dêja connecté");
             return $this->redirectToRoute('app_home');
         }
         $user = new User();
@@ -40,6 +42,18 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get("imageUser")->getData();
+            if ($image) {
+                $origineFile = pathinfo($image->getClientOriginalName(), 1);
+                $slugerFile = $sluggerInterface->slug($origineFile);
+                $newFile = $slugerFile . '' . uniqid() . '.' . $image->guessExtension();
+                try {
+                    $image->move($this->getParameter("images_directory"), $newFile);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+                $user->setImageUser($newFile);
+            }
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

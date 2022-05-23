@@ -28,12 +28,19 @@ class CheckoutController extends AbstractController implements Countable
     {
         $users = $this->getUser();
         $carts = $cartservices->getFullCart();
+        $session->get('checkout_data', []);
 
         if (!isset($carts["produit"])) {
+            $this->addFlash('info', "Désolé vous panier est vide");
+
             return $this->redirectToRoute("app_produit");
         } elseif (!$users) {
+            $this->addFlash('info', "Il faut être connecté");
+
             return $this->redirectToRoute("app_login");
         } elseif ($users->getAddres()->getValues() == null) {
+            $this->addFlash('info', "Désolé il faut une addresse");
+
             return $this->redirectToRoute("app_addres_new");
         }
         $form = $this->createForm(CheckoutType::class,  null, ['user' => $users])->handleRequest($request);
@@ -44,12 +51,15 @@ class CheckoutController extends AbstractController implements Countable
                 $data = $session->get("checkout_data", []);
             } else {
                 $data = $form->getData();
-                $data = $session->set("checkout_data", $data);
+                $session->set("checkout_data", $data);
+                $data = $session->get("checkout_data", []);
             }
 
             $carts["checkout"] = $data;
             $orderServices->savecart($carts, $users);
             $commande = $commande->findAll();
+            $this->addFlash("warning", "Commande effectué");
+
             return $this->redirectToRoute('app_commande', [
                 'id' => count($commande) + 83
             ]);
@@ -67,6 +77,7 @@ class CheckoutController extends AbstractController implements Countable
      */
     public function commande($id, Cartservices $cart, PanierRepository $panier, CommandeRepository $commande): Response
     {
+
         $cart->deleteAllCart();
         $commande = $commande->find($id);
 

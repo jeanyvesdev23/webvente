@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 {% block title "Edit compte" %}
 {% block body %}
-	<div class="container mt">
-		<div class="row">
-			<div class="col-3">
+	<div class="container rm mt">
+		<div class="compte-user rm row">
+			<div class="col-3 rm">
 				{% include "./partial/_compteuser.html.twig" %}
 			</div>
-			<div class="p-4 br col-9">
+			<div class="p-4 br rm col-9">
 				<div class="fav ">
 					<h5>Informations personnel</h5>
 				</div>
@@ -15,7 +15,7 @@
 					<div class="row">
 						<div class="col-6 mx-auto">
 							<div class="d-flex align-items-center">
-								<img src="/asset/upload/product/{{app.user.imageUser}}" width="70px" height="70px" class="brce me-3" alt="" srcset="" style="border:1px solid #5c5858">
+								<img src="/asset/upload/product/{{app.user.imageUser}}" class="brce me-3" width="90px" height="70px" alt="" srcset="" style="border:1px solid #5c5858">
 								{{form_row(form.imageUser)}}
 							</div>
 						</div>

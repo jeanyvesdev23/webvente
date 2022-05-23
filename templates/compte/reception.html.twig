@@ -3,12 +3,12 @@
 {% block title 'Boite de reception' %}
 
 {% block body %}
-	<div class="container mt">
-		<div class="compte-user row">
-			<div class="col-3">
+	<div class="container rm mt">
+		<div class="compte-user rm row">
+			<div class="col-3 rm">
 				{% include "./partial/_compteuser.html.twig" %}
 			</div>
-			<div class="p-3 br col-9">
+			<div class="p-3 br col-9 rm">
 				{% if commandes| length > 0 %}
 					{% for commande in commandes %}
 						<div class="fav">

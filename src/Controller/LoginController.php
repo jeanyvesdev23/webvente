@@ -15,6 +15,7 @@ class LoginController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
+            $this->addFlash('danger', "Désolé vous êtes dêja connecté");
             return $this->redirectToRoute('app_home');
         }
 

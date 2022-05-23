@@ -3,12 +3,12 @@
 {% block title 'Boite de reception' %}
 
 {% block body %}
-	<div class="container mt">
-		<div class="compte-user row">
-			<div class="col-3">
+	<div class="container rm mt">
+		<div class="compte-user rm row">
+			<div class="col-3 rm">
 				{% include "./partial/_compteuser.html.twig" %}
 			</div>
-			<div class="p-3 br col-9">
+			<div class="p-3 br rm col-9">
 
 				<div id="progress" value="{{commande.statusCommandes.id}}" class=" fdjn">
 					<span id="span">
@@ -44,8 +44,12 @@
 				<div class="mt-3 fav">
 					<h6 class='ps-4'>Détail de ma commande</h6>
 				</div>
-				<div class="par">
-					<h6>Commande #{{commande.codeCommande|date("Hi")}}</h6>
+				<div class="par rm">
+					<h6>Commande #{{commande.codeCommande|date("Hi")}}
+						<span class=" badge {{commande.statuscommandes.style}}">
+							{{commande.statusCommandes}}
+						</span>
+					</h6>
 					<p>Date de commande
 						{{commande.createdAt|date("d-m-Y H:I")}}</p>
 					<div class="ad">

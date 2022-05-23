@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class BlogType extends AbstractType
 {
@@ -19,7 +20,16 @@ class BlogType extends AbstractType
             ->add('imageBog', FileType::class, [
                 "label" => "Image (png ou jpg) file",
                 "mapped" => false,
-                "required" => false
+                "required" => false,
+                "constraints" => [
+                    new File([
+                        "mimeTypes" => [
+                            'image/pjpeg',
+                            'image/png'
+                        ],
+                        "mimeTypesMessage" => "Le fichier doit être un type png , jpg ou jpeg"
+                    ])
+                ]
             ])
             ->add('descriptionBlog', null, [
                 "label" => "Desription"

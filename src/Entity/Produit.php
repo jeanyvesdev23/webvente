@@ -7,6 +7,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -107,20 +108,22 @@ class Produit
      */
     private $isFutur;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="wishlists")
-     */
-    private $wishList;
+
 
     /**
      * @ORM\Column(type="integer")
      */
     private $stock;
 
+    /**
+     * @ORM\OneToMany(targetEntity=WishList::class, mappedBy="product")
+     */
+    private $wishLists;
+
     public function __construct()
     {
         $this->commenter = new ArrayCollection();
-        $this->wishList = new ArrayCollection();
+        $this->wishLists = new ArrayCollection();
     }
 
 
@@ -338,21 +341,6 @@ class Produit
 
 
 
-    public function addWishList(User $wishList): self
-    {
-        if (!$this->wishList->contains($wishList)) {
-            $this->wishList[] = $wishList;
-        }
-
-        return $this;
-    }
-
-    public function removeWishList(User $wishList): self
-    {
-        $this->wishList->removeElement($wishList);
-
-        return $this;
-    }
 
     public function getStock(): ?int
     {
@@ -364,5 +352,24 @@ class Produit
         $this->stock = $stock;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, WishList>
+     */
+    public function getWishLists(): Collection
+    {
+        return $this->wishLists;
+    }
+    /**
+     * si il y a likes sur user
+     */
+
+    public function isWishlist(User $user): bool
+    {
+        foreach ($this->wishLists as $wishList) {
+            if ($wishList->getUser() === $user) return true;
+        }
+        return false;
     }
 }

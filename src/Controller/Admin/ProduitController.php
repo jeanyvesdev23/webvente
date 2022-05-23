@@ -117,10 +117,11 @@ class ProduitController extends AbstractController
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
+                $produit->setImagePro($newFile);
             }
-            $produit->setImagePro($newFile);
 
             $produitRepository->add($produit);
+            $this->addFlash("success", "Produit Crée avec success");
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -188,6 +189,7 @@ class ProduitController extends AbstractController
                 $produit->setImagePro($newFile);
             }
             $produitRepository->add($produit);
+            $this->addFlash("info", "Modification avec success");
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -205,8 +207,14 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $produit->setIsOffre(true)->setIsFutur(false)->setNouveau(false);
+            if ($form->get("autrePrix")->getData()) {
+
+                $produit->setIsOffre(true)->setIsFutur(false)->setNouveau(false);
+                $produitRepository->add($produit);
+            }
+            $produit->setIsOffre(false)->setIsFutur(false)->setNouveau(false)->setMeilleur(true);
             $produitRepository->add($produit);
+            $this->addFlash("warning", "Modification avec success");
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -223,6 +231,7 @@ class ProduitController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $produit->getId(), $request->request->get('_token'))) {
             $produitRepository->remove($produit);
         }
+        $this->addFlash("danger", "Supression  avec success");
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }

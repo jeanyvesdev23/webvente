@@ -3,9 +3,9 @@
 {% block title produit.nomPro %}
 
 {% block body %}
-	<div class="container mt">
+	<div class="container rm mt">
 
-		<div class="centre product-cart">
+		<div class="centre rm product-cart">
 			<div class="image-show p-3">
 				<img src="/asset/upload/product/{{produit.imagePro}}" width="100%" alt="" srcset="">
 			</div>
@@ -20,23 +20,60 @@
 							{{produit.autrePrix}}
 							Ar
 						</span>
-						<a class="text-dark favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
+						{% if app.user and produit.isWishlist(app.user) %}
+							<a class="text-danger favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
 
-							<span>
-								<i class="bi-heart-fill"></i>
-							</span>
-						</a>
+								<span>
+									<i class="bi-heart-fill"></i>
+								</span>
+							</a>
+						{% else %}
+							{% if app.user %}
+								<a class="text-dark favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
+
+									<span>
+										<i class="bi-heart-fill"></i>
+									</span>
+								</a>
+							{% else %}
+
+								<span>
+									<i class="bi-heart-fill"></i>
+								</span>
+							{% endif %}
+
+						{% endif %}
+
 					</h4>
 				{% else %}
 					<h4 class="text-dark product-price" value="{{produit.prixPro}}">{{produit.prixPro}}
 						Ar
 
-						<a class="text-dark favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
+						{% if app.user and produit.isWishlist(app.user) %}
+							<a class="text-danger favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
 
-							<span>
-								<i class="bi-heart-fill"></i>
-							</span>
-						</a>
+								<span>
+									<i class="bi-heart-fill"></i>
+								</span>
+							</a>
+						{% else %}
+							{% if app.user %}
+								<a class="text-dark favorite ms-2" href="{{path("add_favorite",{id:produit.id})}}">
+
+									<span>
+										<i class="bi-heart-fill"></i>
+									</span>
+								</a>
+							{% else %}
+
+								<span>
+									<i class="bi-heart-fill"></i>
+								</span>
+							{% endif %}
+
+						{% endif %}
+
+
 					</h4>
 
 
@@ -77,7 +114,7 @@
 				<div class="text-end pe-3 pb-3">
 					<a href="{{path("add_cart",{id:produit.id})}}">
 
-						<button class="addToCart" data-product-id="{{produit.id}}" class="btn btn-primary ">
+						<button data-product-id="{{produit.id}}" class="addToCart btn btn-primary ">
 							<span>
 								<i class="bi-cart"></i>
 							</span>Ajouter au panier</button>
@@ -140,4 +177,7 @@
 		</div>
 	</div>
 
+{% endblock %}
+{% block javascript %}
+	<script src="asset/js/wishlist.js"></script>
 {% endblock %}

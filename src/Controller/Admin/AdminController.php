@@ -52,6 +52,7 @@ class AdminController extends AbstractController
             "confirmer" => $commande->count(["statusCommandes" => 2]),
             "traiter" => $commande->count(["statusCommandes" => 4]),
             "livrer" => $commande->count(["statusCommandes" => 3]),
+            "news" => $commande->count(["statusCommandes" => null]),
             "vendus" => $totaux,
             "users" => $user->count([]),
             "categorie" => $categorie->findBy([], [], 5),

@@ -37,10 +37,7 @@ class Blog
      */
     private $descriptionBlog;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="blog")
-     */
-    private $commentaires;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="blogs")
@@ -56,10 +53,14 @@ class Blog
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isPublier;
+    /**
+     * @ORM\OneToMany(targetEntity=WishList::class, mappedBy="blog")
+     */
+    private $wishLists;
 
     public function __construct()
     {
-        $this->commentaires = new ArrayCollection();
+
         $this->commentaireBlogs = new ArrayCollection();
     }
 
@@ -158,5 +159,24 @@ class Blog
         $this->isPublier = $isPublier;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, WishList>
+     */
+    public function getWishLists(): Collection
+    {
+        return $this->wishLists;
+    }
+    /**
+     * si il y a likes sur user
+     */
+
+    public function isWishlist(User $user): bool
+    {
+        foreach ($this->wishLists as $wishList) {
+            if ($wishList->getUser() === $user) return true;
+        }
+        return false;
     }
 }

@@ -1,8 +1,44 @@
-#header{
+.header{
     display: flex;
     flex-direction: column;
     background-color: rgb(31, 31, 121);
+  opacity: 0;
+  transition: 12s;
+    animation: slidedown 2s ;
+  
+   
+   
+   
 }
+@keyframes slidedown {
+    0%{
+        transform: translateY(-200px);
+        opacity: 1;
+    } 
+   
+    50%{
+      
+        transform: translateY(0);
+        opacity: 1;
+       
+      
+    }
+    100%{
+      
+        transform: translateY(-200px);
+        opacity: 1;
+      
+      
+    }
+    
+}
+
+
+    @media (max-width: 400px) {
+        body{
+            background-color: red;
+        }
+    }
 .nav-droite{
     display: flex;
     align-items: center;

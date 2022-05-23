@@ -136,9 +136,13 @@ class HomeController extends AbstractController implements Countable
             $commenter->setProduits($produit)->setUsers($this->getUser())->setIsPublier(true);
 
             $commentaire->add($commenter);
+            $this->addFlash("info", "Commentaire bien ajouter");
             return $this->redirectToRoute("app_produit_show", [
                 "id" => $produit->getId()
             ]);
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+
+            $this->addFlash("danger", "Commentaire n'est pas ajouter");
         }
 
         return $this->render('home/show.html.twig', [

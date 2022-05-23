@@ -3,24 +3,24 @@
 {% block title 'Mes commandes' %}
 
 {% block body %}
-	<div class="container mt">
-		<div class="compte-user row">
-			<div class="col-3">
+	<div class="container rm mt">
+		<div class="compte-user rm row">
+			<div class="col-3 rm">
 				{% include "./partial/_compteuser.html.twig" %}
 			</div>
-			<div class="p-3 br col-9">
+			<div class="p-3 br  col-9 rm">
 				{% if commandes| length > 0 %}
 
 					<div class="fav">
 						<h4>Votre commandes</h4>
 					</div>
 					<div class="table">
-						<table class=" mt-4 table">
+						<table class=" mt-4 table rm">
 							<thead>
 								<tr>
-									<th>#Order</th>
+									<th class="rm">#Order</th>
 									<th>Date</th>
-									<th>Order Qte</th>
+									<th class="rm">Order Qte</th>
 									<th>Order total</th>
 									<th>Order status</th>
 									<th>Actions</th>
@@ -29,18 +29,24 @@
 							<tbody>
 								{% for commande in commandes %}
 									<tr>
-										<td>{{commande.codeCommande |  date("Hi") }}</td>
+										<td class="rm">{{commande.codeCommande |  date("Hi") }}</td>
 										<td>{{commande.createdAt | date("d/m/Y")}}</td>
-										<td class="text-center">{{commande.quantite}}</td>
+										<td class="text-center rm">{{commande.quantite}}</td>
 										<td>{{commande.subtotal}}
 											Ar</td>
 										<td>
 											<span class="badge  {{commande.statusCommandes.style|default(" bg-secondary")}}">{{commande.statusCommandes|default("enregistré")}}</span>
 										</td>
-										<td>
+										<td class="rm rs">
 											<a href="{{path("app_compte_commandes_show",{id:commande.id})}}">
 
 												<span type="button" class="btn btn-sm rounded-pill btn-outline-primary ">VOIR COMMANDE</span>
+											</a>
+										</td>
+										<td class="rpp">
+											<a href="{{path("app_compte_commandes_show",{id:commande.id})}}">
+
+												<span type="button" class="btn btn-sm rounded-pill btn-outline-primary ">VOIR</span>
 											</a>
 										</td>
 									</tr>

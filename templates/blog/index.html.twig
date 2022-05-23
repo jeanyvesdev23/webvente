@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogController!
-{% endblock %}
+{% block title 'Blogs' %}
 
 {% block body %}
-	<div class="container mt">
+	<div class="container rm mt">
 		{% for blog in blog %}
-			<div class="centre-blog">
+			<div class="centre-blog rm">
 				<div class="image-show p-3">
 					<img src="asset/upload/product/{{blog.imageBog}}" class="w-100" height="300px" alt="" srcset="">
 				</div>

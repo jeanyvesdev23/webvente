@@ -5,19 +5,9 @@
 
 
 {% block body %}
-	<div class="container mt">
-		<div class="m-flash ">
-			{% for type ,messages in app.flashes %}
-				{% for message in messages %}
-					<div class="alert alert-{{type}} text-center fs-4">
-						{{message}}
-					</div>
-
-				{% endfor %}
-			{% endfor %}
-		</div>
+	<div class="container rm mt">
 		<div class="row">
-			<div class="col-3">
+			<div class="col-3 sm">
 				<div class="list-group">
 					<a href="#" class="bg-warning ps-3 fw-bold list-group-item list-group-item-action">
 						<span class="pe-2">
@@ -42,18 +32,18 @@
 				</div>
 			</div>
 
-			<div class="col-9 d-flex  vstack  ">
+			<div class="col-9 sm d-flex  vstack  ">
 
-				<div class="slides p-0  ">
+				<div class="slides rs p-0  ">
 					{% for slide in slide %}
 
 						<div class="w-100 fw-bold h-100 image-slides">
 							<img id="img-sli" class="active" src="asset/upload/product/{{slide.imageSlides}}" width="100%" height="100%" class="image-top" alt="" srcset="">
-							<div class="p-5 po-abso">
+							<div class=" rs  po-abso">
 								<h3 class="mb-0 text-success fs-6">SPRING 2022</h3>
 								<h1 class="fw-bold">{{slide.titre}}
 								</h1>
-								<h5 class="text-black fs-2 fw-bold">{{slide.sousTitre}}</h5>
+								<h5 class="text-black fw-bold">{{slide.sousTitre}}</h5>
 								<button type="submit" class="btn btn-warning">SHOP NOW</button>
 							</div>
 						</div>
@@ -66,7 +56,26 @@
 						{% endfor %}
 					</div>
 				</div>
-				<div class="d-flex justify-content-between text-white p-2 align-items-center  bg-primary ">
+				<div class="mfsp  bg-primary ">
+					<div class="text-center  p">
+						<h6 class=" fw-bold mb-0">MONEY BACK</h6>
+						<p class=" mb-0">30% Days Money Back Guarrante
+						</p>
+					</div>
+					<div class="text-center p ">
+						<h6 class="fw-bold mb-0">FREE SHOP</h6>
+						<p class="  mb-0">Shipping orders over 5000 Ar
+						</p>
+					</div>
+					<div class="text-center p">
+						<h6 class=" fw-bold mb-0">SPECIAL SALE</h6>
+
+						<p class="  mb-0">Extra 2000 Ar off on all items
+						</p>
+					</div>
+
+				</div>
+				<div class=" mfs text-white  bg-primary ">
 					<div class="text-center  ps-3">
 						<h3 class="fs-6 fw-bold mb-0">MONEY BACK</h3>
 						<p class="fs-6  fw-light mb-0">30% Days Money Back Guarrante
@@ -88,10 +97,10 @@
 			</div>
 		</div>
 		<div class="row mt-3">
-			<div class="col-3">
+			<div class="col-3 rm">
 				<div class="ba-ba">
 					<div class=" bo_ba  d-flex justify-content-between ">
-						<div class="new p-3">
+						<div class="new ">
 							<h6>TODAY OFFER</h6>
 						</div>
 						<div class="new">
@@ -101,20 +110,20 @@
 							</span>
 						</div>
 					</div>
-					<div class=" product-container ">
+					<div class="rm product-container ">
 						{% for offre in offre %}
-							<div class="product-card product-cart m-3 bg-white box">
+							<div class="product-cart rm product-card bg-white box">
 								<div class="product-image p-2 text-center">
-									<span class="discount-tag text-secondary">-50%</span>
+									<span class="discount-tag rm text-secondary">-50%</span>
 									<a href="{{path("app_produit_show",{id:offre.id})}}">
 										<img src="./asset/upload/product/{{offre.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
 									</a>
 								</div>
 								<div class="cart-flex ">
-									<div class=" p-2">
-										<h4 class="product-title fs-5">{{offre.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{offre.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+									<div class="product-info p-2">
+										<h4 class="product-title rm ">{{offre.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{offre.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -122,8 +131,8 @@
 											<i class="bi bi-star"></i>
 										</span>
 									</div>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+									<div class="d-flex mmt justify-content-between align-items-center">
+										<div class="fw-bold rm  ps-2">
 
 											<span class="product-price text-danger" value="{{offre.prixPro}}">{{offre.prixPro}}
 												Ar</span>
@@ -132,7 +141,7 @@
 												Ar</span>
 
 										</div>
-										<div class="cart-panier pe-3 ">
+										<div class="cart-panier rm  ">
 											<span>
 												<a href="{{path("add_cart",{id:offre.id})}}">
 
@@ -148,45 +157,50 @@
 				</div>
 
 			</div>
-			<div class="col-9">
+			<div class="col-9 rm">
 				<div class="ba-ba">
 					<div class="bo_ba  d-flex justify-content-between align-items-center">
-						<div class="new p-3">
+						<div class="new ">
 							<h6>FUTUR PRODUCT</h6>
 						</div>
-						<div class="new fs-6 ">
-							<span>
-								<a href="">
-									All</a>
-							</span>
-							<span>
-								<a href="">Phone</a>
-							</span>
-							<span>
-								<a href="">Pc</a>
-							</span>
-							<span>
-								<a href="">Sport</a>
-							</span>
-							<span class="fs-6">
-								<i class="fs-6 bi-chevron-left prev"></i>
-								<i class="fs-6 bi-chevron-right next"></i>
-							</span>
+						<div class="d-flex">
+							<div class="new nonne ">
+								<span>
+									<a href="">
+										All</a>
+								</span>
+								<span>
+									<a href="">Phone</a>
+								</span>
+								<span>
+									<a href="">Pc</a>
+								</span>
+								<span>
+									<a href="">Sport</a>
+								</span>
+
+							</div>
+							<div class="new ">
+								<span class="fs-6">
+									<i class="fs-6 bi-chevron-left prev"></i>
+									<i class="fs-6 bi-chevron-right next"></i>
+								</span>
+							</div>
 						</div>
 					</div>
-					<div class="product-container">
+					<div class="product-container rm">
 						{% for futur in futur %}
-							<div class="product-card product-cart  m-3 bg-white box">
+							<div class="product-card product-cart rm  bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:futur.id})}}">
 										<img src="./asset/upload/product/{{futur.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
 									</a>
 								</div>
 								<div class="cart-flex ">
-									<div class=" p-2">
-										<h4 class="product-title fs-5">{{futur.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{futur.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+									<div class="product-info p-2">
+										<h4 class="product-title rm">{{futur.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{futur.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -194,8 +208,8 @@
 											<i class="bi bi-star"></i>
 										</span>
 									</div>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+									<div class="d-flex mmt justify-content-between align-items-center">
+										<div class="fw-bold rm ps-2">
 
 											<span class="product-price " value="{{futur.prixPro}}">{{futur.prixPro}}
 												Ar</span>
@@ -204,7 +218,7 @@
 													Ar</span>
 											{% endif %}
 										</div>
-										<div class="cart-panier pe-3 ">
+										<div class="cart-panier rm ">
 											<span>
 												<a href="{{path("add_cart",{id:futur.id})}}">
 
@@ -221,10 +235,10 @@
 			</div>
 		</div>
 		<div class="row mt-3">
-			<div class="col-3">
+			<div class="col-3 rm">
 				<div class="ba-ba">
 					<div class=" bo_ba  d-flex justify-content-between ">
-						<div class="new p-3">
+						<div class="new ">
 							<h6>POPULAIRE</h6>
 						</div>
 						<div class="new">
@@ -234,9 +248,9 @@
 							</span>
 						</div>
 					</div>
-					<div class=" product-container ">
+					<div class=" product-container rm ">
 						{% for best in best %}
-							<div class="product-card product-cart m-3 bg-white box">
+							<div class="product-card rm product-cart bg-white box">
 								<div class="product-image p-2 text-center">
 
 									<a href="{{path("app_produit_show",{id:best.id})}}">
@@ -244,10 +258,10 @@
 									</a>
 								</div>
 								<div class="cart-flex ">
-									<div class=" p-2">
-										<h4 class="product-title fs-5">{{best.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{best.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+									<div class="product-info p-2">
+										<h4 class="product-title rm">{{best.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{best.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -255,8 +269,8 @@
 											<i class="bi bi-star"></i>
 										</span>
 									</div>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+									<div class="d-flex mmt justify-content-between align-items-center">
+										<div class="fw-bold rm ps-2">
 
 											<span class="product-price " value="{{best.prixPro}}">{{best.prixPro}}
 												Ar</span>
@@ -265,7 +279,7 @@
 													Ar</span>
 											{% endif %}
 										</div>
-										<div class="cart-panier pe-3 ">
+										<div class="cart-panier rm ">
 											<span>
 												<a href="{{path("add_cart",{id:best.id})}}">
 
@@ -281,35 +295,40 @@
 				</div>
 
 			</div>
-			<div class="col-9">
+			<div class="col-9 rm">
 				<div class="ba-ba">
 					<div class="liste-comerce bo_ba  d-flex justify-content-between align-items-center">
-						<div class="new p-3">
+						<div class="new ">
 							<h6>NEW PRODUCT</h6>
 						</div>
-						<div class="new fs-6 ">
-							<span>
-								<a href="">
-									All</a>
-							</span>
-							<span>
-								<a href="">Phone</a>
-							</span>
-							<span>
-								<a href="">Pc</a>
-							</span>
-							<span>
-								<a href="">Sport</a>
-							</span>
-							<span class="fs-6">
-								<i class="fs-6 bi-chevron-left prev"></i>
-								<i class="fs-6 bi-chevron-right next"></i>
-							</span>
+						<div class="d-flex">
+							<div class="new nonne ">
+								<span>
+									<a href="">
+										All</a>
+								</span>
+								<span>
+									<a href="">Phone</a>
+								</span>
+								<span>
+									<a href="">Pc</a>
+								</span>
+								<span>
+									<a href="">Sport</a>
+								</span>
+
+							</div>
+							<div class="new ">
+								<span class="fs-6">
+									<i class="fs-6 bi-chevron-left prev"></i>
+									<i class="fs-6 bi-chevron-right next"></i>
+								</span>
+							</div>
 						</div>
 					</div>
-					<div class="product-container">
+					<div class="product-container rm">
 						{% for new in news %}
-							<div class="product-card product-cart m-3 bg-white box">
+							<div class="product-card rm product-cart bg-white box">
 								<div class="product-image p-2 text-center">
 									<a href="{{path("app_produit_show",{id:new.id})}}">
 										<img src="./asset/upload/product/{{new.imagePro}}" width="70%" heigth="70%" class="product-dump" alt="">
@@ -317,9 +336,9 @@
 								</div>
 								<div class="cart-flex ">
 									<div class="product-info p-2">
-										<h4 class="product-title fs-5">{{new.nomPro}}</h4>
-										<span class="badge bg-danger mt-0">{{new.categorie}}</span><br>
-										<span class="text-warning fs-6 pb-0">
+										<h4 class="product-title rm">{{new.nomPro}}</h4>
+										<span class="badge rm bg-danger mt-0">{{new.categorie}}</span><br>
+										<span class="text-warning rm pb-0">
 											<i class="bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
 											<i class="bi bi-star-fill"></i>
@@ -327,8 +346,8 @@
 											<i class="bi bi-star"></i>
 										</span>
 									</div>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="fw-bold fs-6 ps-2">
+									<div class="d-flex mmt justify-content-between align-items-center">
+										<div class="fw-bold rm ps-2">
 
 											<span class="product-price " value="{{new.prixPro}}">{{new.prixPro}}
 												Ar</span>
@@ -337,7 +356,7 @@
 													Ar</span>
 											{% endif %}
 										</div>
-										<div class="cart-panier pe-3 " data-product-id="{{new.id}}">
+										<div class="cart-panier rm " data-product-id="{{new.id}}">
 											<span>
 												<a href="{{path("add_cart",{id:new.id})}}">
 
@@ -354,13 +373,13 @@
 			</div>
 
 		</div>
-		<div class="section  mt-4">
+		<div class="section  rm mt-4">
 
 			{% for slide in slider %}
 				<img id="{{slide.id}}" src="asset/upload/product/{{slide.imageSlides}}" class="image" width="100%" height="100%" alt="" srcset="">
 			{% endfor %}
 
-			<div class="text-offre  text-center pt-4">
+			<div class="text-offre rm  text-center pt-4">
 				<h3>Weekend offre</h3>
 				<h1>Biggest sale</h1>
 				<h6>for online order</h6>
@@ -374,22 +393,22 @@
 				<h6>Top best</h6>
 				<h6>Top sale</h6>
 			</div>
-			<div class="liste-top">
+			<div class="liste-top rm">
 				{% for produit in produits %}
-					<a class="wm d-flex  justify-content-center align-items-center bg-white" href="{{path("app_produit_show",{id:produit.id})}}">
+					<a class="wm rm d-flex  justify-content-center align-items-center bg-white" href="{{path("app_produit_show",{id:produit.id})}}">
 
 
-						<img src="./asset/upload/product/{{produit.imagePro}}" width="150px" heigth="200px" alt="">
-						<div>
-							<h4 class="product-title fs-5">{{produit.nomPro}}</h4>
-							<span class="text-warning fs-6 pb-0">
+						<img src="./asset/upload/product/{{produit.imagePro}}" class="rm" heigth="200px" alt="">
+						<div class="rmm">
+							<h4 class="product-title rm">{{produit.nomPro}}</h4>
+							<span class="text-warning rm pb-0">
 								<i class="bi-star-fill"></i>
 								<i class="bi bi-star-fill"></i>
 								<i class="bi bi-star-fill"></i>
 								<i class="bi bi-star-fill"></i>
 								<i class="bi bi-star"></i>
 							</span>
-							<div class="fw-bold fs-6 ps-2">
+							<div class="fw-bold rm ps-2">
 
 								<span class="product-price ">{{produit.prixPro}}
 									Ar</span>
@@ -407,10 +426,10 @@
 			<div class="top">
 				<h5 class="pt-3 text-center">Blog</h5>
 			</div>
-			<div class="d-flex justify-content-between mt-2">
+			<div class="blog rm">
 				{% for blog in blog %}
 
-					<div class="card  ms-1" style="width: 20rem;">
+					<div class="card  m-1" style="width: 20rem;">
 						<img src="asset/upload/product/{{blog.imageBog}}" class="card-img-top" height="200px" alt="...">
 						<div class="card-body">
 							<h5 class="card-title">{{blog.titreBlog}}</h5>

@@ -16,9 +16,10 @@ class OrderServices
     }
     public function savecart($data, $user)
     {
-        $status = new StatusCommande;
-        $status->setStatusLivraison("passée");
+
         $commande = new Commande;
+        $codeCommande = (int) substr(uniqid(mt_rand()), 0, 8);
+        
         $address = $data["checkout"]["Address"];
         $information = $data["checkout"]["Information"];
         $commande->setCodeCommande(new \DateTime)->setSubTotal($data["data"]["total"])->setQuantite($data["data"]["totalqte"])->setUsers($user)->setAddressLivraison($address)->setInformation($information);

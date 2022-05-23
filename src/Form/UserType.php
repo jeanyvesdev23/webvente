@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 class UserType extends AbstractType
 {
@@ -23,7 +25,17 @@ class UserType extends AbstractType
                 ->add('imageUser', FileType::class, [
                     "label" => false,
                     "mapped" => false,
-                    "required" => false
+                    "required" => false,
+                    "constraints" => [
+                        new File([
+                            "mimeTypes" => [
+                                'image/pjpeg',
+                                'image/png'
+                            ],
+                            "mimeTypesMessage" => "Le fichier doit être un type png , jpg ou jpeg"
+                        ])
+                    ]
+
                 ])
                 ->add('nomUser')
                 ->add('prenomUser')

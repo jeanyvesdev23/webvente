@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\UlidType;
 use Symfony\Component\Form\Extension\Core\Type\WeekType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProduitType extends AbstractType
 {
@@ -49,7 +50,16 @@ class ProduitType extends AbstractType
             ->add('imagePro', FileType::class, [
                 "label" => "Image (png ou jpg) file",
                 "mapped" => false,
-                "required" => false
+                "required" => false,
+                "constraints" => [
+                    new File([
+                        "mimeTypes" => [
+                            'image/pjpeg',
+                            'image/png'
+                        ],
+                        "mimeTypesMessage" => "Le fichier doit être un type png , jpg ou jpeg"
+                    ])
+                ]
             ])
             ->add('stock', null, [
                 "label" => "Nombre d'articles en stock"

@@ -70,12 +70,40 @@ submit.addEventListener("click", (e) => {
 
 })
 //gestion de panier
-let productInCart = JSON.parse(localStorage.getItem("product") || "[]");
+let productInCart = JSON.parse(sessionStorage.getItem("product") || "[]");
 const panier = document.querySelectorAll(".product-cart");
 const sumPrices = document.querySelector('.sumPrice');
 const sumCounts = document.querySelector('.numb-cart');
 const deleteInCart = document.querySelectorAll(".bi-caret-left-fill");
 const deleteFromCart = document.querySelectorAll(".delete");
+const deleteAllCart = document.querySelector(".deleteAll");
+const logout = document.querySelectorAll(".logout");
+
+if (deleteAllCart) {
+    deleteAllCart.addEventListener('click', () => {
+        for (let i = 0; i < productInCart.length; i++) {
+            productInCart.splice(i, 1);
+
+        }
+
+        sessionStorage.setItem("product", JSON.stringify(productInCart));
+        updateShopCart()
+    })
+}
+if (logout) {
+    logout.forEach(log => {
+        log.addEventListener('click', () => {
+
+            for (let i = 0; i < productInCart.length; i++) {
+                productInCart.splice(i, 1);
+
+            }
+            sessionStorage.setItem("product", JSON.stringify(productInCart));
+            updateShopCart()
+        })
+    })
+
+}
 
 if (deleteFromCart) {
     deleteFromCart.forEach((e) => {
@@ -88,7 +116,7 @@ if (deleteFromCart) {
                 }
 
             }
-            localStorage.setItem("product", JSON.stringify(productInCart));
+            sessionStorage.setItem("product", JSON.stringify(productInCart));
             updateShopCart()
 
         })
@@ -106,7 +134,7 @@ if (deleteInCart) {
                 }
 
             }
-            localStorage.setItem("product", JSON.stringify(productInCart));
+            sessionStorage.setItem("product", JSON.stringify(productInCart));
             updateShopCart()
 
         })
@@ -180,12 +208,11 @@ panier.forEach(cart => {
 
             }
             updateToCart(productToCart);
+            sessionStorage.setItem("product", JSON.stringify(productInCart));
 
-            localStorage.setItem("product", JSON.stringify(productInCart));
             updateShopCart();
         }
-        console.log(productInCart, cart);
+
+
     })
 })
-countSumCount();
-countSumPrice();
