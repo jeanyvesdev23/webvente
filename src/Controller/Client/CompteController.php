@@ -68,13 +68,17 @@ class CompteController extends AbstractController implements Countable
     /**
      * @Route("/compte/commandes",name="app_compte_commandes")
      */
-    public function mesCommandes(CommandeRepository $commandeRepository)
+    public function mesCommandes(CommandeRepository $commandeRepository, Request $request): Response
     {
         $users = $this->getUser();
+        $limit = 10;
+        $page = $request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
 
 
         return $this->render("compte/mescommandes.html.twig", [
-            "commandes" => $commandeRepository->findBy(["users" => $users->getId()], ["createdAt" => "DESC"])
+            "commandes" => $commandeRepository->findBy(["users" => $users->getId()], ["createdAt" => "DESC"], $limit, $offest),
+            "counts" => $commandeRepository->count(["users" => $users->getId()]), "page" => $page, "limit" => $limit
         ]);
     }
     /**
@@ -102,9 +106,12 @@ class CompteController extends AbstractController implements Countable
     /**
      * @Route("/compte/reception",name="app_compte_reception")
      */
-    public function boiteReception(CommandeRepository $commandeRepository, PanierRepository $panierRepository)
+    public function boiteReception(CommandeRepository $commandeRepository, Request $request, PanierRepository $panierRepository)
     {
         $users = $this->getUser();
+        $limit = 3;
+        $page = $request->query->get("page", 1);
+        $offest = ($page - 1) * $limit;
 
         $commande = $commandeRepository->getId();
         foreach ($commande as $value) {
@@ -117,7 +124,7 @@ class CompteController extends AbstractController implements Countable
 
 
         return $this->render("compte/reception.html.twig", [
-            "commandes" => $commandeRepository->getConfirme($users->getId())
+            "commandes" => $commandeRepository->getConfirme($users->getId(), $limit, $offest)
         ]);
     }
     /**

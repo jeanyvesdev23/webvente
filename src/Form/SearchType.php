@@ -25,11 +25,11 @@ class SearchType extends AbstractType
             ])
             ->add('minPrix', IntegerType::class, [
                 'label' => false,
-                "attr" => ["placeholder" => "Min..."]
+                "attr" => ["placeholder" => "Min...", "min" => 0]
             ])
             ->add('maxPrix', IntegerType::class, [
                 'label' => false,
-                "attr" => ["placeholder" => "Max..."]
+                "attr" => ["placeholder" => "Max...", "min" => 0]
             ]);
     }
 

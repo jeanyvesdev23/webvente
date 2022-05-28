@@ -13,7 +13,7 @@
 				<a href="{{path("app_admin")}}" class="active">
 					<i class="bi-table"></i>
 					<span>
-						Tableau de baord
+						Tableau de bord
 					</span>
 				</a>
 
@@ -177,7 +177,11 @@
 </div>
 <div class="entete">
 	<header>
-		<h5>Welcome to tableau de board
+		<h5>
+			<span id="toggle" class="fw-bold fs-4">
+				<i class="bi-justify pe-4"></i>
+			</span>
+			Bienvenue sur le tableau de bord
 			{{app.user.fullName}}
 		</h5>
 		<div class="user-connecte"><img src="/asset/upload/product/{{app.user.imageUser}}" width="50px" height="50px" alt="children"><div>

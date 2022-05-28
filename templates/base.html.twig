@@ -39,6 +39,9 @@
 			<script src="../../asset/js/jquery-3.3.1.min.js"></script>
 			<script src="../../asset/js/wishlist.js"></script>
 			<script src="../../../build/pap.js"></script>
+			<script>
+				timeout().render(document.querySelectorAll('.timeago'))
+			</script>
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</body>

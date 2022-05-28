@@ -62,10 +62,12 @@ class ProduitType extends AbstractType
                 ]
             ])
             ->add('stock', null, [
-                "label" => "Nombre d'articles en stock"
+                "label" => "Nombre d'articles en stock",
+                "attr" => ["min" => 0]
             ])
             ->add('descriptionPro', null, [
                 "label" => "Descrition pour le produit"
+              
             ]);
     }
 

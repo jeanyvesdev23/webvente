@@ -57,9 +57,9 @@ class CommandeRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')->select('SUM(c.quantite)')->andWhere('c.statusCommandes = 3')->andWhere('c.users = :val')->setParameter('val', $usersId)->getQuery()->getResult();
     }
-    public function getConfirme($usersId)
+    public function getConfirme($usersId, $limit, $offest)
     {
-        return $this->createQueryBuilder('c')->orderBy('c.createdAt', 'desc')->andWhere('c.statusCommandes > 1')->andWhere('c.users = :val')->setParameter('val', $usersId)->getQuery()->getResult();
+        return $this->createQueryBuilder('c')->orderBy('c.createdAt', 'desc')->andWhere('c.statusCommandes > 1')->andWhere('c.users = :val')->setParameter('val', $usersId)->setFirstResult($offest)->setMaxResults($limit)->getQuery()->getResult();
     }
 
 

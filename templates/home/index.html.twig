@@ -433,7 +433,10 @@
 						<img src="asset/upload/product/{{blog.imageBog}}" class="card-img-top" height="200px" alt="...">
 						<div class="card-body">
 							<h5 class="card-title">{{blog.titreBlog}}</h5>
-							<p class="card-text">{{blog.descriptionBlog}}</p>
+							<p class="card-text">{{blog.descriptionBlog | excerpt}}
+								<br><br>{{blog.createdAt | ago}}
+							</p>
+
 							<a href="{{path("app_blog_lire",{id:blog.id})}}" class="nav-link text-primary">Go somewhere</a>
 						</div>
 					</div>

@@ -3,7 +3,7 @@
 {% block title 'Mes commandes' %}
 
 {% block body %}
-	<div class="container rm rmt mt">
+	<div class="container rm rmt">
 		<div class=" row rm">
 			<div class="col-9 rm bcf mx-auto">
 
@@ -74,7 +74,7 @@
 						<h5 class="fs-6">COMMANDE LIVREE</h5>
 					</div>
 
-					<button id="button" class="btn btn-dark w-100">ANNULER LA COMMANDE</button>
+					<button id="button" class="btn btn-dark w-100" style="display:none">ANNULER LA COMMANDE</button>
 
 				</div>
 				<div class="liste-produi ">
@@ -101,7 +101,7 @@
 									{{panier.priceProduct}}
 									Ar ,<span class="text-dark fw-bold ">{{panier.createdAt|date("d/m/Y ")}}</span>
 								</p>
-								<button id="liste" class="btn btn-info">Commande effectué</button>
+								<button id="liste" class="btn btn-info">Commande enregistré</button>
 							</div>
 						</div>
 					{% endfor %}

@@ -97,15 +97,15 @@ class ProduitRepository extends ServiceEntityRepository
     //     dd($query->getQuery()->getResult());
     //     return $query->getQuery()->getResult();
     // }
-    public function pagination($page, $limit)
+    public function getOffreOrFutur($page, $limit)
     {
 
-        $query = $this->createQueryBuilder('p')
-            ->orderBy('p.createdAt', 'DESC')
-            ->setFirstResult(($page - 1) * $limit)
+        $query = $this->createQueryBuilder('p')->andWhere('p.isOffre = true')
+            ->orWhere('p.isFutur = true')
+            ->setFirstResult($page)
             ->setMaxResults($limit);
 
-        //dd($query->getQuery()->getResult());
+        //dd($query->getQuery());
         return $query->getQuery()->getResult();
     }
 

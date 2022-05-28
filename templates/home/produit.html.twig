@@ -23,6 +23,73 @@
 					{{form_end(form)}}
 
 				</div>
+				<div class="countdown-container">
+					<h6>Profitez les meilleur offre</h6>
+					<div class="dfajr">
+						<div class=" count-el ora">
+							<p class="big-text" id="ora">0</p>
+							<span>Heure</span>
+						</div>
+						<div class=" count-el minitra">
+							<p class="big-text" id="minitra">0</p>
+							<span>Minutes</span>
+						</div>
+						<div class=" count-el segondra">
+							<p class="big-text" id="segondra">0</p>
+							<span>Secondes</span>
+						</div>
+					</div>
+				</div>
+				<div class="liste-produit-block rm">
+					{% for produit in futur %}
+
+						<div class="product-card rm product-cart my-3 bg-white box">
+							<div class="product-image p-2 text-center">
+								<a href="{{path("app_produit_show",{id:produit.id})}}">
+									<img src="./asset/upload/product/{{produit.imagePro}}" class="product-dump" alt="">
+								</a>
+							</div>
+							<div class="cart-flex ">
+								<div class="product-info p-2">
+									<h4 class="product-title rm">{{produit.nomPro}}</h4>
+									<span class="badge rm bg-danger mt-0">{{produit.categorie}}</span><br>
+									<span class="text-warning rm pb-0">
+										<i class="bi-star-fill"></i>
+										<i class="bi bi-star-fill"></i>
+										<i class="bi bi-star-fill"></i>
+										<i class="bi bi-star-fill"></i>
+										<i class="bi bi-star"></i>
+									</span>
+								</div>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="fw-bold rm ps-2">
+
+										{% if produit.autrePrix != null %}
+											<span class="product-price text-danger " value="{{produit.prixPro}}">{{produit.prixPro}}
+												Ar</span>
+											<span class="opacity-50 text-decoration-line-through">{{produit.autrePrix}}
+												Ar</span>
+										{% else %}
+											<span class="product-price  " value="{{produit.prixPro}}">{{produit.prixPro}}
+												Ar</span>
+										{% endif %}
+									</div>
+									<div class="cart-panier rm ">
+										<span>
+											<a href="{{path("add_cart",{id:produit.id})}}">
+
+												<i data-product-id="{{produit.id}}" class="addToCart bi-cart-plus-fill"></i>
+											</a>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+
+
 			</div>
 			<div class="col-9 top-product rm">
 				<div class=" rpm top ">
@@ -31,7 +98,7 @@
 
 						<h6 id="news">Nouveau</h6>
 						<h6 id="best">Poupulaire</h6>
-						<h6 id="offre">Offre</h6>
+						<h6 id="offre">Offre and futur</h6>
 					</div>
 				</div>
 
@@ -209,6 +276,10 @@
 												<span class="product-price text-danger" value="{{offre.prixPro}}">{{offre.prixPro}}
 													Ar</span>
 												<span class="opacity-50 text-decoration-line-through">{{offre.autrePrix}}
+													Ar</span>
+											{% else %}
+
+												<span class="product-price " value="{{offre.prixPro}}">{{offre.prixPro}}
 													Ar</span>
 											{% endif %}
 										</div>

@@ -60,15 +60,19 @@ productContainer.forEach((item, i) => {
 const search = document.getElementById('search-product');
 const submit = document.getElementById('submit');
 
-submit.addEventListener("click", (e) => {
+if (submit) {
+    submit.addEventListener("click", (e) => {
 
-    if (search.value == "" || search.value.length <= 4) {
+        if (search.value == "" || search.value.length <= 4) {
 
-        search.classList.add("is-invalid");
-        e.preventDefault();
-    }
+            search.classList.add("is-invalid");
+            e.preventDefault();
+        }
 
-})
+    })
+
+}
+
 //gestion de panier
 let productInCart = JSON.parse(sessionStorage.getItem("product") || "[]");
 const panier = document.querySelectorAll(".product-cart");
@@ -82,7 +86,7 @@ const logout = document.querySelectorAll(".logout");
 if (deleteAllCart) {
     deleteAllCart.addEventListener('click', () => {
         for (let i = 0; i < productInCart.length; i++) {
-            productInCart.splice(i, 1);
+            productInCart.splice(i, productInCart.length);
 
         }
 
@@ -95,7 +99,7 @@ if (logout) {
         log.addEventListener('click', () => {
 
             for (let i = 0; i < productInCart.length; i++) {
-                productInCart.splice(i, 1);
+                productInCart.splice(i, productInCart.length);
 
             }
             sessionStorage.setItem("product", JSON.stringify(productInCart));
@@ -182,8 +186,13 @@ function updateShopCart() {
     if (productInCart.length > 0) {
         sumPrices.innerHTML = ""
         sumCounts.innerHTML = ""
+        const sumCount = document.getElementById("qte").innerHTML = ""
         sumPrices.insertAdjacentText("afterbegin", countSumPrice());
         sumCounts.insertAdjacentText("afterbegin", countSumCount());
+        if (sumCount) {
+
+            sumCount.insertAdjacentText("afterbegin", countSumCount());
+        }
 
     }
 }
@@ -216,3 +225,58 @@ panier.forEach(cart => {
 
     })
 })
+const justify = document.getElementById("toggle");
+const sidebar = document.querySelector(".sidebar");
+const entete = document.querySelector(".entete");
+const nav = document.querySelector(".entete header");
+const main = document.querySelector(".main-content");
+
+if (justify) {
+    justify.addEventListener('click', () => {
+        if (sidebar.getAttribute("style") == 'display: none;') {
+            sidebar.setAttribute("style", "display:block");
+            entete.setAttribute('style', 'margin-left:250px');
+            nav.setAttribute('style', 'width:(100% - 250px)');
+            main.setAttribute('style', '255px');
+
+        } else {
+            sidebar.style.display = 'none';
+            entete.style.marginLeft = "0px"
+            nav.style.width = "100%"
+            main.style.marginLeft = "10px"
+        }
+    })
+}
+
+//countdown
+
+
+const hoursel = document.getElementById("ora");
+const minsel = document.getElementById("minitra");
+const secondsel = document.getElementById("segondra");
+
+
+const newyear = "1 Jan 2023";
+
+function countdown() {
+    const newyearData = new Date(newyear);
+    const curentDate = new Date();
+    const totalseconds = (newyearData - curentDate) / 1000;
+
+
+    const hours = Math.floor(totalseconds / 3600) % 24;
+    const mins = Math.floor(totalseconds / 60) % 60;
+    const seconds = Math.floor(totalseconds) % 60;
+
+
+    hoursel.innerHTML = formaTime(hours);
+    minsel.innerHTML = formaTime(mins);
+    secondsel.innerHTML = formaTime(seconds);
+
+}
+
+function formaTime(time) {
+    return time < 10 ? '0' + time : time;
+}
+countdown();
+setInterval(countdown, 1000);

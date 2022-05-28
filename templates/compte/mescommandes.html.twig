@@ -14,47 +14,68 @@
 					<div class="fav">
 						<h4>Votre commandes</h4>
 					</div>
-					<div class="table">
-						<table class=" mt-4 table rm">
-							<thead>
+
+					<table class=" mt-4 table rm">
+						<thead>
+							<tr>
+								<th class="rm">#Order</th>
+								<th>Date</th>
+								<th class="rm">Order Qte</th>
+								<th>Order total</th>
+								<th>Order status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for commande in commandes %}
 								<tr>
-									<th class="rm">#Order</th>
-									<th>Date</th>
-									<th class="rm">Order Qte</th>
-									<th>Order total</th>
-									<th>Order status</th>
-									<th>Actions</th>
+									<td class="rm">{{commande.codeCommande |  date("Hi") }}</td>
+									<td>{{commande.createdAt | date("d/m/Y")}}</td>
+									<td class="text-center rm">{{commande.quantite}}</td>
+									<td>{{commande.subtotal}}
+										Ar</td>
+									<td>
+										<span class="badge  {{commande.statusCommandes.style|default(" bg-secondary")}}">{{commande.statusCommandes|default("enregistré")}}</span>
+									</td>
+									<td class="rm rs">
+										<a href="{{path("app_compte_commandes_show",{id:commande.id})}}">
+
+											<span type="button" class="btn btn-sm rounded-pill btn-outline-primary ">VOIR COMMANDE</span>
+										</a>
+									</td>
+									<td class="rpp">
+										<a href="{{path("app_compte_commandes_show",{id:commande.id})}}">
+
+											<span type="button" class="btn btn-sm rounded-pill btn-outline-primary ">VOIR</span>
+										</a>
+									</td>
 								</tr>
-							</thead>
-							<tbody>
-								{% for commande in commandes %}
-									<tr>
-										<td class="rm">{{commande.codeCommande |  date("Hi") }}</td>
-										<td>{{commande.createdAt | date("d/m/Y")}}</td>
-										<td class="text-center rm">{{commande.quantite}}</td>
-										<td>{{commande.subtotal}}
-											Ar</td>
-										<td>
-											<span class="badge  {{commande.statusCommandes.style|default(" bg-secondary")}}">{{commande.statusCommandes|default("enregistré")}}</span>
-										</td>
-										<td class="rm rs">
-											<a href="{{path("app_compte_commandes_show",{id:commande.id})}}">
+							{% endfor %}
 
-												<span type="button" class="btn btn-sm rounded-pill btn-outline-primary ">VOIR COMMANDE</span>
-											</a>
-										</td>
-										<td class="rpp">
-											<a href="{{path("app_compte_commandes_show",{id:commande.id})}}">
+						</tbody>
+					</table>
+					<nav aria-label="Page navigation example" class="m-2 pb-2 text-center">
+						<ul class="pagination text-center">
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							{% for item in 1..((counts / limit)|round(0, 'ceil') ) %}
 
-												<span type="button" class="btn btn-sm rounded-pill btn-outline-primary ">VOIR</span>
-											</a>
-										</td>
-									</tr>
-								{% endfor %}
+								<li class="page-item {{(page == item)? " active":" "}}">
+									<a class="page-link" href="?page={{item}}">{{item}}</a>
+								</li>
+							{% endfor %}
 
-							</tbody>
-						</table>
-					</div>
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+
 				{% else %}
 					<div class="fav">
 						<h4>Vous n'êtes pas encore commande

@@ -207,13 +207,15 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get("autrePrix")->getData()) {
+            if ($form->get("autrePrix")->getData() != "") {
 
                 $produit->setIsOffre(true)->setIsFutur(false)->setNouveau(false);
                 $produitRepository->add($produit);
+            } else {
+
+                $produit->setIsOffre(false)->setIsFutur(false)->setNouveau(false)->setMeilleur(true);
+                $produitRepository->add($produit);
             }
-            $produit->setIsOffre(false)->setIsFutur(false)->setNouveau(false)->setMeilleur(true);
-            $produitRepository->add($produit);
             $this->addFlash("warning", "Modification avec success");
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }

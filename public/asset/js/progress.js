@@ -5,6 +5,11 @@ var button = document.getElementById('button').style.display = 'none'
 
 if (progress == 1) {
     let span = document.querySelector('#span .bi-check-circle-fill').style.color = "blue";
+    let list = document.querySelectorAll('#liste');
+    for (let i = 0; i < list.length; i++) {
+        list[i].innerText = "Commande effectué";
+
+    }
 
 
 } if (progress == 2) {

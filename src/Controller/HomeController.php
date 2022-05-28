@@ -45,7 +45,7 @@ class HomeController extends AbstractController implements Countable
             'slide' => $slidesRepository->findBy([], [], 1),
             'slider' => $slidesRepository->findBy([], ["createdAt" => "DESC"], 1),
             'slides' => $slidesRepository->findBy([], [], 4),
-            "blog" => $blogRepository->findBy([], [], 3)
+            "blog" => $blogRepository->findBy([], ["createdAt" => "DESC"], 3)
         ]);
     }
     /**
@@ -53,7 +53,7 @@ class HomeController extends AbstractController implements Countable
      */
     public function produit(Request $request, SearchProductRepository $searchProductRepository, ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
     {
-        $limit = 9;
+        $limit = 12;
         $page = (int)$request->query->get("page", 1);
         $query = $request->query->get("search");
 
@@ -66,13 +66,20 @@ class HomeController extends AbstractController implements Countable
 
             $produits = $produitRepository->searchwithCate($search, $offest, $limit);
             $counts = $produitRepository->searchwithCatecount($search);
-            foreach ($counts as  $value) {
-                $count = $value;
-                foreach ($count as $value) {
-                    $counts = (int)$value;
+            if ($produits == null) {
+                $produits = $produitRepository->findBy(["status" => true], ["createdAt" => "DESC"], $limit, $offest);
+                $counts = $produitRepository->count(["status" => true]);
+            } else {
+
+                foreach ($counts as  $value) {
+                    $count = $value;
+                    foreach ($count as $value) {
+                        $counts = (int)$value;
+                    }
                 }
             }
         }
+
 
         return $this->render('home/produit.html.twig', [
             'categorie' => $query["Categorie"],
@@ -82,9 +89,10 @@ class HomeController extends AbstractController implements Countable
             'produits' => $produits,
             'counts' => $counts,
             'page' => $page, 'limit' => $limit,
-            'news' => $produitRepository->findBy(['nouveau' => true]),
-            'best' => $produitRepository->findBy(['meilleur' => true]),
-            'offre' => $produitRepository->findBy(['isOffre' => true]),
+            'news' => $produitRepository->findBy(['nouveau' => true], ["createdAt" => "DESC"], 12),
+            'best' => $produitRepository->findBy(['meilleur' => true], [], 12),
+            'offre' => $produitRepository->getOffreOrFutur($offest, $limit),
+            'futur' => $produitRepository->findBy(['isOffre' => true], ['createdAt' => 'DESC'], 3),
             "form" => $form->createView()
 
         ]);

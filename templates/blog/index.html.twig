@@ -11,9 +11,9 @@
 				</div>
 				<div class="show-info">
 					<h3>{{blog.titreBlog}}</h3>
-					<p>{{blog.descriptionBlog}}</p>
+					<p>{{blog.descriptionBlog | excerpts}}</p>
 
-					<a class="nav-link text-primary" href="{{path("app_blog_lire",{id:blog.id})}}">contituer a lire.......
+					<a class="nav-link fw-bold fs-5 text-primary" href="{{path("app_blog_lire",{id:blog.id})}}">Contituée à lire...
 					</a>
 				</div>
 
